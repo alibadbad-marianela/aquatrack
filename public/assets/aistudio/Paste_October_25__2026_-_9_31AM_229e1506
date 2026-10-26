@@ -1,0 +1,2229 @@
+# AQUATRACK — THE COMPLETE MASTER PROMPT FOR BUILDING A FULL-STACK WATER CONSERVATION PLATFORM FROM SCRATCH
+
+## ROLE AND OVERALL OBJECTIVE
+
+Act as an expert full-stack software engineer, senior UI/UX designer, product designer, database architect, cybersecurity specialist, AI integration engineer, accessibility specialist, and quality assurance engineer.
+
+Your task is to design, develop, test, and document **AquaTrack**, a complete, modern, interactive, visually stunning, secure, and genuinely functional water conservation and environmental education web application.
+
+Build the entire project from scratch in an empty project folder. There is no existing application to modify. Initialize the project, install and configure dependencies, create the complete directory structure, implement every required frontend and backend component, establish the database, configure authentication, and build the actual working application.
+
+Do not simply produce a design concept, a landing page, a static prototype, a collection of disconnected components, or a dashboard filled with fabricated information. The result must be a cohesive, usable, full-stack application in which the features, buttons, forms, charts, navigation, settings, games, authentication, and data operations genuinely work.
+
+Every requirement below is part of the project specification. Do not silently omit features, shorten the language list, replace functional features with placeholders, or treat requested functionality as optional merely because implementation is extensive.
+
+When a feature requires an external service, API key, database, OAuth configuration, browser permission, or other dependency, implement the integration properly and document the setup. Where a service cannot function without configuration, provide a clear and honest unavailable state instead of pretending it is working.
+
+---
+
+# PART I — PROJECT IDENTITY AND PURPOSE
+
+## 1. Application Name
+
+**AquaTrack**
+
+Official tagline:
+
+**“Track Every Drop. Protect Every Tomorrow.”**
+
+Use the exact spelling and capitalization of AquaTrack throughout the application, logo, page titles, metadata, documentation, navigation, and branding.
+
+## 2. Application Purpose
+
+AquaTrack is a comprehensive water conservation and environmental education platform that helps users understand their water consumption, record daily activities, identify wasteful habits, set achievable conservation goals, monitor progress, receive personalized recommendations, learn about environmental responsibility, explore Philippine environmental laws, and participate in interactive educational games.
+
+The platform should transform water conservation into an engaging daily habit by combining practical tracking tools, informative analytics, personalized learning, gamification, an AI-powered assistant, reminders, and offline accessibility.
+
+The website should communicate that every individual can contribute to responsible water use and environmental protection.
+
+## 3. Short Introduction
+
+Create a polished introduction that explains AquaTrack in clear, engaging language.
+
+Suggested introduction:
+
+“AquaTrack is your personal companion for smarter water use and environmental responsibility. Track your daily consumption, discover opportunities to conserve water, set meaningful goals, explore interactive educational experiences, and learn how everyday actions can help protect our water resources. With personalized insights, practical guides, engaging games, and accessible learning tools, AquaTrack makes every drop count.”
+
+Use this introduction as a starting point and adapt it to fit the visual design.
+
+## 4. Creator or Project Introduction
+
+Create an attractive About AquaTrack or Project Background section that can introduce the project, its purpose, and its creator.
+
+Include the following details when displaying the supplied creator information:
+
+- Name: Marian Ela J. Alibadbad
+- School: Maasin City National High School
+- Grade Level: Grade 12
+- Strand: STEM
+- Section: Sapphire
+
+Present these details respectfully in a dedicated project information section. Do not repeatedly display personal information throughout the dashboard. Allow editable profile details where appropriate and never invent additional biographical information.
+
+Explain the motivation behind the project: encouraging responsible water consumption, improving environmental awareness, promoting practical conservation habits, and making environmental learning accessible through technology.
+
+## 5. Core Product Principles
+
+The entire application must follow these principles:
+
+1. **Genuine functionality:** Every visible interactive element must perform its stated action.
+2. **Real persistence:** User-created data must be saved to an actual database and persist across refreshes, navigation, logout, and subsequent sessions.
+3. **Accurate calculations:** Statistics must be calculated from actual records and documented formulas.
+4. **User-controlled data:** Do not prepopulate personal usage records, goals, achievements, or analytics with arbitrary values.
+5. **Honest AI:** Never simulate a live AI service and present it as genuine.
+6. **Accessibility:** All major features must be usable by keyboard, screen readers, and users with visual or motor accessibility needs.
+7. **Responsive design:** The application must work on mobile phones, tablets, laptops, and desktop computers.
+8. **Security and privacy:** Authenticate users, authorize every protected operation, and isolate user data.
+9. **Educational accuracy:** Verify Philippine environmental laws and environmental claims against authoritative sources.
+10. **Offline resilience:** Preserve supported functionality when connectivity is unavailable.
+11. **Consistent design:** Maintain a unified visual identity across all pages and features.
+12. **Complete documentation:** Explain how to install, configure, run, test, and deploy the application.
+13. **No false completion claims:** Report only features and tests that have actually been implemented and verified.
+
+---
+
+# PART II — TECHNOLOGY STACK AND PROJECT ARCHITECTURE
+
+## 6. Required Technology Stack
+
+Use a modern, maintainable, production-oriented stack.
+
+### Frontend
+
+- Next.js using the App Router.
+- React.
+- TypeScript with strict type checking.
+- Tailwind CSS.
+- shadcn/ui.
+- Radix UI primitives.
+- Lucide React icons.
+- Recharts for interactive data visualization.
+- React Hook Form for form handling.
+- Zod for shared schema validation.
+- CSS transitions and animations for lightweight interactions.
+- Framer Motion where complex animations genuinely improve the experience.
+
+### Backend
+
+- Next.js Route Handlers and Server Actions where appropriate.
+- Server-side validation and authorization.
+- Secure authentication and session management.
+- A properly structured service and data-access layer.
+- Consistent error responses.
+- Server-side integration with an actual AI provider.
+- Rate limiting for sensitive or resource-intensive endpoints.
+
+### Database
+
+- PostgreSQL.
+- Prisma ORM.
+- Version-controlled database schema and migrations.
+- Appropriate foreign keys, indexes, unique constraints, and timestamps.
+- Per-user data isolation.
+- Transactional operations where needed.
+
+### Authentication
+
+Use Auth.js or an equivalent secure authentication implementation.
+
+Support email/password authentication, account creation, login, logout, password recovery, protected routes, and optional Google OAuth when correctly configured.
+
+### Offline and PWA
+
+- Web app manifest.
+- Service worker.
+- IndexedDB for local records and queued operations.
+- Safe synchronization between local storage and the server.
+- Installable PWA behavior where supported.
+- Explicit online, offline, pending, synchronized, and failed states.
+
+### Testing
+
+- Vitest for unit and integration tests.
+- Playwright for end-to-end browser testing.
+- ESLint.
+- TypeScript checks.
+- Production build verification.
+
+## 7. Project Initialization
+
+Start with an empty folder.
+
+1. Initialize the Next.js application.
+2. Install and configure the required dependencies.
+3. Configure TypeScript, Tailwind CSS, linting, and formatting.
+4. Establish a scalable folder structure.
+5. Configure environment variables.
+6. Configure PostgreSQL and Prisma.
+7. Create the database schema and migrations.
+8. Implement authentication.
+9. Build shared components and the design system.
+10. Implement pages and features in the development sequence described later.
+11. Write automated tests.
+12. Run all available checks and fix identified errors.
+
+Create all necessary source files rather than assuming they already exist.
+
+## 8. Suggested Directory Structure
+
+Organize the project logically. Adjust the structure when implementation needs justify it.
+
+- `app/`
+  - Landing page.
+  - Authentication pages.
+  - Dashboard.
+  - Water tracking.
+  - History.
+  - Analytics.
+  - Goals.
+  - Reminders.
+  - AI assistant.
+  - Games.
+  - Learning hub.
+  - Environmental laws.
+  - Community.
+  - Profile and settings.
+  - API routes.
+- `components/`
+  - Branding.
+  - Navigation.
+  - Layout.
+  - Dashboard.
+  - Charts.
+  - Forms.
+  - Dialogs.
+  - Notifications.
+  - Educational cards.
+  - Game interfaces.
+  - Accessibility utilities.
+- `lib/`
+  - Database client.
+  - Authentication.
+  - Validation.
+  - Authorization.
+  - Water calculations.
+  - AI service.
+  - Offline synchronization.
+  - Utilities.
+  - Error handling.
+- `prisma/`
+  - Schema.
+  - Migrations.
+  - Seed utilities only where appropriate.
+- `public/`
+  - Logo assets.
+  - Favicon.
+  - PWA icons.
+  - Licensed illustrations.
+  - Other static assets.
+- `tests/`
+  - Unit tests.
+  - Integration tests.
+  - End-to-end tests.
+- Configuration files.
+- `.env.example`.
+- `.gitignore`.
+- `README.md`.
+
+Keep components reusable, typed, maintainable, and reasonably small. Avoid enormous monolithic files and unnecessary duplication.
+
+---
+
+# PART III — COMPLETE BRANDING AND DESIGN SYSTEM
+
+## 9. AquaTrack Logo
+
+Design an original, professional, recognizable AquaTrack logo.
+
+The logo should feature:
+
+- A symmetrical water droplet.
+- A refined ocean-blue-to-aqua-to-cyan gradient.
+- A luminous, glass-like appearance.
+- Subtle internal highlights.
+- A restrained turquoise and ocean-blue glow.
+- Elegant ripple details that suggest flowing water.
+- A clean silhouette recognizable at small sizes.
+- A polished appearance appropriate for a modern environmental technology product.
+
+The logo must be original artwork, not an emoji, a generic water icon used without customization, or a copied third-party brand.
+
+The droplet should symbolize water conservation, sustainability, clarity, and environmental responsibility.
+
+Use the logo consistently across the application, authentication screens, navigation, browser favicon, and PWA icons.
+
+Implement it as a reusable component or optimized asset that renders correctly in both light and dark themes.
+
+## 10. Logo Animation
+
+Create a subtle animation that can include:
+
+- Gentle pulsing glow.
+- Slow, restrained shimmer.
+- Subtle movement in ripple details.
+- Smooth transitions between visual states.
+
+Animations should feel refined, not distracting.
+
+Requirements:
+
+- Respect `prefers-reduced-motion`.
+- Avoid layout shifts.
+- Avoid excessive CPU usage.
+- Keep the logo readable and visually stable.
+- Do not animate every element simultaneously.
+- Ensure the logo remains attractive when animation is disabled.
+- Use the same branding consistently across screen sizes.
+
+## 11. Typography
+
+Use a carefully organized typography system.
+
+### Primary font
+
+**Plus Jakarta Sans**
+
+Use it for the majority of the interface, navigation, body text, forms, cards, and general product branding.
+
+### Secondary font
+
+**Inter**
+
+Use it for dense analytics, tables, numeric information, and data-heavy components where its clarity is useful.
+
+### Display font
+
+**Space Grotesk**
+
+Use sparingly for selected large display headings, hero statements, and important numeric highlights.
+
+### Logo and website title
+
+The AquaTrack title should look stylish, elegant, clean, and refined. Use a semibold or bold wordmark where appropriate, while allowing the website title and selected display text to use a lighter typographic treatment for a sophisticated appearance.
+
+Do not make the wordmark so thin that it becomes difficult to read.
+
+### Typography scale
+
+Use this as the starting scale:
+
+- Hero heading: 40–48px desktop; 30–36px mobile.
+- Main page heading: 30–36px desktop; 26–30px mobile.
+- Section heading: 22–26px desktop; 20–24px mobile.
+- Card heading: 17–20px desktop; 16–18px mobile.
+- Body text: 15–17px desktop; 15–16px mobile.
+- Labels: 13–14px.
+- Captions and helper text: 12–13px.
+- Prominent statistics: 32–40px desktop; 28–34px mobile.
+
+Use body line heights of approximately 1.5–1.7.
+
+Load fonts efficiently, provide fallback fonts, and prevent typography from causing layout shifts.
+
+## 12. Color Palette
+
+Use a cohesive aquatic color system.
+
+### Light theme
+
+- Primary ocean blue: `#1677E8`
+- Aqua cyan: `#22D3EE`
+- Turquoise: `#2DD4BF`
+- Deep navy: `#10243A`
+- Pale aqua: `#EAFBFF`
+- White: `#FFFFFF`
+- Soft neutral background: `#F4F7FB`
+- Primary text: `#172B4D`
+- Secondary text: `#52647A`
+- Light border: `#DCE6EF`
+
+### Dark theme
+
+- Background: `#081522`
+- Card surface: `#102338`
+- Primary text: `#F1F7FF`
+- Secondary text: `#B6C5D6`
+- Dark border: `#263D52`
+
+### Semantic colors
+
+Use distinct, accessible success, warning, error, and informational colors.
+
+Suggested starting values:
+
+- Success: `#15803D`
+- Warning: `#B45309`
+- Error: `#B91C1C`
+
+Validate all foreground/background combinations. Adjust colors when necessary to meet WCAG 2.2 AA contrast requirements: at least 4.5:1 for normal text and 3:1 for large text, with appropriate contrast for meaningful graphical components and focus indicators.
+
+Do not assume a color is accessible simply because it appears visually attractive.
+
+## 13. Spacing, Surfaces, and Components
+
+Use a 4px-based spacing system.
+
+Common spacing values:
+
+- 4px.
+- 8px.
+- 12px.
+- 16px.
+- 24px.
+- 32px.
+- 40–48px.
+- 64px and above for larger section separation.
+
+Use consistent component styling:
+
+- Inputs and controls: approximately 8–12px corner radius.
+- Cards: approximately 14–18px corner radius.
+- Hero surfaces: approximately 20–28px corner radius.
+- Subtle shadows.
+- Restrained borders.
+- Consistent padding.
+- Clear hierarchy between primary and secondary actions.
+
+Use 150–250ms transitions for small interactions where appropriate.
+
+Avoid excessive gradients, unnecessary decorative elements, inconsistent spacing, harsh shadows, and visual clutter.
+
+## 14. Responsive Layout
+
+Design and test the application for:
+
+- Small mobile screens.
+- Larger mobile screens.
+- Tablets.
+- Laptops.
+- Standard desktop monitors.
+- Wide desktop monitors.
+
+Requirements:
+
+- No unintended horizontal scrolling.
+- Responsive charts and tables.
+- Adaptive card layouts.
+- Appropriate mobile navigation.
+- Touch-friendly interactive targets.
+- Readable typography on small screens.
+- Responsive forms and dialogs.
+- Images that preserve aspect ratios.
+- Layouts that work in portrait and landscape.
+- Accessible menus and navigation.
+- Correct behavior when the user changes font size or browser zoom.
+
+---
+
+# PART IV — LANDING PAGE AND USER ONBOARDING
+
+## 15. Landing Page
+
+Build an attractive, fully functional landing page that introduces AquaTrack before authentication.
+
+Include:
+
+1. AquaTrack logo and wordmark.
+2. Tagline.
+3. Concise introduction.
+4. Clear explanation of the application's purpose.
+5. Feature highlights.
+6. Water conservation imagery.
+7. A preview of tracking and analytics.
+8. A preview of interactive learning and games.
+9. An introduction to the AI assistant.
+10. A section explaining why water conservation matters.
+11. Creator/project information.
+12. Clear registration and login actions.
+13. Footer with relevant navigation and legal/privacy information.
+
+The landing page should be polished, informative, responsive, and visually consistent with the authenticated application.
+
+Do not display fabricated user counts, impact figures, testimonials, awards, or statistics.
+
+## 16. Separate Sign Up and Log In Pages
+
+Create separate, fully functional authentication experiences.
+
+### Sign Up
+
+Include:
+
+- Name or preferred display name where appropriate.
+- Email.
+- Password.
+- Password confirmation if used.
+- Validation and helpful error messages.
+- Password visibility toggle.
+- Terms/privacy acknowledgment where required.
+- Loading state.
+- Success state.
+- Account creation through the real backend.
+
+### Log In
+
+Include:
+
+- Email.
+- Password.
+- Password visibility toggle.
+- Forgot-password link.
+- Appropriate loading and error states.
+- Session creation.
+- Redirect to the appropriate authenticated destination.
+
+Do not combine registration and login into one confusing form.
+
+## 17. Authentication and Account Security
+
+Implement:
+
+- Account registration.
+- Login.
+- Logout.
+- Password hashing using an established secure implementation.
+- Password recovery with secure, expiring tokens.
+- Session management.
+- Protected pages.
+- Server-side authorization.
+- Account/profile editing.
+- Optional Google OAuth when configured.
+- Secure handling of expired sessions.
+- Appropriate authentication error messages.
+- Protection against unauthorized account access.
+
+Never store plaintext passwords.
+
+Never expose authentication secrets in frontend bundles.
+
+Never rely only on hiding a button to protect a server operation.
+
+Every protected server action must independently verify the authenticated user and their permission to access the requested data.
+
+## 18. Onboarding
+
+After registration, provide a friendly onboarding flow.
+
+Collect the user's preferred nickname and interface language. Offer optional preferences such as water measurement units, reminders, and an initial conservation goal.
+
+Explain how the platform works:
+
+1. Record water-use activities.
+2. Review usage summaries.
+3. Set personal goals.
+4. Explore practical tips.
+5. Learn through interactive games and lessons.
+6. Ask the AI assistant for help when available.
+
+Allow optional steps to be skipped. Save onboarding progress and preferences. Prevent unnecessary repetition after the user completes onboarding.
+
+Provide a guided way to revisit onboarding instructions later.
+
+---
+
+# PART V — PERSONALIZED MULTILINGUAL GREETING SYSTEM
+
+## 19. Personalized Greeting
+
+The dashboard must feature a personalized greeting, such as:
+
+**“Hello, [nickname]!”**
+
+Use the nickname the user actually entered or saved. Do not use a hardcoded personal nickname for all users.
+
+Position the greeting prominently beside or near the AquaTrack branding without allowing it to overpower the logo.
+
+The greeting system should feel lively, welcoming, and personal.
+
+## 20. Required Greeting Languages
+
+Implement rotating greetings in all of the following languages:
+
+1. English.
+2. Filipino.
+3. Cebuano.
+4. Spanish.
+5. French.
+6. German.
+7. Japanese.
+8. Korean.
+9. Mandarin Chinese.
+10. Portuguese.
+11. Indonesian.
+12. Thai.
+13. Vietnamese.
+14. Arabic.
+
+Do not shorten this list or replace the language system with a few hardcoded greetings.
+
+Create a structured translation dictionary or localization module with appropriately written greetings in every language. Use natural, respectful wording and suitable Unicode characters. Do not merely copy English words into every language.
+
+Preserve the user's nickname while rotating the greeting.
+
+Examples of the intended experience include:
+
+- English: “Hello, [nickname]!”
+- Filipino: “Kumusta, [nickname]!”
+- Cebuano: “Kumusta, [nickname]!”
+- Spanish: “¡Hola, [nickname]!”
+- French: “Bonjour, [nickname]!”
+- German: “Hallo, [nickname]!”
+- Japanese: “こんにちは、[nickname]！”
+- Korean: “안녕하세요, [nickname]!”
+- Mandarin Chinese: “你好，[nickname]！”
+- Portuguese: “Olá, [nickname]!”
+- Indonesian: “Halo, [nickname]!”
+- Thai: “สวัสดี [nickname]!”
+- Vietnamese: “Xin chào, [nickname]!”
+- Arabic: “مرحبًا، [nickname]!”
+
+These are example greeting strings; refine punctuation and phrasing as appropriate for each language.
+
+## 21. Greeting Rotation Behavior
+
+The greeting should change periodically and should not depend on the user's geographic location.
+
+Requirements:
+
+- Rotate among the supported languages.
+- Use a stable and understandable rotation mechanism.
+- Avoid changing the greeting so quickly that it becomes distracting.
+- Allow the user to pause or disable automatic rotation.
+- Respect reduced-motion settings.
+- Avoid layout shifts caused by different text lengths.
+- Ensure all languages render correctly.
+- Support Arabic right-to-left text direction when Arabic is active.
+- Keep the greeting readable in light and dark themes.
+- Provide a manual language-selection option.
+- Persist language preferences.
+- Allow the user to change the interface language in Settings.
+- Do not assume the user's preferred language from their location.
+- Do not reset saved preferences when the page refreshes.
+
+Use a proper internationalization structure so additional translations can be added later.
+
+The rotating greeting language and the selected interface language may be configured separately if needed. Explain this behavior clearly in Settings.
+
+---
+
+# PART VI — AUTHENTICATED DASHBOARD
+
+## 22. Dashboard Layout
+
+After login, display a personalized dashboard that serves as the central hub for the entire application.
+
+The dashboard should feel information-rich, modern, clean, and visually engaging.
+
+### Hero section
+
+Place the AquaTrack droplet logo, wordmark, and tagline prominently in the center of the hero area.
+
+Include:
+
+- The animated glowing water-droplet logo.
+- AquaTrack wordmark.
+- Tagline.
+- Personalized multilingual greeting.
+- A short welcome description.
+- A primary “Record Water Usage” action.
+- A secondary “Explore Water-Saving Tips” action.
+- Current online/offline status.
+- Pending synchronization status when applicable.
+
+Use a subtle aquatic background, tasteful gradients, or a restrained water-inspired illustration. Keep the logo as the primary visual focal point.
+
+### Dashboard information
+
+Include:
+
+- Today's recorded water usage.
+- Recent usage history.
+- Weekly summary.
+- Monthly summary.
+- Daily or weekly goal progress.
+- Usage by category.
+- Recent water-use activities.
+- Trends over time.
+- A practical tip of the day.
+- Learning progress.
+- Current challenges or missions.
+- A featured environmental law or educational topic.
+- Access to the AI assistant.
+- Quick links to Games, History, Analytics, Learning, and Goals.
+
+Every value must come from the user's actual data or be clearly labeled as general educational content.
+
+### New-user dashboard
+
+When the user has no records, show an attractive empty state.
+
+Encourage the user to record their first activity, create a goal, or explore educational content.
+
+Do not display invented usage totals, artificial historical charts, fabricated streaks, or fake savings figures.
+
+---
+
+# PART VII — WATER USAGE TRACKING
+
+## 23. Complete Water Tracking CRUD
+
+Implement fully functional create, read, update, and delete operations.
+
+Every water-use record must be associated with the authenticated user.
+
+### Record fields
+
+Support:
+
+- Activity name.
+- Water-use category.
+- Quantity.
+- Measurement unit.
+- Date.
+- Time where appropriate.
+- Optional notes.
+- Measured or estimated classification.
+- Creation timestamp.
+- Last-updated timestamp.
+- Local/server synchronization status when applicable.
+
+Validate all required fields.
+
+Reject invalid numbers, unsupported units, missing required information, and unreasonable values according to documented validation rules.
+
+Do not silently replace invalid user input with arbitrary defaults.
+
+## 24. Water-Use Categories
+
+Provide sensible initial category choices:
+
+1. Drinking and cooking.
+2. Bathing and showering.
+3. Toilet use.
+4. Laundry.
+5. Dishwashing.
+6. Cleaning.
+7. Gardening and plants.
+8. Other household activities.
+
+Allow appropriate category customization when feasible.
+
+Each category should have a clear label and an accessible visual icon.
+
+## 25. Units and Conversion
+
+Support suitable water units such as liters, milliliters, and cubic meters. Other units may be included when clearly defined.
+
+Implement correct conversions using centralized utility functions.
+
+Normalize values for analytics without losing the user's original entered value and unit.
+
+Explain how values are converted.
+
+Do not mix incompatible units in totals.
+
+## 26. Record Management
+
+Provide a complete management interface with:
+
+- Add record.
+- View details.
+- Edit record.
+- Delete record with confirmation.
+- Search.
+- Filter by category.
+- Filter by date range.
+- Sort by date, quantity, or category.
+- Paginated or efficiently loaded history.
+- Useful empty states.
+- Clear validation messages.
+- Loading indicators.
+- Retry options when a request fails.
+
+Preserve form input if an operation fails whenever possible.
+
+After a successful change, update the interface from the confirmed saved result rather than pretending a request succeeded.
+
+## 27. Measured Versus Estimated Usage
+
+Distinguish measured usage from estimated usage.
+
+Users may enter their own values. If the application provides suggested estimates, clearly label them as estimates and explain the assumptions.
+
+Never represent estimated values as smart-meter readings or sensor measurements.
+
+Do not claim an actual device integration exists unless it has been implemented and configured.
+
+---
+
+# PART VIII — ANALYTICS, CHARTS, AND REPORTS
+
+## 28. Analytics Dashboard
+
+Build a complete analytics section using Recharts.
+
+Include appropriate visualizations such as:
+
+- Daily usage charts.
+- Weekly trends.
+- Monthly trends.
+- Category breakdowns.
+- Comparisons across selected periods.
+- Goal-progress visualizations.
+- Usage history.
+- Averages when enough records exist.
+- Measured-versus-estimated summaries.
+
+Charts must respond to real data and selected date ranges.
+
+## 29. Accurate Calculations
+
+Create centralized calculation functions and test them.
+
+Clearly define how the application calculates:
+
+- Daily total.
+- Weekly total.
+- Monthly total.
+- Average daily consumption.
+- Category totals.
+- Goal completion.
+- Changes between comparison periods.
+- Any estimated conservation opportunity.
+
+Use consistent time zones and date boundaries. Prevent records from being counted twice.
+
+When there is insufficient data, display an explanatory empty state instead of fabricating a trend.
+
+When comparing periods, handle zero or missing baselines correctly rather than producing misleading percentages.
+
+## 30. Accessible Charts
+
+Every chart should include:
+
+- A descriptive title.
+- Clear labels.
+- Units.
+- Readable tooltips.
+- Responsive sizing.
+- Accessible text summaries.
+- Useful empty states.
+- Appropriate contrast in both themes.
+
+Do not rely on color alone to communicate information.
+
+## 31. Reports and Export
+
+Allow users to review and export their own usage records when appropriate.
+
+Support practical date filters and clearly labeled report summaries. CSV export is a useful initial option.
+
+Ensure exported data belongs only to the authenticated user and uses clear field names and units.
+
+If an export fails, show an honest error message.
+
+---
+
+# PART IX — GOALS, ACHIEVEMENTS, AND REMINDERS
+
+## 32. Personal Water Goals
+
+Let users create and manage goals for:
+
+- Daily usage.
+- Weekly usage.
+- Monthly usage.
+- Specific categories where appropriate.
+
+Allow users to edit or deactivate goals.
+
+Calculate progress using actual saved records.
+
+Display the target, current total, remaining amount where meaningful, and progress percentage.
+
+Handle goals with zero or invalid targets safely.
+
+Never claim a goal has been achieved unless the recorded data satisfies its defined completion criteria.
+
+## 33. Achievements and Streaks
+
+Implement meaningful achievements for genuine application events, such as:
+
+- Recording the first activity.
+- Maintaining a legitimate recording streak.
+- Completing a learning lesson.
+- Finishing a game.
+- Completing a conservation mission.
+- Reaching a user-defined goal.
+
+Persist earned achievements.
+
+Define streak calculations clearly and handle time zones and missed days correctly.
+
+Do not create fake achievements or award progress merely to make the dashboard appear active.
+
+Distinguish in-app game achievements from verified real-world environmental impact.
+
+## 34. Reminders
+
+Allow users to configure reminders for:
+
+- Recording water usage.
+- Reviewing daily or weekly progress.
+- Checking conservation goals.
+- Completing learning activities.
+- Practicing a selected water-saving habit.
+
+Include scheduling preferences, enable/disable controls, and permission handling.
+
+Use browser notifications or another supported delivery mechanism only when configured and permitted.
+
+Explain when reminders are local, scheduled, or delivered by an external service.
+
+Do not claim a reminder was delivered if delivery cannot be confirmed.
+
+---
+
+# PART X — WATER-SAVING TIPS AND RECOMMENDATIONS
+
+## 35. Tip of the Day
+
+Provide a useful conservation tip on the dashboard.
+
+Tips should be practical, accurate, easy to understand, and appropriate for everyday life.
+
+Examples of topics:
+
+- Turning off the tap when it is not needed.
+- Checking for leaks.
+- Using washing machines efficiently.
+- Watering plants appropriately.
+- Reusing suitable water safely.
+- Collecting rainwater where permitted and safe.
+- Reducing unnecessary water use during cleaning.
+- Preventing pollutants from entering drains and waterways.
+
+Avoid unsupported numerical savings claims.
+
+## 36. Personalized Recommendations
+
+Where sufficient records exist, generate contextual suggestions based on the user's actual recorded habits.
+
+For example, the application might identify that the user records relatively high usage in a particular category and suggest reviewing those activities.
+
+Do not present incomplete or estimated data as definitive proof of waste.
+
+Explain why a recommendation appears and distinguish observations from assumptions.
+
+Allow users to dismiss, bookmark, or revisit recommendations where appropriate.
+
+---
+
+# PART XI — FUNCTIONAL AI ASSISTANT
+
+## 37. AI Assistant Purpose
+
+Integrate a real AI-powered assistant that helps users understand water conservation, interpret their own usage data, learn environmental concepts, and discover practical ways to improve their habits.
+
+Use a genuine AI provider through a server-side integration.
+
+Do not implement a fake chatbot that returns fixed responses while claiming to be AI-powered.
+
+## 38. AI Capabilities
+
+The assistant should support:
+
+- General water conservation questions.
+- Explanations of water-use categories.
+- Interpretation of the authenticated user's actual usage records.
+- Help understanding charts and trends.
+- Goal-setting guidance.
+- Practical conservation recommendations.
+- Environmental education.
+- Explanations of supported Philippine environmental laws.
+- Guidance on how to use AquaTrack.
+- Suggestions for relevant lessons and games.
+
+When answering questions about personal records, retrieve only data the authenticated user is authorized to access.
+
+Do not expose another user's records through the AI assistant.
+
+## 39. AI Interface
+
+Build a polished chat interface with:
+
+- Message history.
+- User and assistant message styling.
+- Suggested prompts.
+- Clear input field.
+- Send action.
+- Loading indicator.
+- Retry for failed requests.
+- Stop/cancel when supported.
+- Copy-response action.
+- Clear or manage conversation history where implemented.
+- Appropriate empty state.
+- Error messages.
+- Mobile-friendly layout.
+
+Persist conversation history if enabled, with privacy controls and documented retention behavior.
+
+## 40. AI Error Handling
+
+Handle:
+
+- Missing API credentials.
+- Invalid configuration.
+- Provider outages.
+- Rate limits.
+- Network failures.
+- Request timeouts.
+- Invalid responses.
+- Authentication failures.
+- Offline use.
+
+Keep API keys exclusively on the server.
+
+When AI is unavailable, show a clear explanation and offer useful static educational content that is explicitly labeled as offline or non-AI guidance.
+
+Never claim a static fallback is a live AI response.
+
+---
+
+# PART XII — TEN FULLY PLAYABLE EDUCATIONAL GAMES
+
+## 41. Game System Requirements
+
+Build all ten games as actual interactive experiences, not decorative cards linking to unfinished pages.
+
+Each game must include:
+
+- A title and clear description.
+- Instructions before play.
+- Genuine gameplay mechanics.
+- Functional controls.
+- Responsive design.
+- Keyboard accessibility where applicable.
+- Feedback during play.
+- Scoring or progress where appropriate.
+- A completion state.
+- Results and explanations.
+- Restart or replay.
+- Persistent scores or progress where appropriate.
+- Proper error handling.
+- Light- and dark-theme support.
+- Offline play where practical.
+
+Make the games visually engaging with appropriate icons, original illustrations, animation, sound controls when sound exists, and useful educational feedback.
+
+Do not use game points or simulated results as proof of real-world water savings.
+
+## 42. Game 1 — Water-Saving Quiz
+
+Create a multiple-choice quiz about water conservation, responsible household water use, pollution prevention, and environmental awareness.
+
+Include:
+
+- Question progression.
+- Answer selection.
+- Correct and incorrect feedback.
+- Explanations.
+- Score calculation.
+- Progress indicator.
+- Final results.
+- Replay.
+- Question variety.
+
+Use verified educational information.
+
+## 43. Game 2 — Leak Detective
+
+Create an interactive scenario in which users inspect a household or building and identify possible water leaks.
+
+Include clickable or keyboard-accessible objects, hints, a scoring mechanism, and explanations of why leaks matter.
+
+Use appropriate visual scenes and provide feedback when users identify or miss an issue.
+
+## 44. Game 3 — Water Footprint Challenge
+
+Present realistic everyday choices related to water use.
+
+Allow users to compare alternatives and learn how habits can affect water consumption.
+
+Use clearly explained educational estimates where numerical comparisons are necessary.
+
+Never imply that the game's estimates are direct measurements of the player's real water footprint.
+
+## 45. Game 4 — Build a Water-Smart Home
+
+Let players select or place household features and habits that support responsible water use.
+
+Examples include efficient fixtures, leak prevention, suitable rainwater collection, and responsible gardening.
+
+Provide a functioning selection or placement interface, score or evaluation logic, and educational feedback.
+
+## 46. Game 5 — Sort the Water Habits
+
+Create a drag-and-drop or accessible alternative sorting game.
+
+Players classify activities into appropriate groups such as:
+
+- Water-saving habits.
+- Water-wasting habits.
+- Potentially harmful environmental practices.
+- Context-dependent activities.
+
+Explain answers and allow replay.
+
+Do not force drag-and-drop as the only interaction method.
+
+## 47. Game 6 — Aquatic Memory Match
+
+Create a functioning memory-matching game using original or appropriately licensed aquatic images or illustrations.
+
+Include:
+
+- Matching pairs.
+- Card-flip interactions.
+- Move counter.
+- Completion tracking.
+- Restart.
+- Difficulty options where practical.
+- Keyboard and screen-reader considerations.
+
+Ensure images load reliably and provide fallbacks.
+
+## 48. Game 7 — River Cleanup Challenge
+
+Build an interactive cleanup game in which players identify and remove virtual waste from a river environment.
+
+Include scoring, progress, clear interactions, and educational explanations about waste disposal and water pollution.
+
+Do not trivialize hazardous waste or encourage unsafe real-world cleanup behavior.
+
+## 49. Game 8 — Water Cycle Puzzle
+
+Create an educational puzzle about the water cycle.
+
+Include stages such as evaporation, condensation, precipitation, collection, and other appropriate processes.
+
+Let users arrange, match, or connect the stages. Validate answers and explain the correct sequence.
+
+Ensure the science is accurate.
+
+## 50. Game 9 — Daily Water-Saving Missions
+
+Create a mission system with practical conservation activities.
+
+Examples may include checking for leaks, recording water usage, or trying a responsible household habit.
+
+Allow users to complete missions and track progress.
+
+Do not claim that a real-world action occurred unless the user records or confirms it.
+
+Clearly distinguish self-reported activities from independently verified outcomes.
+
+## 51. Game 10 — Virtual Aquarium Adventure
+
+Create an engaging virtual aquarium where players learn how responsible environmental choices support aquatic ecosystems.
+
+Include:
+
+- A visually appealing aquarium.
+- Unlockable elements or progression.
+- Interactive objects.
+- Educational information.
+- A functioning reward or progression system.
+- Saved progress.
+- Responsive interaction.
+- Appropriate animation.
+
+Make clear that aquarium progress is virtual and does not represent measured real-world environmental impact.
+
+---
+
+# PART XIII — LEARNING HUB
+
+## 52. Learning Hub Overview
+
+Create a dedicated environmental learning center with structured lessons, practical guides, educational illustrations, quizzes, and progress tracking.
+
+Organize content into understandable categories.
+
+Include topics such as:
+
+- Water conservation.
+- Household water efficiency.
+- Water pollution prevention.
+- Watersheds and river ecosystems.
+- Water quality.
+- Rainwater collection.
+- Responsible gardening.
+- Waste management.
+- Aquatic biodiversity.
+- Environmental responsibility.
+- Climate and water.
+- Disaster preparedness.
+- Philippine environmental laws.
+
+## 53. Lesson Features
+
+Provide:
+
+- Search.
+- Topic filters.
+- Lesson cards.
+- Illustrated lesson pages.
+- Reading progress.
+- Bookmarks.
+- Quizzes.
+- Checklists.
+- Related lessons.
+- Completion tracking.
+- Useful next-step recommendations.
+
+Persist user progress when authenticated and provide offline access to appropriately cached educational summaries where practical.
+
+Do not fabricate research findings or present unverified claims as established facts.
+
+## 54. Practical Guides for Every Feature
+
+Provide contextual guidance for the application's major features.
+
+Examples:
+
+- How to record water usage.
+- How to edit or delete a record.
+- How to interpret the analytics.
+- How to create a water-use goal.
+- How to configure reminders.
+- How to use the AI assistant.
+- How to play each game.
+- How to bookmark and complete lessons.
+- How to understand Philippine environmental laws.
+- How to change the language.
+- How to switch themes.
+- How offline records work.
+- How synchronization works.
+- How to manage account and privacy settings.
+
+Use concise explanations, tooltips where appropriate, onboarding hints, help buttons, empty-state guidance, and dedicated help content.
+
+Guides should be available when relevant without obstructing normal use.
+
+---
+
+# PART XIV — PHILIPPINE ENVIRONMENTAL LAWS
+
+## 55. Dedicated Legal Education Section
+
+Build a dedicated section about Philippine water, environmental protection, waste management, and related laws.
+
+The goal is to help users understand the purpose of relevant laws and how these laws relate to environmental responsibility.
+
+Do not present the application as a substitute for a lawyer, government authority, or official legal advice.
+
+## 56. Required Laws and Legal Instruments
+
+Include educational coverage of the following:
+
+### Republic Act No. 9275
+
+**Philippine Clean Water Act of 2004**
+
+Explain its general purpose in protecting water bodies and addressing water pollution. Verify its provisions, implementing rules, current status, and relevant agencies through authoritative sources.
+
+### Republic Act No. 9003
+
+**Ecological Solid Waste Management Act of 2000**
+
+Explain its relevance to responsible waste management, waste segregation, recycling, and preventing improperly discarded waste from contaminating waterways.
+
+### Republic Act No. 8749
+
+**Philippine Clean Air Act of 1999**
+
+Explain that this law primarily addresses air pollution and air quality. Do not incorrectly describe it as a water-specific conservation law.
+
+### Republic Act No. 6969
+
+**Toxic Substances and Hazardous and Nuclear Wastes Control Act of 1990**
+
+Explain its general relevance to toxic substances and hazardous waste management, including environmental risks from inappropriate handling or disposal.
+
+### Republic Act No. 10121
+
+**Philippine Disaster Risk Reduction and Management Act of 2010**
+
+Explain its broader disaster-risk-reduction purpose and relevant connections to preparedness for water-related hazards. Clarify that it is not exclusively a water conservation law.
+
+### Republic Act No. 11038
+
+**Expanded National Integrated Protected Areas System Act of 2018**
+
+Explain its relationship to protected areas and ecosystem conservation. Do not claim that every watershed or water source is automatically protected under this law.
+
+### Presidential Decree No. 1067
+
+**Water Code of the Philippines**
+
+Clearly identify this as a Presidential Decree, not a Republic Act.
+
+Explain its general significance to water resources and verify relevant provisions through authoritative sources.
+
+## 57. Legal Research and Verification
+
+Research and verify legal information using authoritative Philippine sources, including where available:
+
+- Official Gazette of the Republic of the Philippines.
+- Department of Environment and Natural Resources.
+- Environmental Management Bureau.
+- National Water Resources Board.
+- Other appropriate official government agencies and legal repositories.
+
+Verify:
+
+- Correct title.
+- Instrument type and number.
+- Date or year.
+- Current status.
+- Amendments.
+- Implementing rules and regulations.
+- Responsible government agencies.
+- Official source URLs.
+- Relevant provisions and scope.
+
+Do not invent legal section numbers, penalties, obligations, implementing rules, or official URLs.
+
+Clearly distinguish information directly supported by an official source from general educational interpretation.
+
+When the status of a provision cannot be verified, disclose that limitation instead of guessing.
+
+## 58. Legal Education Interface
+
+Create searchable law cards with:
+
+- Law title and number.
+- Instrument type.
+- Year.
+- Plain-language summary.
+- Environmental topic.
+- Practical relevance.
+- Verified official source links.
+- Last-reviewed date.
+- Related educational resources.
+- Bookmark action.
+- Related quiz or learning activity.
+
+Include topic filters, a glossary, quizzes, practical checklists, and educational illustrations.
+
+Use relevant water, river, watershed, waste-management, and environmental-protection imagery.
+
+Do not fabricate government seals or create documents that could be mistaken for official legal documents.
+
+## 59. Offline Legal Content
+
+Cache appropriate summaries for offline access.
+
+Display when content was last reviewed and warn users when offline information may be outdated.
+
+Official links will require an internet connection.
+
+Include a clear educational disclaimer explaining that summaries are informational and are not a substitute for current official legal texts or professional legal advice.
+
+---
+
+# PART XV — VISUAL ASSETS AND ENVIRONMENTAL IMAGERY
+
+## 60. Relevant Images Throughout the Application
+
+Use high-quality, relevant visuals across the website.
+
+Include images or illustrations related to:
+
+- Clean water.
+- Rivers and watersheds.
+- Household water conservation.
+- Leaking faucets and pipes.
+- Rainwater collection.
+- Water-efficient fixtures.
+- Responsible gardening.
+- Aquatic animals.
+- Water pollution prevention.
+- Responsible waste disposal.
+- Environmental learning.
+- Conservation missions.
+- Legal education.
+- The water cycle.
+- The virtual aquarium.
+- Game environments.
+
+Images should contribute to the purpose of the page rather than being included only for decoration.
+
+## 61. Image Requirements
+
+- Use original, generated, or appropriately licensed assets.
+- Optimize image dimensions and formats.
+- Lazy-load below-the-fold content.
+- Use responsive image sizes.
+- Define aspect ratios to prevent layout shifts.
+- Provide meaningful alternative text.
+- Use graceful fallbacks when an image fails.
+- Avoid broken image URLs.
+- Avoid excessive image payloads.
+- Respect color contrast and legibility.
+- Ensure images work in light and dark themes.
+- Cache eligible assets for offline access where appropriate.
+
+The dashboard hero should feature subtle aquatic imagery while keeping the AquaTrack logo and wordmark as the main focal point.
+
+---
+
+# PART XVI — DARK MODE, LIGHT MODE, AND SETTINGS
+
+## 62. Complete Theme System
+
+Implement:
+
+- Light mode.
+- Dark mode.
+- System-preference mode.
+
+Save the user's theme preference.
+
+Avoid a flash of the wrong theme during initial loading.
+
+Make all pages and components theme-aware, including:
+
+- Navigation.
+- Cards.
+- Forms.
+- Dialogs.
+- Charts.
+- Tooltips.
+- Tables.
+- Educational illustrations.
+- Games.
+- AI chat.
+- Loading states.
+- Error messages.
+- Empty states.
+
+Do not merely invert every color. Create intentional light and dark surface treatments with appropriate contrast.
+
+## 63. Settings
+
+Provide a comprehensive Settings page.
+
+Include:
+
+- Theme selection.
+- Interface language.
+- Greeting rotation preferences.
+- Nickname and profile preferences.
+- Measurement units.
+- Reminder preferences.
+- Notification permissions.
+- Privacy controls.
+- Account settings.
+- Data export where supported.
+- Account deletion where supported.
+- Offline/synchronization information.
+- Accessibility preferences where appropriate.
+
+All controls must be connected to real application behavior and persisted where appropriate.
+
+If a preference cannot be saved, explain the failure.
+
+---
+
+# PART XVII — MOBILE NAVIGATION AND APPLICATION STRUCTURE
+
+## 64. Persistent Bottom Navigation
+
+Provide a clear, mobile-friendly bottom navigation bar containing these five primary destinations:
+
+1. Home.
+2. History.
+3. Games.
+4. Analytics.
+5. Learn.
+
+Use appropriate Lucide icons, accessible labels, clear active states, and adequate touch targets.
+
+Make sure the bar does not cover important content or form controls.
+
+## 65. Secondary Navigation
+
+Provide clear access to:
+
+- Profile.
+- Goals.
+- Reminders.
+- Settings.
+- Community.
+- AI Assistant.
+- Environmental Laws.
+- Help and guides.
+- Authentication actions when appropriate.
+
+Use a sidebar, top navigation, menu, or a combination appropriate to the screen size.
+
+Every destination must lead to a real, implemented route.
+
+Do not create navigation links to nonexistent pages.
+
+## 66. Community Features
+
+If implementing community features, make them genuinely functional and privacy-conscious.
+
+Potential features include conservation challenges, voluntary participation, educational discussion, and sharing progress with user consent.
+
+Do not fabricate members, messages, rankings, events, or activity.
+
+Use proper authorization and moderation safeguards if users can publish content.
+
+Do not expose personal water records publicly without explicit user control.
+
+---
+
+# PART XVIII — DATABASE AND DATA PERSISTENCE
+
+## 67. Persistent Database
+
+Use PostgreSQL and Prisma for the main database.
+
+All important user-generated information must be stored persistently, including where applicable:
+
+- User profiles.
+- Language preferences.
+- Nicknames.
+- Theme preferences.
+- Water-use records.
+- Custom categories.
+- Goals.
+- Reminder configurations.
+- Achievement records.
+- Game scores.
+- Game progress.
+- Learning progress.
+- Bookmarks.
+- AI conversations when enabled.
+- Offline synchronization metadata.
+- Other user-created settings and records.
+
+Use appropriate relational structures and constraints.
+
+## 68. Data Persistence Requirements
+
+The following behavior is mandatory:
+
+- Records remain after page refresh.
+- Records remain after navigation.
+- Records remain after logout and subsequent login.
+- Users see their own saved information on another authorized device after server synchronization.
+- Updates persist correctly.
+- Deletions persist correctly.
+- Failed operations do not silently discard data.
+- Repeated synchronization does not duplicate records.
+- Unauthorized users cannot read or change another user's data.
+
+Do not rely on React state as permanent storage.
+
+Do not rely exclusively on browser local storage for server-backed records.
+
+Use IndexedDB for offline operations and synchronization queues, not as a substitute for a configured server database.
+
+## 69. Database Schema
+
+Create a properly related schema with appropriate models for users, profiles, water records, goals, reminders, achievements, game progress, learning progress, bookmarks, AI conversations, and synchronization metadata as needed.
+
+Use:
+
+- Foreign keys.
+- Appropriate indexes.
+- Unique constraints.
+- Timestamps.
+- Data validation.
+- Cascading or restricted deletion behavior selected deliberately.
+- Transactions for multi-step operations.
+
+Use database migrations to track schema changes.
+
+Do not create unnecessary models solely for appearance. Every model should serve a real purpose.
+
+## 70. Data Ownership and Integrity
+
+Every record must be scoped to its owner.
+
+Server handlers must verify authorization before reading, updating, or deleting records.
+
+Do not trust client-provided user IDs to establish ownership.
+
+Validate all values on the server.
+
+Handle concurrent updates and synchronization conflicts safely.
+
+Preserve valid user input when possible after a failed save.
+
+Never report a database operation as successful until the relevant operation has actually succeeded.
+
+---
+
+# PART XIX — OFFLINE MODE AND PWA
+
+## 71. Genuine Offline Support
+
+Implement a Progressive Web App that can be installed where supported and remains useful during connectivity interruptions.
+
+Offline support must be real rather than a decorative offline indicator.
+
+Provide offline access to supported functionality, including:
+
+- Application shell.
+- Previously loaded pages where appropriate.
+- Locally queued water-use records.
+- Locally available history.
+- Preferences.
+- Cached educational content.
+- Supported games.
+- Pending edits or deletions where safe.
+- Synchronization status.
+
+## 72. Offline Data Handling
+
+Use IndexedDB to store local records and queued changes.
+
+Each local operation should have an identifiable status, such as:
+
+- Local only.
+- Pending synchronization.
+- Synchronized.
+- Failed synchronization.
+
+When the network returns:
+
+1. Identify pending changes.
+2. Validate them.
+3. Submit them safely.
+4. Avoid duplicate records.
+5. Handle conflicts.
+6. Retry transient failures.
+7. Preserve unsynchronized changes.
+8. Update status only after confirmation.
+9. Inform the user about unresolved conflicts.
+
+Use idempotency or another appropriate duplicate-prevention mechanism.
+
+Never silently discard pending data.
+
+## 73. Offline Limitations
+
+Clearly explain that certain features may require an internet connection.
+
+Live AI responses, remote account operations, external links, and server-dependent content may be unavailable offline.
+
+Do not pretend that an offline AI response came from the live model.
+
+Display the last synchronization time and useful guidance when connectivity returns.
+
+---
+
+# PART XX — VALIDATION, ERROR HANDLING, AND RECOVERY
+
+## 74. Form Validation
+
+Use shared Zod schemas where appropriate.
+
+Validate data both on the client and server.
+
+Provide:
+
+- Clear required-field indicators.
+- Helpful error messages.
+- Input constraints.
+- Appropriate number and date validation.
+- Accessible field descriptions.
+- Submission loading states.
+- Duplicate-submission protection.
+- Error recovery.
+- Preservation of user input after failures.
+
+Do not accept invalid values simply because the interface appears to prevent them.
+
+## 75. Application Error States
+
+Handle errors from:
+
+- Authentication.
+- Database operations.
+- Network requests.
+- Water record creation.
+- Editing and deletion.
+- Analytics.
+- AI requests.
+- Games.
+- Images.
+- Navigation.
+- Notifications.
+- Offline synchronization.
+- File export.
+- Settings.
+- External integrations.
+
+Show actionable messages that explain what happened and what the user can do next.
+
+Do not expose sensitive technical details to end users.
+
+Log useful diagnostic information safely on the server.
+
+Do not log passwords, tokens, secrets, or unnecessary personal data.
+
+Avoid empty catch blocks, silent failures, fabricated success messages, and error suppression.
+
+## 76. Loading and Empty States
+
+Every asynchronous page or operation should have appropriate loading behavior.
+
+Provide skeletons or indicators where helpful.
+
+Create useful empty states for:
+
+- New accounts.
+- No water records.
+- No goals.
+- No reminders.
+- No saved lessons.
+- No game progress.
+- No AI conversation history.
+- No matching search results.
+- No analytics data for the selected period.
+- Offline content that has not yet been cached.
+
+Use empty states to explain the next useful action.
+
+Do not fill empty screens with fake data.
+
+---
+
+# PART XXI — SECURITY AND PRIVACY
+
+## 77. Security Requirements
+
+Implement established security practices appropriate to the stack.
+
+Include:
+
+- Secure password hashing.
+- Safe session management.
+- Server-side authorization.
+- Per-user record isolation.
+- Input validation.
+- Injection protection.
+- XSS protection.
+- Appropriate CSRF protections where applicable.
+- Rate limiting.
+- Safe file handling if file uploads are implemented.
+- Protected environment variables.
+- Secure OAuth configuration.
+- Safe error responses.
+- Dependency review.
+- Appropriate HTTP security headers.
+- Secure handling of password-reset tokens.
+- Protection against unauthorized object access.
+
+Do not place secrets in public environment variables or frontend code.
+
+## 78. Privacy Requirements
+
+Collect only information necessary for the application's functionality.
+
+Explain what information is saved and how it is used.
+
+Provide appropriate data export and account deletion options.
+
+Ensure users can manage their saved information.
+
+Do not expose personal usage data in community features, analytics, logs, or AI responses to other users.
+
+Use appropriate retention rules for conversations and other optional data.
+
+Never claim compliance certification unless it has actually been achieved and verified.
+
+---
+
+# PART XXII — ACCESSIBILITY AND INTERNATIONALIZATION
+
+## 79. Accessibility
+
+Aim for WCAG 2.2 AA compliance.
+
+Implement:
+
+- Semantic HTML.
+- Keyboard navigation.
+- Visible focus indicators.
+- Appropriate heading hierarchy.
+- Accessible form labels.
+- Screen-reader-friendly error messages.
+- Accessible dialogs and menus.
+- Alternative text for meaningful images.
+- Accessible chart summaries.
+- Sufficient contrast.
+- Touch-friendly controls.
+- Reduced-motion support.
+- Accessible game controls.
+- Clear active navigation states.
+- Logical focus management.
+- Proper language metadata.
+- Screen-reader announcements for meaningful asynchronous updates.
+
+Do not rely on color, sound, or animation alone to communicate important information.
+
+## 80. Internationalization
+
+Implement a maintainable localization structure for the required greeting languages.
+
+Avoid scattering translated strings throughout components.
+
+Use translation dictionaries or a suitable internationalization library.
+
+Ensure that:
+
+- Unicode text displays correctly.
+- Longer translations do not break layouts.
+- Date and number formats can be localized.
+- User preferences persist.
+- The interface remains readable in all supported greetings.
+- Arabic supports right-to-left text where appropriate.
+- Language changes do not erase data.
+- Missing translations have a graceful fallback.
+
+Do not claim the entire interface is translated into all fourteen languages unless all required interface strings have actually been translated.
+
+---
+
+# PART XXIII — TESTING AND QUALITY ASSURANCE
+
+## 81. Unit Tests
+
+Use Vitest to test:
+
+- Unit conversions.
+- Water-use totals.
+- Date-range calculations.
+- Goal progress.
+- Percentage changes.
+- Streak calculations.
+- Validation schemas.
+- Authentication helpers.
+- Authorization rules.
+- Synchronization logic.
+- Achievement criteria.
+- Game scoring.
+- Quiz scoring.
+- Localization helpers.
+- Error-handling utilities.
+
+Include edge cases, invalid input, empty records, zero values, time boundaries, and duplicate operations.
+
+## 82. Integration Tests
+
+Test:
+
+- User registration.
+- Login and logout.
+- Password recovery.
+- Profile persistence.
+- Water record creation.
+- Water record editing.
+- Water record deletion.
+- User ownership checks.
+- Goal creation and progress.
+- Reminder settings.
+- Analytics calculations.
+- Game score persistence.
+- Learning progress.
+- Bookmark persistence.
+- AI service error handling.
+- Database constraints.
+- Offline synchronization.
+- Data export.
+
+## 83. End-to-End Tests
+
+Use Playwright to test real browser workflows.
+
+Verify that:
+
+1. A new user can register.
+2. A user can log in and log out.
+3. Protected routes require authentication.
+4. A user can create a water record.
+5. The record remains after refreshing.
+6. The user can edit and delete records.
+7. Analytics update from saved records.
+8. Goals reflect actual progress.
+9. Theme settings persist.
+10. Language preferences persist.
+11. The greeting rotates and preserves the nickname.
+12. All ten games can be opened and played.
+13. Game progress persists where required.
+14. Learning content can be searched and bookmarked.
+15. Legal information links to verified sources.
+16. AI configuration and error states work correctly.
+17. Offline changes remain queued.
+18. Synchronization does not duplicate records.
+19. Forms display useful validation messages.
+20. Navigation works across mobile and desktop layouts.
+
+Test accessibility-critical workflows and error states.
+
+## 84. Quality Gates
+
+Run:
+
+- ESLint.
+- TypeScript checks.
+- Unit tests.
+- Integration tests where configured.
+- End-to-end tests where the environment permits.
+- Production build.
+- Database migration checks.
+
+Fix actual failures.
+
+If a test cannot run because an external service or environment variable is unavailable, state that explicitly.
+
+Never report tests as passed when they have not been executed.
+
+---
+
+# PART XXIV — DEPLOYMENT AND DOCUMENTATION
+
+## 85. Environment Variables
+
+Create `.env.example` with descriptive placeholders for required configuration.
+
+Document the purpose of every variable, including applicable values for:
+
+- Database connection.
+- Authentication secret.
+- Application URL.
+- OAuth client credentials.
+- AI provider API key.
+- AI model or provider configuration.
+- Email provider configuration if used.
+- Other external services actually implemented.
+
+Do not include real secrets.
+
+Do not expose private server variables through public client-side configuration.
+
+## 86. README
+
+Create a comprehensive README that explains:
+
+- Project overview.
+- Features.
+- Technology stack.
+- Prerequisites.
+- Installation.
+- Dependency setup.
+- Environment variables.
+- Database creation.
+- Prisma migrations.
+- Development server.
+- Authentication setup.
+- OAuth configuration.
+- AI provider configuration.
+- Testing.
+- Production build.
+- Deployment.
+- PWA installation.
+- Offline limitations.
+- Troubleshooting.
+- Security considerations.
+- Legal-information sources.
+- Known limitations.
+
+Include commands that match the actual project configuration.
+
+Do not document commands or features that do not exist.
+
+## 87. Deployment Readiness
+
+Prepare the application for deployment to an appropriate hosting provider.
+
+Document how to configure the production database, environment variables, authentication callback URLs, AI integration, and other necessary services.
+
+Ensure the production build succeeds in the available environment.
+
+Explain which features require additional external configuration.
+
+Do not claim that the site is deployed, publicly available, or connected to external services unless that has actually been completed and verified.
+
+---
+
+# PART XXV — IMPLEMENTATION ORDER
+
+## 88. Follow This Development Sequence
+
+Implement the project systematically.
+
+### Phase 1: Foundation
+
+- Initialize the empty project.
+- Configure dependencies.
+- Set up TypeScript and Tailwind CSS.
+- Establish the folder structure.
+- Configure linting and testing.
+- Set up environment configuration.
+
+### Phase 2: Design System and Branding
+
+- Implement the color palette.
+- Configure typography.
+- Create reusable design tokens.
+- Build the AquaTrack logo.
+- Implement logo animation.
+- Create reusable buttons, cards, forms, dialogs, and navigation.
+- Implement light, dark, and system themes.
+- Verify accessibility and responsive behavior.
+
+### Phase 3: Landing Page and Authentication
+
+- Build the landing page.
+- Build separate registration and login pages.
+- Implement authentication.
+- Add password recovery.
+- Protect authenticated routes.
+- Implement onboarding.
+- Add profile and language preferences.
+
+### Phase 4: Database and Water Tracking
+
+- Configure PostgreSQL.
+- Implement the Prisma schema and migrations.
+- Create secure data-access functions.
+- Implement water-use CRUD.
+- Add category and unit handling.
+- Validate all input.
+- Test persistence and authorization.
+
+### Phase 5: Dashboard and Analytics
+
+- Build the dashboard hero.
+- Implement the multilingual greeting.
+- Add usage summaries.
+- Add history.
+- Implement charts.
+- Add goal progress.
+- Build empty and error states.
+- Verify all calculations.
+
+### Phase 6: Goals, Reminders, and Recommendations
+
+- Implement goal management.
+- Implement reminder preferences and supported delivery.
+- Add achievements.
+- Add practical tips.
+- Add personalized recommendations.
+
+### Phase 7: Learning and Philippine Laws
+
+- Build the learning hub.
+- Implement search and filters.
+- Add bookmarks and progress.
+- Research and verify the specified laws.
+- Add official links.
+- Add quizzes, checklists, and educational imagery.
+
+### Phase 8: AI Assistant
+
+- Configure the server-side provider.
+- Implement the chat interface.
+- Add authorized data analysis.
+- Add conversation persistence if enabled.
+- Implement timeout, rate-limit, and failure handling.
+- Provide an honest offline fallback.
+
+### Phase 9: Ten Games
+
+- Implement each game individually.
+- Add real gameplay.
+- Add scoring and results.
+- Add progression persistence.
+- Test accessibility and responsive layouts.
+- Add offline support where practical.
+
+### Phase 10: Offline and PWA
+
+- Create the manifest.
+- Implement the service worker.
+- Add IndexedDB.
+- Implement queued changes.
+- Add synchronization and conflict handling.
+- Test network interruptions and reconnection.
+
+### Phase 11: Security and Accessibility
+
+- Audit authorization.
+- Verify per-user data isolation.
+- Review secret handling.
+- Validate all server inputs.
+- Review keyboard and screen-reader behavior.
+- Test color contrast and reduced motion.
+- Check mobile and desktop layouts.
+
+### Phase 12: Final Verification
+
+- Run linting.
+- Run TypeScript checks.
+- Run automated tests.
+- Run the production build.
+- Fix discovered errors.
+- Verify navigation and interactive elements.
+- Verify setup documentation.
+- Report any remaining limitations honestly.
+
+Do not skip earlier foundational work and build a superficial version of later features.
+
+---
+
+# PART XXVI — FINAL ACCEPTANCE CRITERIA
+
+## 89. The Project Is Complete Only When the Following Are Verified
+
+### Branding and design
+
+- AquaTrack has an original water-droplet logo.
+- The logo and wordmark are prominently displayed in the dashboard hero.
+- The tagline is correct.
+- Typography and spacing are consistent.
+- Light and dark themes work.
+- The layout is responsive.
+- Images load reliably and have appropriate alt text.
+
+### Authentication and persistence
+
+- Sign-up and login are separate and functional.
+- Password recovery works when configured.
+- Sessions are secure.
+- Protected routes are enforced server-side.
+- User data is isolated.
+- Water records persist in the database.
+- Preferences and progress persist where required.
+- Unauthorized data access is prevented.
+
+### Dashboard and tracking
+
+- Statistics use real saved records.
+- Empty states do not contain fake statistics.
+- Record creation, editing, and deletion work.
+- Analytics reflect saved data.
+- Units are converted correctly.
+- Goals use accurate calculations.
+- Reminders behave according to their real configuration.
+
+### Languages and personalization
+
+- The personalized nickname is saved and displayed.
+- All fourteen required greeting languages are implemented.
+- Greeting rotation works.
+- Language preferences persist.
+- Arabic text is supported appropriately.
+- Users can control automatic rotation.
+- The interface does not assume language preference from location.
+
+### AI and education
+
+- The AI assistant connects to a real provider when configured.
+- AI errors are handled honestly.
+- Personal-data questions use authorized records.
+- The learning hub is functional.
+- Philippine environmental-law summaries are verified.
+- Official source links work.
+- Legal limitations are disclosed.
+
+### Games
+
+- All ten games are implemented.
+- Each game has genuine mechanics.
+- Controls work.
+- Scoring and completion behavior work.
+- Results and replay work.
+- Progress persists where required.
+- Virtual achievements are not presented as real-world impact.
+
+### Offline and PWA
+
+- The application can be installed where supported.
+- Supported cached content remains available offline.
+- Offline records are preserved.
+- Pending changes synchronize safely.
+- Duplicate records are prevented.
+- Synchronization failures are visible.
+- Live network-dependent features are accurately labeled.
+
+### Security and accessibility
+
+- Server-side authorization is enforced.
+- Secrets remain private.
+- User data is protected.
+- Forms are validated.
+- Important interactions are keyboard accessible.
+- Contrast and focus indicators are appropriate.
+- Reduced-motion preferences are respected.
+- Mobile layouts remain usable.
+
+### Testing and documentation
+
+- Automated tests are implemented.
+- Available checks have actually been run.
+- The production build has been verified where possible.
+- `.env.example` is complete.
+- README instructions match the actual implementation.
+- Known limitations and required external services are documented.
+
+---
+
+# FINAL INSTRUCTIONS
+
+Build AquaTrack as a real application, not a visual mockup.
+
+Treat every feature in this prompt as an implementation requirement. Prioritize completeness, correctness, persistence, security, accessibility, and visual quality.
+
+Do not fabricate user records, statistics, achievements, environmental impact, AI responses, community activity, legal information, or test results.
+
+Do not add buttons that do nothing. Do not leave core pages as placeholders. Do not store important records only in temporary frontend state. Do not claim an operation succeeded before it has actually succeeded.
+
+When a feature depends on external configuration, implement its integration, explain the required setup, and provide an honest state when it is unavailable.
+
+Use real user-entered information for personal tracking and analytics. Provide helpful instructions for every major feature. Make the website attractive without sacrificing usability or accessibility.
+
+Before finishing, verify the application systematically, resolve errors, and document any limitations that cannot be eliminated in the current environment.
+
+## Required Final Development Report
+
+At the end of implementation, provide a clear report containing:
+
+1. Features implemented.
+2. Pages and routes created.
+3. Database models and migrations.
+4. Authentication and security implementation.
+5. AI provider integration and required credentials.
+6. The status of all ten games.
+7. Multilingual greeting and interface-language support.
+8. Philippine environmental-law sources used.
+9. Offline/PWA capabilities and limitations.
+10. Tests actually executed and their results.
+11. Production build status.
+12. Installation and startup commands.
+13. Required environment variables.
+14. Deployment instructions.
+15. Remaining issues or external dependencies.
+
+Never state that an item is complete unless its implementation has been verified.
+
+**The final goal is a complete, polished, secure, accessible, responsive, persistent, multilingual, educational, and genuinely functional AquaTrack platform that makes water conservation engaging and practical for everyday users.**

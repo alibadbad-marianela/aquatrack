@@ -1,0 +1,6 @@
+{
+  "name": "AquaTrack",
+  "description": "Comprehensive water conservation and environmental education platform with tracking, analytics, AI assistance, Philippine environmental laws, and interactive games.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

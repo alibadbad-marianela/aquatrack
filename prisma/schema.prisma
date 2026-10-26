@@ -1,0 +1,120 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                        String         @id @default(uuid())
+  email                     String         @unique
+  passwordHash              String
+  displayName               String
+  nickname                  String
+  preferredLanguage         String         @default("en")
+  preferredUnit             String         @default("liters")
+  theme                     String         @default("system")
+  autoRotateGreeting        Boolean        @default(true)
+  greetingRotateIntervalSec Int            @default(8)
+  onboardingCompleted       Boolean        @default(false)
+  resetToken                String?
+  resetTokenExpiry          DateTime?
+  createdAt                 DateTime       @default(now())
+  updatedAt                 DateTime       @updatedAt
+
+  records                   WaterRecord[]
+  goals                     Goal[]
+  reminders                 Reminder[]
+  gameScores                GameScore[]
+  lessonProgress            LessonProgress[]
+  bookmarks                 Bookmark[]
+
+  @@index([email])
+}
+
+model WaterRecord {
+  id             String    @id @default(uuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activityName   String
+  category       String
+  quantity       Float
+  unit           String
+  quantityLiters Float
+  date           String    // YYYY-MM-DD
+  time           String    // HH:mm
+  notes          String?
+  isEstimated    Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId, date])
+  @@index([userId, category])
+}
+
+model Goal {
+  id           String    @id @default(uuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title        String
+  targetLiters Float
+  period       String    // daily, weekly, monthly
+  category     String    @default("all")
+  active       Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model Reminder {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  time      String   // HH:mm
+  days      String   // JSON-encoded string array
+  enabled   Boolean  @default(true)
+  type      String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model GameScore {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameId       String
+  highScore    Int      @default(0)
+  stars        Int      @default(0)
+  playedCount  Int      @default(0)
+  lastPlayedAt DateTime @default(now())
+
+  @@unique([userId, gameId])
+}
+
+model LessonProgress {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String
+  completed   Boolean  @default(false)
+  quizScore   Int?
+  completedAt DateTime @default(now())
+
+  @@unique([userId, lessonId])
+}
+
+model Bookmark {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemType  String   // 'lesson' | 'law'
+  itemId    String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, itemType, itemId])
+}

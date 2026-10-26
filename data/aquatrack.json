@@ -1,0 +1,197 @@
+{
+  "users": [
+    {
+      "id": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "email": "marian@example.com",
+      "passwordHash": "$2b$10$zryAurH10us8X8Phpbp80.ZNqtKYW9kVQQIcD67VnJ.n6DUiUS.wO",
+      "displayName": "Marian",
+      "nickname": "Marian",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-10-25T01:51:18.919Z",
+      "updatedAt": "2026-10-25T02:15:09.837Z"
+    },
+    {
+      "id": "af81f142-dc29-48fa-b909-7e9857b4b208",
+      "email": "marian-1793009924214@aquatrack.ph",
+      "passwordHash": "$2b$10$PZj2prrdlS/nnUIZJt.vnO6c8olDB1tX5JT1wg5ZrPcyQ9Wdul2lG",
+      "displayName": "Marian Ela",
+      "nickname": "Marian Ela",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-10-26T10:18:44.560Z",
+      "updatedAt": "2026-10-26T10:18:44.560Z"
+    },
+    {
+      "id": "e9e58896-0e1d-4acc-a36a-cfa02ebabed8",
+      "email": "test-user-1793009946490@aquatrack.ph",
+      "passwordHash": "$2b$10$RY.kUb1ctBj6viQ08dYO4ehxq4ZgUVVqo4nnvTjes.W7HeAM07KcO",
+      "displayName": "Marian Ela",
+      "nickname": "Marian Ela",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-10-26T10:19:06.782Z",
+      "updatedAt": "2026-10-26T10:19:06.782Z"
+    }
+  ],
+  "records": [
+    {
+      "activityName": "5-Minute Shower",
+      "category": "bathing_showering",
+      "quantity": 45,
+      "unit": "liters",
+      "date": "2026-10-25",
+      "time": "01:52",
+      "notes": "",
+      "isEstimated": true,
+      "quantityLiters": 45,
+      "id": "c47b49ce-03f1-4173-a019-5260bce45aa0",
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "createdAt": "2026-10-25T01:52:24.332Z",
+      "updatedAt": "2026-10-25T01:52:24.332Z",
+      "syncStatus": "synced"
+    },
+    {
+      "activityName": "Toilet Flush (Dual)",
+      "category": "bathing_showering",
+      "quantity": 6,
+      "unit": "liters",
+      "date": "2026-10-26",
+      "time": "10:01",
+      "notes": "",
+      "isEstimated": true,
+      "quantityLiters": 6,
+      "id": "28114f6a-4e2f-4aaf-a841-5bcacddedb56",
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "createdAt": "2026-10-26T10:02:01.590Z",
+      "updatedAt": "2026-10-26T10:02:01.590Z",
+      "syncStatus": "synced"
+    },
+    {
+      "activityName": "Morning Shower",
+      "category": "bathing_showering",
+      "quantity": 35,
+      "unit": "liters",
+      "date": "2026-10-26",
+      "time": "07:30",
+      "notes": "",
+      "isEstimated": false,
+      "quantityLiters": 35,
+      "id": "7a2ec5a6-5ed5-4473-8f24-ea7d87d58afe",
+      "userId": "af81f142-dc29-48fa-b909-7e9857b4b208",
+      "createdAt": "2026-10-26T10:18:44.592Z",
+      "updatedAt": "2026-10-26T10:18:44.592Z",
+      "syncStatus": "synced"
+    }
+  ],
+  "goals": [
+    {
+      "title": "Daily Water Consumption Ceiling",
+      "targetLiters": 100,
+      "period": "daily",
+      "category": "all",
+      "id": "28c56fbc-74dc-4055-8fa0-d06addf4317b",
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "createdAt": "2026-10-25T01:51:46.245Z"
+    }
+  ],
+  "reminders": [
+    {
+      "id": "7c58caf0-b6e0-448b-a74a-9f1d8d1cfcd5",
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    },
+    {
+      "id": "bb9c8210-016c-4edd-bb75-12985affb9a6",
+      "userId": "af81f142-dc29-48fa-b909-7e9857b4b208",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    },
+    {
+      "id": "58ef4412-1c65-4d55-aafd-527e5df0bf32",
+      "userId": "e9e58896-0e1d-4acc-a36a-cfa02ebabed8",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    }
+  ],
+  "gameScores": [
+    {
+      "gameId": "game-1",
+      "highScore": 100,
+      "stars": 3,
+      "playedCount": 1,
+      "lastPlayedAt": "2026-10-25T01:56:07.430Z",
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98"
+    }
+  ],
+  "lessonProgress": [],
+  "bookmarks": [],
+  "achievements": [
+    {
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "achievementId": "first_drop",
+      "unlockedAt": "2026-10-25T01:52:24.332Z"
+    },
+    {
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "achievementId": "game_player",
+      "unlockedAt": "2026-10-25T01:56:07.430Z"
+    },
+    {
+      "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
+      "achievementId": "game_master",
+      "unlockedAt": "2026-10-25T01:56:07.430Z"
+    },
+    {
+      "userId": "af81f142-dc29-48fa-b909-7e9857b4b208",
+      "achievementId": "first_drop",
+      "unlockedAt": "2026-10-26T10:18:44.592Z"
+    }
+  ]
+}

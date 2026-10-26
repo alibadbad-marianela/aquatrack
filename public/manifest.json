@@ -1,0 +1,17 @@
+{
+  "name": "AquaTrack",
+  "short_name": "AquaTrack",
+  "description": "Track Every Drop. Protect Every Tomorrow. Water conservation and environmental education platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#081522",
+  "theme_color": "#1677E8",
+  "icons": [
+    {
+      "src": "/logo-droplet.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
