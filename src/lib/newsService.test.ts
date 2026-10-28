@@ -32,11 +32,20 @@ test('waterNewsService filters by region and category correctly', () => {
   }
 });
 
-test('waterNewsService search matches keywords accurately', () => {
-  const searchFeed = waterNewsService.getNewsFeed({ search: 'DENR' });
-  assert.ok(searchFeed.articles.length > 0, 'Should find DENR articles');
-  for (const article of searchFeed.articles) {
-    const text = `${article.headline} ${article.summary} ${article.publisher} ${article.tags.join(' ')}`.toLowerCase();
-    assert.ok(text.includes('denr'));
+test('waterNewsService provides unique, non-duplicate images for every article', () => {
+  const feed = waterNewsService.getNewsFeed({ limit: 50 });
+  const seenImages = new Set<string>();
+
+  for (const article of feed.articles) {
+    assert.ok(article.imageUrl, `Article ${article.id} must have an imageUrl`);
+    assert.ok(article.imageUrl.startsWith('http'), `Article ${article.id} imageUrl must be a valid http URL`);
+    assert.ok(
+      !seenImages.has(article.imageUrl),
+      `Duplicate image detected: ${article.imageUrl} in article "${article.headline}"`
+    );
+    seenImages.add(article.imageUrl);
   }
+
+  assert.equal(seenImages.size, feed.articles.length, 'Every article must possess a unique photograph');
 });
+

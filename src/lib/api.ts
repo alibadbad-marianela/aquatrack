@@ -62,6 +62,11 @@ export const api = {
       body: JSON.stringify(data),
     }),
 
+  loginDemo: () =>
+    apiFetch<{ user: UserProfile; token: string }>('/auth/demo', {
+      method: 'POST',
+    }),
+
   logout: () =>
     apiFetch<{ success: boolean }>('/auth/logout', { method: 'POST' }),
 

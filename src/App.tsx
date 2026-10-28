@@ -191,6 +191,7 @@ export default function App() {
     const res = await api.login(data);
     setAuthToken(res.token);
     setUser(res.user);
+    setCurrentView('dashboard');
     setShowAuthModal(false);
     if (!res.user.onboardingCompleted) {
       setShowOnboarding(true);
@@ -201,8 +202,17 @@ export default function App() {
     const res = await api.register(data);
     setAuthToken(res.token);
     setUser(res.user);
+    setCurrentView('dashboard');
     setShowAuthModal(false);
     setShowOnboarding(true);
+  };
+
+  const handleDemoLogin = async () => {
+    const res = await api.loginDemo();
+    setAuthToken(res.token);
+    setUser(res.user);
+    setCurrentView('dashboard');
+    setShowAuthModal(false);
   };
 
   const handleLogout = async () => {
@@ -395,6 +405,7 @@ export default function App() {
               initialMode={authInitialMode}
               onLogin={handleLogin}
               onRegister={handleRegister}
+              onDemoLogin={handleDemoLogin}
               onForgotPassword={async (em) => api.forgotPassword(em)}
               onResetPassword={async (tok, pw) => {
                 await api.resetPassword(tok, pw);
@@ -423,6 +434,7 @@ export default function App() {
           }}
           onOpenCreator={() => setShowCreatorModal(true)}
           onOpenNews={() => setCurrentView('news')}
+          onExploreDemo={handleDemoLogin}
         />
 
         {showAuthModal && (
@@ -430,6 +442,7 @@ export default function App() {
             initialMode={authInitialMode}
             onLogin={handleLogin}
             onRegister={handleRegister}
+            onDemoLogin={handleDemoLogin}
             onForgotPassword={async (em) => api.forgotPassword(em)}
             onResetPassword={async (tok, pw) => {
               await api.resetPassword(tok, pw);
@@ -447,7 +460,7 @@ export default function App() {
 
   // Authenticated Application Shell
   return (
-    <div className="min-h-screen flex flex-col bg-[#F4F7FB] dark:bg-[#081522] text-[#172B4D] dark:text-[#F1F7FF] transition-colors pb-28 md:pb-12">
+    <div className="min-h-screen flex flex-col bg-[#F4F7FB] dark:bg-[#081522] text-[#172B4D] dark:text-[#F1F7FF] transition-colors pb-32 md:pb-28">
       {/* Top Navbar */}
       <Navbar
         user={user}

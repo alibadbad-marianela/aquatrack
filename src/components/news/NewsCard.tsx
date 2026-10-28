@@ -42,8 +42,23 @@ export const NewsCard: React.FC<NewsCardProps> = ({ article, featured = false })
     }
   })();
 
-  const defaultFallbackImage =
-    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=80';
+  const fallbackImage = (() => {
+    switch (article.category) {
+      case 'ocean_coral_reefs':
+        return 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80';
+      case 'river_pollution':
+        return 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=1200&q=80';
+      case 'scarcity_drought':
+        return 'https://images.unsplash.com/photo-1518457607834-6e8d80c183c5?auto=format&fit=crop&w=1200&q=80';
+      case 'household_efficiency':
+        return 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=1200&q=80';
+      case 'philippines_conservation':
+        return 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80';
+      case 'climate_research':
+      default:
+        return 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1200&q=80';
+    }
+  })();
 
   return (
     <article
@@ -58,8 +73,8 @@ export const NewsCard: React.FC<NewsCardProps> = ({ article, featured = false })
         }`}
       >
         <img
-          src={imgError || !article.imageUrl ? defaultFallbackImage : article.imageUrl}
-          alt={article.headline}
+          src={imgError || !article.imageUrl ? fallbackImage : article.imageUrl}
+          alt={`${article.headline} - Photo via ${article.publisher}`}
           onError={() => setImgError(true)}
           loading="lazy"
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"

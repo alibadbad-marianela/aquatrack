@@ -104,6 +104,34 @@ apiRouter.post('/auth/login', (req: Request, res: Response) => {
   }
 });
 
+apiRouter.post('/auth/demo', (req: Request, res: Response) => {
+  try {
+    let user = db.findUserByEmail('marian@example.com');
+    if (!user) {
+      user = db.createUser({
+        email: 'marian@example.com',
+        password: 'password123',
+        nickname: 'Marian',
+        displayName: 'Marian Ela',
+      });
+      db.updateUserProfile(user.id, { onboardingCompleted: true });
+    }
+
+    const token = db.createSessionToken(user.id);
+
+    res.cookie('aquatrack_session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ user: sanitizeUser(user), token });
+  } catch (err: any) {
+    res.status(400).json({ error: err.message || 'Demo authentication failed' });
+  }
+});
+
 apiRouter.post('/auth/logout', (req: Request, res: Response) => {
   res.clearCookie('aquatrack_session');
   res.json({ success: true, message: 'Logged out successfully' });
