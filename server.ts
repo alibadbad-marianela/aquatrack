@@ -7,7 +7,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const PORT = parseInt(process.env.PORT || '3000', 10);
+// Must strictly run on port 3000 behind nginx reverse proxy
+const PORT = 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
 app.use(express.json());
@@ -27,7 +28,7 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     // In production mode, serve built static assets from dist
-    const distPath = path.resolve(__dirname, 'dist');
+    const distPath = path.resolve(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
       res.sendFile(path.resolve(distPath, 'index.html'));
