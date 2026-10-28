@@ -26,7 +26,7 @@
       "theme": "system",
       "autoRotateGreeting": true,
       "greetingRotateIntervalSec": 8,
-      "onboardingCompleted": false,
+      "onboardingCompleted": true,
       "createdAt": "2026-10-26T10:18:44.560Z",
       "updatedAt": "2026-10-26T10:18:44.560Z"
     },
@@ -41,9 +41,84 @@
       "theme": "system",
       "autoRotateGreeting": true,
       "greetingRotateIntervalSec": 8,
-      "onboardingCompleted": false,
+      "onboardingCompleted": true,
       "createdAt": "2026-10-26T10:19:06.782Z",
       "updatedAt": "2026-10-26T10:19:06.782Z"
+    },
+    {
+      "id": "f9d089f5-893a-4418-9f5c-11e29cf794c5",
+      "email": "testuser@example.com",
+      "passwordHash": "$2b$10$E9rdKPp5Ak9oo05F1ctS9.RJIWJvDyE4QP13I4RphYA53bXs5QgqW",
+      "displayName": "TestUser",
+      "nickname": "TestUser",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-10-28T12:33:03.200Z",
+      "updatedAt": "2026-10-28T12:33:03.200Z"
+    },
+    {
+      "id": "412d301a-83ac-47dd-9768-981748a74138",
+      "email": "keichin19255@gmail.com",
+      "passwordHash": "$2b$10$vDiaT8aLQEI1NT/8bmdBw.R/p4dK.QxZ96hJZplX7kyfh8XCJ.2XC",
+      "displayName": "Keichin",
+      "nickname": "Keichin",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-10-28T12:39:28.723Z",
+      "updatedAt": "2026-10-28T12:39:28.723Z"
+    },
+    {
+      "id": "422fad92-b11a-4d4d-8c91-232e80629963",
+      "email": "user_1793191226353@test.ph",
+      "passwordHash": "$2b$10$hnUW3zXpSKwkrlvY7rcSZOG8sMW0fRKZFtic.HL.V1ld2aYgwgrIC",
+      "displayName": "EcoWarrior",
+      "nickname": "EcoWarrior",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-10-28T12:40:26.472Z",
+      "updatedAt": "2026-10-28T12:40:26.472Z"
+    },
+    {
+      "id": "d1847a49-c506-44f0-8aa9-ec011e17c1fa",
+      "email": "duplicate_1793191226578@test.ph",
+      "passwordHash": "$2b$10$hm.FakjYgqv9aHIL/a77L.l.zoFJ/K1r7I9n10TLcBDQFF92v4aiW",
+      "displayName": "FirstUser",
+      "nickname": "FirstUser",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-10-28T12:40:26.675Z",
+      "updatedAt": "2026-10-28T12:40:26.675Z"
+    },
+    {
+      "id": "3ff12730-6380-448c-b238-c31602c55bd2",
+      "email": "login_1793191226677@test.ph",
+      "passwordHash": "$2b$10$/NivScUbM2zq240NMJ8VOeZ/6T40GaMlM.VFJYKy.FFtOF74VH2cG",
+      "displayName": "LoginTester",
+      "nickname": "LoginTester",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-10-28T12:40:26.777Z",
+      "updatedAt": "2026-10-28T12:40:26.777Z"
     }
   ],
   "records": [
@@ -94,6 +169,96 @@
       "createdAt": "2026-10-26T10:18:44.592Z",
       "updatedAt": "2026-10-26T10:18:44.592Z",
       "syncStatus": "synced"
+    },
+    {
+      "id": "7df04a5b-27ce-43ac-96af-319a9ba336f0",
+      "userId": "422fad92-b11a-4d4d-8c91-232e80629963",
+      "activityName": "5-Minute Morning Shower",
+      "category": "bathing_showering",
+      "quantity": 45,
+      "unit": "liters",
+      "quantityLiters": 45,
+      "date": "2026-10-28",
+      "time": "08:30",
+      "notes": "Logged with AquaTrack",
+      "isEstimated": true,
+      "createdAt": "2026-10-28T12:40:26.472Z",
+      "updatedAt": "2026-10-28T12:40:26.472Z"
+    },
+    {
+      "id": "3e250f93-50a7-4733-b24f-c6060581a0aa",
+      "userId": "422fad92-b11a-4d4d-8c91-232e80629963",
+      "activityName": "Daily Drinking & Hydration",
+      "category": "drinking_cooking",
+      "quantity": 2.5,
+      "unit": "liters",
+      "quantityLiters": 2.5,
+      "date": "2026-10-28",
+      "time": "12:00",
+      "notes": "Clean drinking water",
+      "isEstimated": false,
+      "createdAt": "2026-10-28T12:40:26.472Z",
+      "updatedAt": "2026-10-28T12:40:26.472Z"
+    },
+    {
+      "id": "c0b41341-021c-49ed-9482-86b680bdee5f",
+      "userId": "d1847a49-c506-44f0-8aa9-ec011e17c1fa",
+      "activityName": "5-Minute Morning Shower",
+      "category": "bathing_showering",
+      "quantity": 45,
+      "unit": "liters",
+      "quantityLiters": 45,
+      "date": "2026-10-28",
+      "time": "08:30",
+      "notes": "Logged with AquaTrack",
+      "isEstimated": true,
+      "createdAt": "2026-10-28T12:40:26.675Z",
+      "updatedAt": "2026-10-28T12:40:26.675Z"
+    },
+    {
+      "id": "957d4bfa-0507-4a78-a5a2-d2774ad55299",
+      "userId": "d1847a49-c506-44f0-8aa9-ec011e17c1fa",
+      "activityName": "Daily Drinking & Hydration",
+      "category": "drinking_cooking",
+      "quantity": 2.5,
+      "unit": "liters",
+      "quantityLiters": 2.5,
+      "date": "2026-10-28",
+      "time": "12:00",
+      "notes": "Clean drinking water",
+      "isEstimated": false,
+      "createdAt": "2026-10-28T12:40:26.675Z",
+      "updatedAt": "2026-10-28T12:40:26.675Z"
+    },
+    {
+      "id": "9d69dcd5-d809-49f8-9151-54bfbd4eeaa8",
+      "userId": "3ff12730-6380-448c-b238-c31602c55bd2",
+      "activityName": "5-Minute Morning Shower",
+      "category": "bathing_showering",
+      "quantity": 45,
+      "unit": "liters",
+      "quantityLiters": 45,
+      "date": "2026-10-28",
+      "time": "08:30",
+      "notes": "Logged with AquaTrack",
+      "isEstimated": true,
+      "createdAt": "2026-10-28T12:40:26.777Z",
+      "updatedAt": "2026-10-28T12:40:26.777Z"
+    },
+    {
+      "id": "5648d685-200e-4587-8085-2ce8f1140d73",
+      "userId": "3ff12730-6380-448c-b238-c31602c55bd2",
+      "activityName": "Daily Drinking & Hydration",
+      "category": "drinking_cooking",
+      "quantity": 2.5,
+      "unit": "liters",
+      "quantityLiters": 2.5,
+      "date": "2026-10-28",
+      "time": "12:00",
+      "notes": "Clean drinking water",
+      "isEstimated": false,
+      "createdAt": "2026-10-28T12:40:26.777Z",
+      "updatedAt": "2026-10-28T12:40:26.777Z"
     }
   ],
   "goals": [
@@ -105,6 +270,36 @@
       "id": "28c56fbc-74dc-4055-8fa0-d06addf4317b",
       "userId": "2b107d3f-f707-44f7-a449-d4a2d5bb0b98",
       "createdAt": "2026-10-25T01:51:46.245Z"
+    },
+    {
+      "id": "b18b7ade-086f-4cae-aabc-7dcf30ed7856",
+      "userId": "422fad92-b11a-4d4d-8c91-232e80629963",
+      "title": "Daily Water Consumption Ceiling",
+      "targetLiters": 120,
+      "period": "daily",
+      "category": "all",
+      "active": true,
+      "createdAt": "2026-10-28T12:40:26.472Z"
+    },
+    {
+      "id": "881d76f2-e298-4b99-af0b-a8b21fdf96bb",
+      "userId": "d1847a49-c506-44f0-8aa9-ec011e17c1fa",
+      "title": "Daily Water Consumption Ceiling",
+      "targetLiters": 120,
+      "period": "daily",
+      "category": "all",
+      "active": true,
+      "createdAt": "2026-10-28T12:40:26.675Z"
+    },
+    {
+      "id": "45aca376-f387-41a3-95a5-76dcb85117f7",
+      "userId": "3ff12730-6380-448c-b238-c31602c55bd2",
+      "title": "Daily Water Consumption Ceiling",
+      "targetLiters": 120,
+      "period": "daily",
+      "category": "all",
+      "active": true,
+      "createdAt": "2026-10-28T12:40:26.777Z"
     }
   ],
   "reminders": [
@@ -145,6 +340,91 @@
     {
       "id": "58ef4412-1c65-4d55-aafd-527e5df0bf32",
       "userId": "e9e58896-0e1d-4acc-a36a-cfa02ebabed8",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    },
+    {
+      "id": "2684bcd5-0945-437a-917f-10544e3887ce",
+      "userId": "f9d089f5-893a-4418-9f5c-11e29cf794c5",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    },
+    {
+      "id": "773956b9-4f74-49de-a273-8bd59e47b451",
+      "userId": "412d301a-83ac-47dd-9768-981748a74138",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    },
+    {
+      "id": "f859665f-e2e9-4ab1-92cb-88f120b19066",
+      "userId": "422fad92-b11a-4d4d-8c91-232e80629963",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    },
+    {
+      "id": "a30aff3a-3a5d-4a8a-98a3-b9cdf96f4ee2",
+      "userId": "d1847a49-c506-44f0-8aa9-ec011e17c1fa",
+      "title": "Daily Water Consumption Log",
+      "time": "20:00",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "type": "log_usage"
+    },
+    {
+      "id": "8217bd75-ce11-4fbe-91bb-e5c719dc03ee",
+      "userId": "3ff12730-6380-448c-b238-c31602c55bd2",
       "title": "Daily Water Consumption Log",
       "time": "20:00",
       "days": [

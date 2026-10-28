@@ -4,16 +4,24 @@ let cachedToken: string | null = null;
 
 export function setAuthToken(token: string | null) {
   cachedToken = token;
-  if (token) {
-    localStorage.setItem('aquatrack_token', token);
-  } else {
-    localStorage.removeItem('aquatrack_token');
+  try {
+    if (token) {
+      localStorage.setItem('aquatrack_token', token);
+    } else {
+      localStorage.removeItem('aquatrack_token');
+    }
+  } catch {
+    // Graceful fallback if localStorage is disabled or restricted in iframe
   }
 }
 
 export function getAuthToken(): string | null {
   if (!cachedToken) {
-    cachedToken = localStorage.getItem('aquatrack_token');
+    try {
+      cachedToken = localStorage.getItem('aquatrack_token');
+    } catch {
+      cachedToken = null;
+    }
   }
   return cachedToken;
 }
@@ -31,6 +39,7 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
 
   const response = await fetch(`/api${endpoint}`, {
     ...options,
+    credentials: 'include',
     headers,
   });
 
@@ -50,7 +59,7 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
 
 export const api = {
   // Auth
-  register: (data: { email: string; password: string; confirmPassword: string; nickname: string }) =>
+  register: (data: { email: string; password: string; confirmPassword?: string; nickname?: string }) =>
     apiFetch<{ user: UserProfile; token: string }>('/auth/register', {
       method: 'POST',
       body: JSON.stringify(data),

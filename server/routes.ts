@@ -57,7 +57,19 @@ apiRouter.post('/auth/register', (req: Request, res: Response) => {
     }
 
     const { email, password, nickname } = parsed.data;
-    const user = db.createUser({ email, password, nickname });
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanNickname = nickname?.trim() || cleanEmail.split('@')[0] || 'Friend';
+
+    const existing = db.findUserByEmail(cleanEmail);
+    if (existing) {
+      res.status(400).json({
+        error: 'An account with this email address already exists. Please sign in instead.',
+        alreadyRegistered: true,
+      });
+      return;
+    }
+
+    const user = db.createUser({ email: cleanEmail, password, nickname: cleanNickname });
     const token = db.createSessionToken(user.id);
 
     res.cookie('aquatrack_session', token, {
@@ -82,10 +94,19 @@ apiRouter.post('/auth/login', (req: Request, res: Response) => {
     }
 
     const { email, password } = parsed.data;
-    const user = db.findUserByEmail(email);
+    const cleanEmail = email.trim().toLowerCase();
+    const user = db.findUserByEmail(cleanEmail);
 
-    if (!user || !db.verifyPassword(user, password)) {
-      res.status(401).json({ error: 'Invalid email or password' });
+    if (!user) {
+      res.status(401).json({
+        error: 'No account found with this email. Please switch to "Create Account" above to register.',
+        notRegistered: true,
+      });
+      return;
+    }
+
+    if (!db.verifyPassword(user, password)) {
+      res.status(401).json({ error: 'Incorrect password. Please verify your credentials or click "Forgot password?".' });
       return;
     }
 

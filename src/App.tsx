@@ -198,13 +198,15 @@ export default function App() {
     }
   };
 
-  const handleRegister = async (data: { email: string; password: string; confirmPassword: string; nickname: string }) => {
-    const res = await api.register(data);
+  const handleRegister = async (data: { email: string; password: string; confirmPassword?: string; nickname: string }) => {
+    const res = await api.register(data as any);
     setAuthToken(res.token);
     setUser(res.user);
     setCurrentView('dashboard');
     setShowAuthModal(false);
-    setShowOnboarding(true);
+    if (!res.user.onboardingCompleted) {
+      setShowOnboarding(true);
+    }
   };
 
   const handleDemoLogin = async () => {

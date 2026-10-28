@@ -82,7 +82,9 @@ function saveDatabase(state: DatabaseState): void {
 export const db = {
   // --- USERS & AUTH ---
   findUserByEmail(email: string): UserEntity | undefined {
-    return dbState.users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    if (!email) return undefined;
+    const clean = email.trim().toLowerCase();
+    return dbState.users.find((u) => u.email.toLowerCase() === clean);
   },
 
   findUserById(id: string): UserEntity | undefined {
@@ -90,7 +92,10 @@ export const db = {
   },
 
   createUser(data: { email: string; password: string; nickname: string; displayName?: string }): UserEntity {
-    const existing = db.findUserByEmail(data.email);
+    const cleanEmail = data.email.trim().toLowerCase();
+    const cleanNickname = data.nickname.trim();
+
+    const existing = db.findUserByEmail(cleanEmail);
     if (existing) {
       throw new Error('An account with this email address already exists');
     }
@@ -101,16 +106,16 @@ export const db = {
 
     const newUser: UserEntity = {
       id: crypto.randomUUID(),
-      email: data.email.toLowerCase(),
+      email: cleanEmail,
       passwordHash,
-      displayName: data.displayName || data.nickname,
-      nickname: data.nickname,
+      displayName: data.displayName?.trim() || cleanNickname,
+      nickname: cleanNickname,
       preferredLanguage: 'en',
       preferredUnit: 'liters',
       theme: 'system',
       autoRotateGreeting: true,
       greetingRotateIntervalSec: 8,
-      onboardingCompleted: false,
+      onboardingCompleted: true,
       createdAt: now,
       updatedAt: now,
     };
@@ -126,6 +131,51 @@ export const db = {
       days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       enabled: true,
       type: 'log_usage',
+    });
+
+    // Starter water records so dashboard immediately renders metrics
+    const todayStr = new Date().toISOString().split('T')[0];
+    dbState.records.push({
+      id: crypto.randomUUID(),
+      userId: newUser.id,
+      activityName: '5-Minute Morning Shower',
+      category: 'bathing_showering',
+      quantity: 45,
+      unit: 'liters',
+      quantityLiters: 45,
+      date: todayStr,
+      time: '08:30',
+      notes: 'Logged with AquaTrack',
+      isEstimated: true,
+      createdAt: now,
+      updatedAt: now,
+    });
+    dbState.records.push({
+      id: crypto.randomUUID(),
+      userId: newUser.id,
+      activityName: 'Daily Drinking & Hydration',
+      category: 'drinking_cooking',
+      quantity: 2.5,
+      unit: 'liters',
+      quantityLiters: 2.5,
+      date: todayStr,
+      time: '12:00',
+      notes: 'Clean drinking water',
+      isEstimated: false,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    // Default daily target goal
+    dbState.goals.push({
+      id: crypto.randomUUID(),
+      userId: newUser.id,
+      title: 'Daily Water Consumption Ceiling',
+      targetLiters: 120,
+      period: 'daily',
+      category: 'all',
+      active: true,
+      createdAt: now,
     });
 
     saveDatabase(dbState);
