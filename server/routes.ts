@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { db, UserEntity } from './db';
 import { registerSchema, loginSchema, waterRecordSchema, goalSchema } from '../src/lib/validation';
-import { convertToLiters, calculateSummaryStats, calculateStreak } from '../src/lib/waterCalculations';
+import { convertToLiters, calculateSummaryStats, calculateStreak, formatWaterVolume } from '../src/lib/waterCalculations';
 import { PHILIPPINE_LAWS } from '../src/lib/philippineLaws';
 import { LESSONS } from '../src/lib/learningContent';
 import { GoogleGenAI } from '@google/genai';
@@ -125,31 +125,42 @@ apiRouter.post('/auth/login', (req: Request, res: Response) => {
   }
 });
 
-apiRouter.post('/auth/demo', (req: Request, res: Response) => {
+apiRouter.post('/auth/complete-onboarding', authMiddleware, (req: AuthenticatedRequest, res: Response) => {
   try {
-    let user = db.findUserByEmail('marian@example.com');
-    if (!user) {
-      user = db.createUser({
-        email: 'marian@example.com',
-        password: 'password123',
-        nickname: 'Marian',
-        displayName: 'Marian Ela',
-      });
-      db.updateUserProfile(user.id, { onboardingCompleted: true });
+    const { preferredUnit, goal, nickname } = req.body;
+    const validUnits = ['liters', 'milliliters', 'gallons', 'imperial_gallons', 'cubic_meters'];
+    if (!preferredUnit || !validUnits.includes(preferredUnit)) {
+      res.status(400).json({ error: 'Please choose a valid water measurement unit (Liters, Milliliters, US gallons, or Imperial gallons)' });
+      return;
     }
 
-    const token = db.createSessionToken(user.id);
+    if (!goal || typeof goal.targetQuantity !== 'number' || goal.targetQuantity <= 0) {
+      res.status(400).json({ error: 'Please enter a valid, positive water-saving target' });
+      return;
+    }
 
-    res.cookie('aquatrack_session', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+    const validPeriods = ['daily', 'weekly', 'monthly', 'custom'];
+    const period = validPeriods.includes(goal.period) ? goal.period : 'daily';
+
+    // Convert target from preferredUnit to canonical liters
+    const targetLiters = convertToLiters(goal.targetQuantity, preferredUnit);
+    if (targetLiters <= 0 || isNaN(targetLiters)) {
+      res.status(400).json({ error: 'Invalid target quantity calculation' });
+      return;
+    }
+
+    const result = db.completeUserOnboarding(req.user!.id, preferredUnit, nickname, {
+      title: goal.title?.trim() || `${period.charAt(0).toUpperCase() + period.slice(1)} Water Conservation Target`,
+      targetLiters,
+      period,
+      category: goal.category || 'all',
+      startDate: goal.startDate,
+      endDate: goal.endDate,
     });
 
-    res.json({ user: sanitizeUser(user), token });
+    res.json({ user: sanitizeUser(result.user), goal: result.goal });
   } catch (err: any) {
-    res.status(400).json({ error: err.message || 'Demo authentication failed' });
+    res.status(500).json({ error: err.message || 'Failed to complete setup wizard' });
   }
 });
 
@@ -602,12 +613,15 @@ apiRouter.post('/ai/chat', authMiddleware, async (req: AuthenticatedRequest, res
   const userRecords = db.getRecordsByUser(req.user!.id);
   const stats = calculateSummaryStats(userRecords);
   const nickname = req.user?.nickname || 'Friend';
+  const preferredUnit = req.user?.preferredUnit || 'liters';
+  const userGoals = db.getGoals(req.user!.id);
+  const activeGoal = userGoals.find((g) => g.active && g.period === 'daily') || userGoals[0];
 
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
     res.json({
-      reply: generateEducationalFallback(message, stats, nickname),
+      reply: 'The Google Gemini API key is currently not configured on this server. To enable real conversational AI capabilities, please configure GEMINI_API_KEY in the application secrets.',
       isLiveAI: false,
     });
     return;
@@ -623,15 +637,26 @@ apiRouter.post('/ai/chat', authMiddleware, async (req: AuthenticatedRequest, res
       },
     });
 
-    const systemInstruction = `You are AquaTrack AI, an intelligent, encouraging, and scientifically accurate water conservation and environmental education assistant for the AquaTrack platform (Tagline: "Track Every Drop. Protect Every Tomorrow.").
-The user's nickname is "${nickname}".
-Their authenticated water usage statistics are:
-- Today's recorded consumption: ${stats.todayTotalLiters} L
-- Past 7 days consumption: ${stats.weekTotalLiters} L
-- Average daily consumption: ${stats.averageDailyLiters} L
-- Number of logged activities: ${stats.totalRecordsCount}
+    const systemInstruction = `You are AquaTrack AI, an intelligent, versatile, and conversational assistant for the AquaTrack platform (Tagline: "Track Every Drop. Protect Every Tomorrow.").
 
-You assist with practical household water saving tips, Philippine environmental laws (RA 9275 Clean Water Act, PD 1067 Water Code, RA 9003 Solid Waste Management, ENIPAS RA 11038, DRRM RA 10121), leak auditing, watershed protection, and explaining their AquaTrack data. Keep responses structured, concise, friendly, and practical. Never invent fake data about other users.`;
+Core Directives:
+1. Complete General Conversational Assistant:
+   - You can converse naturally and cheerfully, answer general greetings ("Hello!", "How are you?"), help write content (such as school announcements, club flyers, notices, awareness campaign slogans), explain complex concepts in simple terms (e.g., weather vs climate, hydrological cycle, ocean acidification), and answer ordinary general knowledge questions across any topic.
+2. Environmental & Water Authority:
+   - You specialize in water conservation, leak audits, watershed protection, and Philippine environmental jurisprudence (including RA 9275 Clean Water Act, PD 1067 Water Code, RA 9003 Solid Waste Management, ENIPAS RA 11038, DRRM RA 10121).
+3. Authenticated User Profile:
+   - Nickname: "${nickname}"
+   - Preferred Water Unit: "${preferredUnit}"
+   - Preferred Language: "${req.user?.preferredLanguage || 'en'}"
+4. User's Real Water Tracking Data (from verified database):
+   - Total records logged: ${stats.totalRecordsCount}
+   - Today's recorded consumption: ${stats.todayTotalLiters} Liters (${formatWaterVolume(stats.todayTotalLiters, preferredUnit)})
+   - Past 7 days consumption: ${stats.weekTotalLiters} Liters (${formatWaterVolume(stats.weekTotalLiters, preferredUnit)})
+   - Active Goal: ${activeGoal ? `${formatWaterVolume(activeGoal.targetLiters, preferredUnit)} (${activeGoal.title})` : 'No active goal set yet'}
+   ${userRecords.length === 0 ? 'CRITICAL REQUIREMENT: This user has NO water consumption records logged yet (0 records). If they ask about their personal consumption or logs, you MUST honestly state that they have no records logged yet, and encourage them to record their first water activity using the "+ Record Water Usage" button on their dashboard. Do NOT invent fake consumption history or pretend they have records.' : `Recent activities: ${userRecords.slice(0, 5).map((r) => `${r.date}: ${r.activityName} (${r.quantity} ${r.unit})`).join(', ')}`}
+5. When the user asks normal, general questions (e.g. "Hello, how are you?", "Help me write a school announcement", "What is the difference between weather and climate?"), answer them directly and engagingly. Do not force water statistics into everyday general conversation unless relevant.
+6. When discussing water amounts, ALWAYS display quantities in their preferred unit (${preferredUnit}).
+7. Maintain multi-turn conversational context seamlessly.`;
 
     // Construct multi-turn contents
     const contents: any[] = [];
@@ -650,21 +675,28 @@ You assist with practical household water saving tips, Philippine environmental 
       parts: [{ text: message }],
     });
 
-    // Timeout race: if Gemini takes longer than 6 seconds, gracefully respond with verified fallback
-    const generatePromise = ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents,
-      config: {
-        systemInstruction,
-        temperature: 0.7,
-      },
-    });
-
-    const timeoutPromise = new Promise<null>((_, reject) =>
-      setTimeout(() => reject(new Error('Gemini API call timed out')), 6000)
-    );
-
-    const chatResponse = (await Promise.race([generatePromise, timeoutPromise])) as any;
+    let chatResponse: any;
+    try {
+      chatResponse = await ai.models.generateContent({
+        model: 'gemini-flash-latest',
+        contents,
+        config: {
+          systemInstruction,
+          temperature: 0.7,
+        },
+      });
+    } catch (primaryErr: any) {
+      console.warn('[AquaTrack AI] gemini-flash-latest retry fallback:', primaryErr?.message);
+      // Fallback to flash-lite if primary is temporarily overloaded
+      chatResponse = await ai.models.generateContent({
+        model: 'gemini-3.1-flash-lite',
+        contents,
+        config: {
+          systemInstruction,
+          temperature: 0.7,
+        },
+      });
+    }
 
     if (chatResponse && chatResponse.text) {
       res.json({ reply: chatResponse.text, isLiveAI: true });
@@ -672,13 +704,13 @@ You assist with practical household water saving tips, Philippine environmental 
     }
 
     res.json({
-      reply: generateEducationalFallback(message, stats, nickname),
+      reply: 'Unable to receive a response from the AI model. Please try asking again.',
       isLiveAI: false,
     });
   } catch (error: any) {
-    console.warn('Gemini API unreachable or timed out; serving verified educational fallback:', error?.message);
-    res.json({
-      reply: generateEducationalFallback(message, stats, nickname),
+    console.error('[AquaTrack AI] Gemini API Error:', error?.message);
+    res.status(502).json({
+      error: `Gemini AI Error: ${error?.message || 'Failed to generate response'}. Please retry.`,
       isLiveAI: false,
     });
   }

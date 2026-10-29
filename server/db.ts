@@ -115,71 +115,58 @@ export const db = {
       theme: 'system',
       autoRotateGreeting: true,
       greetingRotateIntervalSec: 8,
-      onboardingCompleted: true,
+      onboardingCompleted: false, // New users MUST complete the Welcome Setup Wizard
       createdAt: now,
       updatedAt: now,
     };
 
     dbState.users.push(newUser);
-
-    // Initial default reminder
-    dbState.reminders.push({
-      id: crypto.randomUUID(),
-      userId: newUser.id,
-      title: 'Daily Water Consumption Log',
-      time: '20:00',
-      days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      enabled: true,
-      type: 'log_usage',
-    });
-
-    // Starter water records so dashboard immediately renders metrics
-    const todayStr = new Date().toISOString().split('T')[0];
-    dbState.records.push({
-      id: crypto.randomUUID(),
-      userId: newUser.id,
-      activityName: '5-Minute Morning Shower',
-      category: 'bathing_showering',
-      quantity: 45,
-      unit: 'liters',
-      quantityLiters: 45,
-      date: todayStr,
-      time: '08:30',
-      notes: 'Logged with AquaTrack',
-      isEstimated: true,
-      createdAt: now,
-      updatedAt: now,
-    });
-    dbState.records.push({
-      id: crypto.randomUUID(),
-      userId: newUser.id,
-      activityName: 'Daily Drinking & Hydration',
-      category: 'drinking_cooking',
-      quantity: 2.5,
-      unit: 'liters',
-      quantityLiters: 2.5,
-      date: todayStr,
-      time: '12:00',
-      notes: 'Clean drinking water',
-      isEstimated: false,
-      createdAt: now,
-      updatedAt: now,
-    });
-
-    // Default daily target goal
-    dbState.goals.push({
-      id: crypto.randomUUID(),
-      userId: newUser.id,
-      title: 'Daily Water Consumption Ceiling',
-      targetLiters: 120,
-      period: 'daily',
-      category: 'all',
-      active: true,
-      createdAt: now,
-    });
-
     saveDatabase(dbState);
     return newUser;
+  },
+
+  completeUserOnboarding(
+    userId: string,
+    preferredUnit: WaterUnit,
+    nickname?: string,
+    goalData?: { title: string; targetLiters: number; period: 'daily' | 'weekly' | 'monthly' | 'custom'; category?: string; startDate?: string; endDate?: string }
+  ): { user: UserEntity; goal?: Goal } {
+    const userIndex = dbState.users.findIndex((u) => u.id === userId);
+    if (userIndex === -1) throw new Error('User not found');
+
+    const currentUser = dbState.users[userIndex];
+    const cleanNick = nickname?.trim() || currentUser.nickname;
+    const updatedUser: UserEntity = {
+      ...currentUser,
+      preferredUnit,
+      nickname: cleanNick,
+      displayName: cleanNick,
+      onboardingCompleted: true,
+      updatedAt: new Date().toISOString(),
+    };
+    dbState.users[userIndex] = updatedUser;
+
+    let savedGoal: Goal | undefined;
+    if (goalData && goalData.targetLiters > 0) {
+      savedGoal = {
+        id: crypto.randomUUID(),
+        userId,
+        title: goalData.title || `${goalData.period.charAt(0).toUpperCase() + goalData.period.slice(1)} Water Goal`,
+        targetLiters: goalData.targetLiters,
+        period: goalData.period,
+        category: (goalData.category as any) || 'all',
+        active: true,
+        startDate: goalData.startDate,
+        endDate: goalData.endDate,
+        createdAt: new Date().toISOString(),
+      };
+      // Deactivate any existing goals of same period
+      dbState.goals = dbState.goals.map((g) => (g.userId === userId && g.period === goalData.period ? { ...g, active: false } : g));
+      dbState.goals.push(savedGoal);
+    }
+
+    saveDatabase(dbState);
+    return { user: updatedUser, goal: savedGoal };
   },
 
   verifyPassword(user: UserEntity, plainText: string): boolean {

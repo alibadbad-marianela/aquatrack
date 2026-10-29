@@ -23,7 +23,6 @@ interface LandingPageProps {
   onOpenRegister: () => void;
   onOpenCreator: () => void;
   onOpenNews: () => void;
-  onExploreDemo?: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
@@ -31,7 +30,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenRegister,
   onOpenCreator,
   onOpenNews,
-  onExploreDemo,
 }) => {
   return (
     <div className="min-h-screen flex flex-col bg-[#F4F7FB] dark:bg-[#081522] text-[#172B4D] dark:text-[#F1F7FF] transition-colors">
@@ -56,17 +54,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <GraduationCap className="w-4 h-4 text-cyan-500" />
               <span>About Creator</span>
             </button>
-
-            {onExploreDemo && (
-              <button
-                onClick={onExploreDemo}
-                className="px-3 py-2 text-xs font-bold text-cyan-600 dark:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 rounded-xl transition-colors hidden md:inline-flex items-center gap-1 border border-cyan-500/30"
-                title="Enter the live authenticated dashboard directly"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-500" />
-                <span>Demo Dashboard</span>
-              </button>
-            )}
 
             <button
               onClick={onOpenLogin}
@@ -122,16 +109,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <span>Create Free Account</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-
-            {onExploreDemo && (
-              <button
-                onClick={onExploreDemo}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/40 text-cyan-700 dark:text-cyan-300 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-sm"
-              >
-                <Sparkles className="w-4 h-4 text-cyan-500" />
-                <span>Explore Live Dashboard</span>
-              </button>
-            )}
 
             <button
               onClick={onOpenLogin}

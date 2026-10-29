@@ -221,7 +221,8 @@ export const RecordModal: React.FC<RecordModalProps> = ({
               >
                 <option value="liters">Liters (L)</option>
                 <option value="milliliters">Milliliters (mL)</option>
-                <option value="gallons">Gallons (gal)</option>
+                <option value="gallons">US Gallons (gal)</option>
+                <option value="imperial_gallons">Imperial Gallons (Imp gal)</option>
                 <option value="cubic_meters">Cubic Meters (m³)</option>
               </select>
             </div>

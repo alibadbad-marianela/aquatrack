@@ -28,7 +28,7 @@ export const waterRecordSchema = z.object({
     'other',
   ]),
   quantity: z.number().positive('Quantity must be greater than zero').max(50000, 'Unreasonably large quantity'),
-  unit: z.enum(['liters', 'milliliters', 'gallons', 'cubic_meters']),
+  unit: z.enum(['liters', 'milliliters', 'gallons', 'imperial_gallons', 'cubic_meters']),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'),
   time: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Time must be in HH:mm format'),
   notes: z.string().max(300, 'Notes must be under 300 characters').optional().default(''),
@@ -38,6 +38,8 @@ export const waterRecordSchema = z.object({
 export const goalSchema = z.object({
   title: z.string().min(3, 'Title is required').max(60, 'Title too long'),
   targetLiters: z.number().positive('Target must be greater than 0').max(100000, 'Unreasonably large target'),
-  period: z.enum(['daily', 'weekly', 'monthly']),
+  period: z.enum(['daily', 'weekly', 'monthly', 'custom']),
   category: z.string().default('all'),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
 });

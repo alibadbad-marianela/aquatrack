@@ -247,11 +247,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             Standard Water Measurement Unit
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
             {[
               { id: 'liters', label: 'Liters (L)' },
               { id: 'milliliters', label: 'Milliliters (mL)' },
-              { id: 'gallons', label: 'Gallons (gal)' },
+              { id: 'gallons', label: 'US Gallons (gal)' },
+              { id: 'imperial_gallons', label: 'Imperial Gal (Imp)' },
               { id: 'cubic_meters', label: 'Cubic Meters (m³)' },
             ].map((u) => (
               <button

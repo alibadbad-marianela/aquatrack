@@ -1,4 +1,4 @@
-import { WaterRecord, UserProfile, Goal, Reminder, PhilippineLaw, Lesson, GameScore, NewsFeedResponse, WaterNewsItem } from '../types';
+import { WaterRecord, UserProfile, Goal, Reminder, PhilippineLaw, Lesson, GameScore, NewsFeedResponse, WaterNewsItem, WaterUnit } from '../types';
 import { BASELINE_VERIFIED_NEWS } from './waterNewsData';
 import { convertToLiters, calculateSummaryStats, calculateStreak } from './waterCalculations';
 
@@ -127,7 +127,6 @@ function createLocalAccount(email: string, password?: string, nickname?: string)
 
   const existing = accounts.find(a => a.user.email.toLowerCase() === cleanEmail);
   if (existing) {
-    // If password provided and matches, just log them in
     if (!password || existing.password === password) {
       saveUserLocally(existing.user, existing.password);
       const token = `local_token_${Date.now()}_${existing.user.id}`;
@@ -148,7 +147,7 @@ function createLocalAccount(email: string, password?: string, nickname?: string)
     theme: 'system',
     autoRotateGreeting: true,
     greetingRotateIntervalSec: 8,
-    onboardingCompleted: true,
+    onboardingCompleted: false, // New users start with onboarding incomplete
     createdAt: now,
   };
 
@@ -156,8 +155,11 @@ function createLocalAccount(email: string, password?: string, nickname?: string)
   const token = `local_token_${Date.now()}_${newUser.id}`;
   setAuthToken(token);
 
-  // Initialize starter records and goal for realistic dashboard
-  seedLocalUserData(newUser.id);
+  // New accounts start with zero records and zero goals
+  try {
+    localStorage.setItem(`aquatrack_records_${newUser.id}`, JSON.stringify([]));
+    localStorage.setItem(`aquatrack_goals_${newUser.id}`, JSON.stringify([]));
+  } catch {}
 
   return { user: newUser, token };
 }
@@ -177,100 +179,8 @@ function loginLocalAccount(email: string, password?: string): { user: UserProfil
     return { user: existing.user, token };
   }
 
-  // If not found locally, seamlessly create and log in
+  // If not found locally, seamlessly create as new user with onboarding
   return createLocalAccount(cleanEmail, password);
-}
-
-function getLocalDemoAccount(): { user: UserProfile; token: string } {
-  const demoEmail = 'marian@example.com';
-  return loginLocalAccount(demoEmail, 'demo1234');
-}
-
-function seedLocalUserData(userId: string) {
-  const today = new Date().toISOString().split('T')[0];
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-  const now = new Date().toISOString();
-
-  const starterRecords: WaterRecord[] = [
-    {
-      id: `rec_1_${userId}`,
-      userId,
-      activityName: 'Morning Shower',
-      category: 'bathing_showering',
-      quantity: 35,
-      unit: 'liters',
-      quantityLiters: 35,
-      date: today,
-      time: '07:30',
-      notes: 'Water-efficient shower head',
-      isEstimated: false,
-      createdAt: now,
-      updatedAt: now,
-    },
-    {
-      id: `rec_2_${userId}`,
-      userId,
-      activityName: 'Daily Drinking & Hydration',
-      category: 'drinking_cooking',
-      quantity: 2.5,
-      unit: 'liters',
-      quantityLiters: 2.5,
-      date: today,
-      time: '12:00',
-      notes: 'Clean drinking water',
-      isEstimated: false,
-      createdAt: now,
-      updatedAt: now,
-    },
-    {
-      id: `rec_3_${userId}`,
-      userId,
-      activityName: 'Kitchen Dishwashing',
-      category: 'dishwashing',
-      quantity: 15,
-      unit: 'liters',
-      quantityLiters: 15,
-      date: today,
-      time: '13:15',
-      notes: 'Basin wash method',
-      isEstimated: false,
-      createdAt: now,
-      updatedAt: now,
-    },
-    {
-      id: `rec_4_${userId}`,
-      userId,
-      activityName: 'Laundry Washing Machine',
-      category: 'laundry',
-      quantity: 45,
-      unit: 'liters',
-      quantityLiters: 45,
-      date: yesterday,
-      time: '10:00',
-      notes: 'Full eco load',
-      isEstimated: false,
-      createdAt: now,
-      updatedAt: now,
-    },
-  ];
-
-  const starterGoals: Goal[] = [
-    {
-      id: `goal_1_${userId}`,
-      userId,
-      title: 'Daily Water Consumption Ceiling',
-      targetLiters: 120,
-      period: 'daily',
-      category: 'all',
-      active: true,
-      createdAt: now,
-    },
-  ];
-
-  try {
-    localStorage.setItem(`aquatrack_records_${userId}`, JSON.stringify(starterRecords));
-    localStorage.setItem(`aquatrack_goals_${userId}`, JSON.stringify(starterGoals));
-  } catch {}
 }
 
 function getLocalRecords(): WaterRecord[] {
@@ -278,10 +188,7 @@ function getLocalRecords(): WaterRecord[] {
   if (!user) return [];
   try {
     const raw = localStorage.getItem(`aquatrack_records_${user.id}`);
-    if (raw) return JSON.parse(raw);
-    seedLocalUserData(user.id);
-    const seeded = localStorage.getItem(`aquatrack_records_${user.id}`);
-    return seeded ? JSON.parse(seeded) : [];
+    return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
   }
@@ -300,10 +207,7 @@ function getLocalGoals(): Goal[] {
   if (!user) return [];
   try {
     const raw = localStorage.getItem(`aquatrack_goals_${user.id}`);
-    if (raw) return JSON.parse(raw);
-    seedLocalUserData(user.id);
-    const seeded = localStorage.getItem(`aquatrack_goals_${user.id}`);
-    return seeded ? JSON.parse(seeded) : [];
+    return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
   }
@@ -384,18 +288,58 @@ export const api = {
     }
   },
 
-  loginDemo: async () => {
+  completeOnboarding: async (data: {
+    preferredUnit: WaterUnit;
+    goal: {
+      title: string;
+      targetQuantity: number;
+      period: 'daily' | 'weekly' | 'monthly' | 'custom';
+      category?: string;
+      startDate?: string;
+      endDate?: string;
+    };
+    nickname?: string;
+  }) => {
     try {
-      const res = await apiFetch<{ user: UserProfile; token: string }>('/auth/demo', {
+      const res = await apiFetch<{ user: UserProfile; goal: Goal }>('/auth/complete-onboarding', {
         method: 'POST',
+        body: JSON.stringify(data),
       });
       saveUserLocally(res.user);
-      setAuthToken(res.token);
       return res;
     } catch (err: any) {
       if (isNetworkOr404(err)) {
-        console.warn('[AquaTrack] Server unreachable / 404, using local demo fallback.');
-        return getLocalDemoAccount();
+        const cur = getLocalCurrentUser();
+        if (cur) {
+          const cleanNick = data.nickname?.trim() || cur.nickname;
+          const updatedUser: UserProfile = {
+            ...cur,
+            preferredUnit: data.preferredUnit,
+            nickname: cleanNick,
+            displayName: cleanNick,
+            onboardingCompleted: true,
+          };
+          saveUserLocally(updatedUser);
+
+          const targetLiters = convertToLiters(data.goal.targetQuantity, data.preferredUnit);
+          const savedGoal: Goal = {
+            id: `local_goal_${Date.now()}`,
+            userId: cur.id,
+            title: data.goal.title || `${data.goal.period.charAt(0).toUpperCase() + data.goal.period.slice(1)} Water Goal`,
+            targetLiters,
+            period: data.goal.period,
+            category: (data.goal.category as any) || 'all',
+            active: true,
+            startDate: data.goal.startDate,
+            endDate: data.goal.endDate,
+            createdAt: new Date().toISOString(),
+          };
+          try {
+            localStorage.setItem(`aquatrack_goals_${cur.id}`, JSON.stringify([savedGoal]));
+          } catch {}
+
+          return { user: updatedUser, goal: savedGoal };
+        }
       }
       throw err;
     }

@@ -1,8 +1,44 @@
 {
-  "lastUpdated": "2026-10-28T12:16:03.269Z",
-  "nextScheduledUpdate": "2026-10-29T12:16:03.269Z",
+  "lastUpdated": "2026-10-29T13:37:50.878Z",
+  "nextScheduledUpdate": "2026-10-30T13:37:50.878Z",
   "isStale": false,
   "articles": [
+    {
+      "id": "rss-81c7e1fa29b06e2c",
+      "headline": "Higher Ground: How New York is raising a park to hold back the sea",
+      "summary": "On 29 October 2012, Hurricane Sandy slammed into New York City, unleashing a devastating storm surge that flooded homes, subways and tunnels, knocked out power and sparked deadly fires.&amp;nbsp;",
+      "publisher": "UN News / UNEP",
+      "publishedAt": "2026-10-28",
+      "retrievedAt": "2026-10-29T13:19:24.144Z",
+      "category": "climate_research",
+      "categoryLabel": "Climate & Scientific Research",
+      "sourceUrl": "https://news.un.org/feed/view/en/story/2026/10/1168679",
+      "imageUrl": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&q=80",
+      "region": "global",
+      "tags": [
+        "RSS",
+        "UN News / UNEP",
+        "Environmental News"
+      ]
+    },
+    {
+      "id": "rss-550bbc6da906a492",
+      "headline": "Ocean’s ability to absorb carbon is weakening as climate change intensifies, UN warns",
+      "summary": "The ocean absorbs around 30 per cent of human-caused carbon dioxide (CO₂) emissions and 90 per cent of excess heat trapped by greenhouse gases. But climate change has already reduced its capacity to absorb carbon by approximately six per cent, a new UN report warns ahead of th...",
+      "publisher": "UN News / UNEP",
+      "publishedAt": "2026-10-28",
+      "retrievedAt": "2026-10-29T13:19:24.144Z",
+      "category": "climate_research",
+      "categoryLabel": "Climate & Scientific Research",
+      "sourceUrl": "https://news.un.org/feed/view/en/story/2026/10/1168687",
+      "imageUrl": "https://images.unsplash.com/photo-1538370965046-79c0d6907d47?auto=format&fit=crop&w=1200&q=80",
+      "region": "global",
+      "tags": [
+        "RSS",
+        "UN News / UNEP",
+        "Environmental News"
+      ]
+    },
     {
       "id": "rss-1397c8dd9b286c8d",
       "headline": "Nepal’s deadly glacier flood a ‘defining moment’ for the international community",

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Goal, Reminder, Achievement, WaterRecord } from '../../types';
-import { calculateGoalProgress, formatWaterVolume } from '../../lib/waterCalculations';
+import { Goal, Reminder, Achievement, WaterRecord, WaterUnit, GoalPeriod } from '../../types';
+import { calculateGoalProgress, formatWaterVolume, convertToLiters, convertFromLiters, getUnitLabel } from '../../lib/waterCalculations';
 import {
   Target,
   Bell,
@@ -22,6 +22,7 @@ interface GoalsViewProps {
   achievements: Array<{ achievementId: string; unlockedAt: string }>;
   currentStreak: number;
   records: WaterRecord[];
+  preferredUnit?: WaterUnit;
   onCreateGoal: (data: any) => Promise<void>;
   onDeleteGoal: (id: string) => Promise<void>;
   onCreateReminder: (data: any) => Promise<void>;
@@ -35,6 +36,7 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
   achievements,
   currentStreak,
   records,
+  preferredUnit = 'liters',
   onCreateGoal,
   onDeleteGoal,
   onCreateReminder,
@@ -47,7 +49,7 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [goalTitle, setGoalTitle] = useState('');
   const [goalTarget, setGoalTarget] = useState('100');
-  const [goalPeriod, setGoalPeriod] = useState<'daily' | 'weekly' | 'monthly'>('daily');
+  const [goalPeriod, setGoalPeriod] = useState<GoalPeriod>('daily');
   const [submittingGoal, setSubmittingGoal] = useState(false);
 
   // New Reminder Form State
@@ -76,11 +78,14 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
     e.preventDefault();
     if (!goalTitle.trim() || !goalTarget) return;
 
+    const parsedTarget = parseFloat(goalTarget);
+    const targetInLiters = preferredUnit === 'liters' ? parsedTarget : convertToLiters(parsedTarget, preferredUnit);
+
     setSubmittingGoal(true);
     try {
       await onCreateGoal({
         title: goalTitle.trim(),
-        targetLiters: parseFloat(goalTarget),
+        targetLiters: targetInLiters,
         period: goalPeriod,
         category: 'all',
       });
@@ -240,8 +245,9 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
                       </div>
 
                       <div className="flex justify-between items-baseline mb-2">
-                        <span className="text-2xl font-bold font-data text-slate-900 dark:text-white">
-                          {Math.round(consumed * 10) / 10} <span className="text-xs text-slate-400">/ {goal.targetLiters} L</span>
+                        <span className="text-xl sm:text-2xl font-bold font-data text-slate-900 dark:text-white">
+                          {formatWaterVolume(consumed, preferredUnit)}{' '}
+                          <span className="text-xs text-slate-400 font-normal">/ {formatWaterVolume(goal.targetLiters, preferredUnit)}</span>
                         </span>
                         <span
                           className={`text-xs font-bold ${
@@ -441,16 +447,18 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
                   <option value="daily">Daily Target</option>
                   <option value="weekly">Weekly Target</option>
                   <option value="monthly">Monthly Target</option>
+                  <option value="custom">Custom Target</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Max Volume (Liters)
+                  Max Volume ({getUnitLabel(preferredUnit)})
                 </label>
                 <input
                   type="number"
-                  min="1"
+                  min="0.1"
+                  step="any"
                   required
                   value={goalTarget}
                   onChange={(e) => setGoalTarget(e.target.value)}

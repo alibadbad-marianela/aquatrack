@@ -9,7 +9,6 @@ interface AuthPagesProps {
   onRegister: (data: { email: string; password: string; confirmPassword?: string; nickname: string }) => Promise<void>;
   onForgotPassword: (email: string) => Promise<{ resetToken?: string }>;
   onResetPassword: (token: string, newPass: string) => Promise<void>;
-  onDemoLogin?: () => Promise<void>;
   onClose?: () => void;
 }
 
@@ -19,7 +18,6 @@ export const AuthPages: React.FC<AuthPagesProps> = ({
   onRegister,
   onForgotPassword,
   onResetPassword,
-  onDemoLogin,
   onClose,
 }) => {
   const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'reset'>(initialMode);
@@ -317,34 +315,7 @@ export const AuthPages: React.FC<AuthPagesProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
 
-            {onDemoLogin && (
-              <div className="pt-2">
-                <div className="relative flex py-1 items-center">
-                  <div className="flex-grow border-t border-slate-200 dark:border-slate-700" />
-                  <span className="flex-shrink mx-3 text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Or</span>
-                  <div className="flex-grow border-t border-slate-200 dark:border-slate-700" />
-                </div>
-                <button
-                  type="button"
-                  onClick={async () => {
-                    setError(null);
-                    setLoading(true);
-                    try {
-                      await onDemoLogin();
-                    } catch (err: any) {
-                      setError(err.message || 'Demo login failed');
-                    } finally {
-                      setLoading(false);
-                    }
-                  }}
-                  disabled={loading}
-                  className="w-full mt-1.5 py-2.5 rounded-xl border border-cyan-500/40 bg-cyan-50/50 dark:bg-cyan-950/30 hover:bg-cyan-100/50 dark:hover:bg-cyan-900/30 text-cyan-800 dark:text-cyan-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-500" />
-                  <span>Instant Demo Sign-In (Marian)</span>
-                </button>
-              </div>
-            )}
+
           </form>
         )}
 
@@ -439,29 +410,7 @@ export const AuthPages: React.FC<AuthPagesProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
 
-            {onDemoLogin && (
-              <div className="pt-1">
-                <button
-                  type="button"
-                  onClick={async () => {
-                    setError(null);
-                    setLoading(true);
-                    try {
-                      await onDemoLogin();
-                    } catch (err: any) {
-                      setError(err.message || 'Demo login failed');
-                    } finally {
-                      setLoading(false);
-                    }
-                  }}
-                  disabled={loading}
-                  className="w-full py-2 rounded-xl border border-cyan-500/30 bg-cyan-50/30 dark:bg-cyan-950/20 hover:bg-cyan-100/40 text-cyan-800 dark:text-cyan-200 text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-500" />
-                  <span>Explore Demo Dashboard (No signup needed)</span>
-                </button>
-              </div>
-            )}
+
           </form>
         )}
 

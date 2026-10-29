@@ -8,7 +8,9 @@ export type WaterCategory =
   | 'gardening_plants'
   | 'other';
 
-export type WaterUnit = 'liters' | 'milliliters' | 'gallons' | 'cubic_meters';
+export type WaterUnit = 'liters' | 'milliliters' | 'gallons' | 'imperial_gallons' | 'cubic_meters';
+
+export type GoalPeriod = 'daily' | 'weekly' | 'monthly' | 'custom';
 
 export interface WaterRecord {
   id: string;
@@ -46,9 +48,11 @@ export interface Goal {
   userId: string;
   title: string;
   targetLiters: number;
-  period: 'daily' | 'weekly' | 'monthly';
+  period: 'daily' | 'weekly' | 'monthly' | 'custom';
   category?: WaterCategory | 'all';
   active: boolean;
+  startDate?: string;
+  endDate?: string;
   createdAt: string;
 }
 

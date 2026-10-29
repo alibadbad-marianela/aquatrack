@@ -19,7 +19,7 @@ import { CommunityView } from './components/community/CommunityView';
 import { SettingsView } from './components/settings/SettingsView';
 import { AIAssistant } from './components/ai/AIAssistant';
 import { CreatorCard } from './components/CreatorCard';
-import { OnboardingModal } from './components/OnboardingModal';
+import { WelcomeSetupWizard } from './components/WelcomeSetupWizard';
 import { PHILIPPINE_LAWS } from './lib/philippineLaws';
 import { LESSONS } from './lib/learningContent';
 import { WaterNewsView } from './components/news/WaterNewsView';
@@ -65,7 +65,6 @@ export default function App() {
   const [modalInitialDate, setModalInitialDate] = useState<string | undefined>(undefined);
   const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [showCreatorModal, setShowCreatorModal] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
 
   // App Data State
   const [records, setRecords] = useState<WaterRecord[]>([]);
@@ -97,9 +96,6 @@ export default function App() {
         const { user: profile } = await api.getMe();
         setUser(profile);
         if (profile.theme) setTheme(profile.theme);
-        if (!profile.onboardingCompleted) {
-          setShowOnboarding(true);
-        }
       } catch (err) {
         setAuthToken(null);
         setUser(null);
@@ -193,24 +189,10 @@ export default function App() {
     setUser(res.user);
     setCurrentView('dashboard');
     setShowAuthModal(false);
-    if (!res.user.onboardingCompleted) {
-      setShowOnboarding(true);
-    }
   };
 
   const handleRegister = async (data: { email: string; password: string; confirmPassword?: string; nickname: string }) => {
     const res = await api.register(data as any);
-    setAuthToken(res.token);
-    setUser(res.user);
-    setCurrentView('dashboard');
-    setShowAuthModal(false);
-    if (!res.user.onboardingCompleted) {
-      setShowOnboarding(true);
-    }
-  };
-
-  const handleDemoLogin = async () => {
-    const res = await api.loginDemo();
     setAuthToken(res.token);
     setUser(res.user);
     setCurrentView('dashboard');
@@ -306,19 +288,28 @@ export default function App() {
     setUser(res.user);
   };
 
-  const handleOnboardingComplete = async (prefs: { nickname: string; preferredUnit: WaterUnit; dailyGoalLiters: number }) => {
-    setShowOnboarding(false);
-    await handleUpdateProfile({
-      nickname: prefs.nickname,
-      preferredUnit: prefs.preferredUnit,
-      onboardingCompleted: true,
-    });
-    if (prefs.dailyGoalLiters > 0) {
-      await api.createGoal({
-        title: 'Daily Water Consumption Ceiling',
-        targetLiters: prefs.dailyGoalLiters,
-        period: 'daily',
-        category: 'all',
+  const handleOnboardingComplete = async (setupData: {
+    preferredUnit: WaterUnit;
+    nickname: string;
+    goal: {
+      title: string;
+      targetQuantity: number;
+      period: 'daily' | 'weekly' | 'monthly' | 'custom';
+      category?: string;
+      startDate?: string;
+      endDate?: string;
+    };
+  }) => {
+    try {
+      const res = await api.completeOnboarding(setupData);
+      setUser(res.user);
+      await refreshUserData();
+    } catch (err) {
+      console.error('Failed to complete onboarding via API, applying local update', err);
+      await handleUpdateProfile({
+        nickname: setupData.nickname,
+        preferredUnit: setupData.preferredUnit,
+        onboardingCompleted: true,
       });
       await refreshUserData();
     }
@@ -407,7 +398,6 @@ export default function App() {
               initialMode={authInitialMode}
               onLogin={handleLogin}
               onRegister={handleRegister}
-              onDemoLogin={handleDemoLogin}
               onForgotPassword={async (em) => api.forgotPassword(em)}
               onResetPassword={async (tok, pw) => {
                 await api.resetPassword(tok, pw);
@@ -436,7 +426,6 @@ export default function App() {
           }}
           onOpenCreator={() => setShowCreatorModal(true)}
           onOpenNews={() => setCurrentView('news')}
-          onExploreDemo={handleDemoLogin}
         />
 
         {showAuthModal && (
@@ -444,7 +433,6 @@ export default function App() {
             initialMode={authInitialMode}
             onLogin={handleLogin}
             onRegister={handleRegister}
-            onDemoLogin={handleDemoLogin}
             onForgotPassword={async (em) => api.forgotPassword(em)}
             onResetPassword={async (tok, pw) => {
               await api.resetPassword(tok, pw);
@@ -457,6 +445,17 @@ export default function App() {
           <CreatorCard isModal={true} onClose={() => setShowCreatorModal(false)} />
         )}
       </>
+    );
+  }
+
+  // Authenticated user with incomplete first-time setup: Gate with WelcomeSetupWizard
+  if (!user.onboardingCompleted) {
+    return (
+      <WelcomeSetupWizard
+        initialNickname={user.nickname}
+        initialUnit={user.preferredUnit}
+        onComplete={handleOnboardingComplete}
+      />
     );
   }
 
@@ -577,6 +576,7 @@ export default function App() {
             achievements={achievements}
             currentStreak={analyticsData?.currentStreak || 0}
             records={records}
+            preferredUnit={user.preferredUnit}
             onCreateGoal={handleCreateGoal}
             onDeleteGoal={handleDeleteGoal}
             onCreateReminder={handleCreateReminder}
@@ -638,17 +638,6 @@ export default function App() {
 
       {showCreatorModal && (
         <CreatorCard isModal={true} onClose={() => setShowCreatorModal(false)} />
-      )}
-
-      {showOnboarding && (
-        <OnboardingModal
-          initialNickname={user.nickname}
-          onComplete={handleOnboardingComplete}
-          onDismiss={() => {
-            setShowOnboarding(false);
-            handleUpdateProfile({ onboardingCompleted: true });
-          }}
-        />
       )}
     </div>
   );
