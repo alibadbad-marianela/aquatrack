@@ -229,11 +229,34 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   onChange={(e) => setPreferredLanguage(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-[#0c1a2c] text-xs sm:text-sm text-slate-900 dark:text-white"
                 >
-                  {GREETING_LANGUAGES.map((l) => (
-                    <option key={l.code} value={l.code}>
-                      {l.language} ({l.nativeName})
-                    </option>
-                  ))}
+                  <optgroup label="🇵🇭 Philippine Languages">
+                    {GREETING_LANGUAGES.filter((l) => l.region === 'Philippine').map((l) => (
+                      <option key={l.code} value={l.code}>
+                        {l.language} ({l.nativeName})
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="🌍 European Languages">
+                    {GREETING_LANGUAGES.filter((l) => l.region === 'European').map((l) => (
+                      <option key={l.code} value={l.code}>
+                        {l.language} ({l.nativeName})
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="🌏 Asian Languages">
+                    {GREETING_LANGUAGES.filter((l) => l.region === 'Asian').map((l) => (
+                      <option key={l.code} value={l.code}>
+                        {l.language} ({l.nativeName})
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="🌍 Middle Eastern & African Languages">
+                    {GREETING_LANGUAGES.filter((l) => l.region === 'Middle Eastern & African').map((l) => (
+                      <option key={l.code} value={l.code}>
+                        {l.language} ({l.nativeName})
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
             </div>

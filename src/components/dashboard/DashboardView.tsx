@@ -4,6 +4,7 @@ import { MultilingualGreeting } from '../MultilingualGreeting';
 import { MarineShowcase } from './MarineShowcase';
 import { UserProfile, WaterRecord, Goal } from '../../types';
 import { formatWaterVolume, CATEGORY_LABELS } from '../../lib/waterCalculations';
+import { getTranslations } from '../../lib/localization';
 import {
   Droplets,
   Plus,
@@ -33,6 +34,7 @@ interface DashboardViewProps {
   onOpenRecordModal: () => void;
   onNavigate: (view: string) => void;
   onOpenAIAssistant: () => void;
+  onLanguageChange?: (langCode: string) => void;
 }
 
 const DAILY_TIPS = [
@@ -53,7 +55,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenRecordModal,
   onNavigate,
   onOpenAIAssistant,
+  onLanguageChange,
 }) => {
+  const t = getTranslations(user.preferredLanguage || 'en');
   const stats = analyticsData?.stats || {
     todayTotalLiters: 0,
     weekTotalLiters: 0,
@@ -124,6 +128,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               autoRotate={user.autoRotateGreeting}
               intervalSec={user.greetingRotateIntervalSec}
               initialLangCode={user.preferredLanguage}
+              onLanguageChange={onLanguageChange}
             />
           </div>
 
@@ -138,7 +143,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2"
             >
               <Plus className="w-4 h-4" />
-              <span>Record Water Usage</span>
+              <span>{t.recordWaterUsage}</span>
             </button>
 
             <button
@@ -146,7 +151,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               className="w-full sm:w-auto px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 transition-colors shadow-sm flex items-center justify-center gap-2"
             >
               <Compass className="w-4 h-4 text-cyan-500" />
-              <span>Explore Water-Saving Tips</span>
+              <span>{t.exploreTips}</span>
             </button>
           </div>
         </div>
@@ -157,7 +162,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              Today's Water
+              {t.todayWater}
             </span>
             <div className="p-2 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500">
               <Droplets className="w-4 h-4" />
@@ -172,7 +177,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              Past 7 Days
+              {t.past7Days}
             </span>
             <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-500">
               <Calendar className="w-4 h-4" />
@@ -187,7 +192,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              Active Streak
+              {t.activeStreak}
             </span>
             <div className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-500">
               <Award className="w-4 h-4" />
@@ -202,7 +207,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              Daily Target
+              {t.dailyTarget}
             </span>
             <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500">
               <Sparkles className="w-4 h-4" />
@@ -298,88 +303,55 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {/* Marine Ecosystem & Coastal Biodiversity Showcase */}
       <MarineShowcase onNavigateToLearn={() => onNavigate('learn')} />
 
-      {/* Quick Launchpad to 5 Core Destinations & Learning */}
-      <div>
-        <h3 className="text-lg font-bold font-display text-slate-900 dark:text-white mb-3">
-          Explore AquaTrack Destinations
+      {/* Secondary Features & Conservation Hub (No duplicate shortcuts for Calendar, History, Analytics, Games) */}
+      <div className="space-y-3">
+        <h3 className="text-base sm:text-lg font-bold font-display text-slate-900 dark:text-white">
+          {t.secondaryFeaturesTitle}
         </h3>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
-          <button
-            onClick={() => onNavigate('calendar')}
-            className="p-3.5 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
-          >
-            <div className="p-2 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500 w-fit mb-2 group-hover:scale-110 transition-transform">
-              <Calendar className="w-4 h-4" />
-            </div>
-            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Calendar</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Daily Logs & Audits</p>
-          </button>
-
-          <button
-            onClick={() => onNavigate('history')}
-            className="p-3.5 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
-          >
-            <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-500 w-fit mb-2 group-hover:scale-110 transition-transform">
-              <History className="w-4 h-4" />
-            </div>
-            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">History</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Filters & CSV Export</p>
-          </button>
-
-          <button
-            onClick={() => onNavigate('analytics')}
-            className="p-3.5 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
-          >
-            <div className="p-2 rounded-xl bg-teal-50 dark:bg-teal-950/40 text-teal-500 w-fit mb-2 group-hover:scale-110 transition-transform">
-              <Droplets className="w-4 h-4" />
-            </div>
-            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Analytics</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Timeline & Donut</p>
-          </button>
-
-          <button
-            onClick={() => onNavigate('games')}
-            className="p-3.5 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
-          >
-            <div className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-500 w-fit mb-2 group-hover:scale-110 transition-transform">
-              <Gamepad2 className="w-4 h-4" />
-            </div>
-            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">10 Games</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Quiz, Leaks, Aquarium</p>
-          </button>
-
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button
             onClick={() => onNavigate('news')}
-            className="p-3.5 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
+            className="p-4 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
           >
-            <div className="p-2 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500 w-fit mb-2 group-hover:scale-110 transition-transform">
-              <Newspaper className="w-4 h-4" />
+            <div className="p-2.5 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500 w-fit mb-2.5 group-hover:scale-110 transition-transform">
+              <Newspaper className="w-5 h-5" />
             </div>
-            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Water News</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Daily Global & PH Feed</p>
+            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">{t.navNews}</h4>
+            <p className="text-[10px] text-slate-400 mt-0.5">Daily Global & PH Water News</p>
           </button>
 
           <button
             onClick={() => onNavigate('laws')}
-            className="p-3.5 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
+            className="p-4 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
           >
-            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 w-fit mb-2 group-hover:scale-110 transition-transform">
-              <Scale className="w-4 h-4" />
+            <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 w-fit mb-2.5 group-hover:scale-110 transition-transform">
+              <Scale className="w-5 h-5" />
             </div>
-            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">PH Laws</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">RA 9275 & PD 1067</p>
+            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">{t.navLaws}</h4>
+            <p className="text-[10px] text-slate-400 mt-0.5">RA 9275 & PD 1067 Guides</p>
           </button>
 
           <button
             onClick={() => onNavigate('learn')}
-            className="p-3.5 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
+            className="p-4 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
           >
-            <div className="p-2 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-500 w-fit mb-2 group-hover:scale-110 transition-transform">
-              <BookOpen className="w-4 h-4" />
+            <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-500 w-fit mb-2.5 group-hover:scale-110 transition-transform">
+              <BookOpen className="w-5 h-5" />
             </div>
-            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Learning Hub</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Lessons & Guides</p>
+            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">{t.navLearn}</h4>
+            <p className="text-[10px] text-slate-400 mt-0.5">Conservation Lessons</p>
+          </button>
+
+          <button
+            onClick={() => onNavigate('goals')}
+            className="p-4 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500 text-left transition-all shadow-sm group"
+          >
+            <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-500 w-fit mb-2.5 group-hover:scale-110 transition-transform">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">{t.navGoals}</h4>
+            <p className="text-[10px] text-slate-400 mt-0.5">Limits & Badges</p>
           </button>
         </div>
       </div>
@@ -387,28 +359,28 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {/* Recent Activity List preview */}
       <div className="p-6 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">Recent Activities Logged</h3>
+          <h3 className="text-base font-bold text-slate-900 dark:text-white">{t.recentActivities}</h3>
           <button
             onClick={() => onNavigate('history')}
             className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:underline"
           >
-            View Complete History ({records.length}) →
+            {t.viewAllHistory} ({records.length}) →
           </button>
         </div>
 
         {records.length === 0 ? (
           <div className="p-8 text-center rounded-2xl bg-slate-50 dark:bg-[#0c1a2c] text-xs text-slate-500">
             <p className="font-semibold text-slate-800 dark:text-slate-200 mb-1">
-              No water usage records found for your account.
+              {t.noRecordsYet}
             </p>
-            <p className="mb-4">
-              Click the "Record Water Usage" button above to log your first shower, laundry load, or watering session.
+            <p className="mb-4 max-w-md mx-auto">
+              {t.noRecordsSub}
             </p>
             <button
               onClick={onOpenRecordModal}
-              className="px-4 py-2 rounded-xl bg-cyan-600 text-white font-semibold shadow-sm"
+              className="px-4 py-2 rounded-xl bg-cyan-600 text-white font-semibold shadow-sm hover:bg-cyan-700 transition-colors"
             >
-              + Log Water Activity
+              {t.logFirstDrop}
             </button>
           </div>
         ) : (

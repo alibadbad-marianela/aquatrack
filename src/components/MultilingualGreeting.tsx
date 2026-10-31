@@ -28,6 +28,13 @@ export const MultilingualGreeting: React.FC<MultilingualGreetingProps> = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
+    if (initialLangCode) {
+      const idx = GREETING_LANGUAGES.findIndex((l) => l.code === initialLangCode);
+      if (idx !== -1) setCurrentIndex(idx);
+    }
+  }, [initialLangCode]);
+
+  useEffect(() => {
     if (isPaused) return;
 
     const timer = setInterval(() => {
@@ -37,7 +44,7 @@ export const MultilingualGreeting: React.FC<MultilingualGreetingProps> = ({
     return () => clearInterval(timer);
   }, [isPaused, intervalSec]);
 
-  const currentLang = GREETING_LANGUAGES[currentIndex];
+  const currentLang = GREETING_LANGUAGES[currentIndex] || GREETING_LANGUAGES[0];
   const { text, isRtl, language } = formatGreeting(currentLang.code, nickname);
 
   const selectLanguage = (code: string) => {
@@ -93,22 +100,23 @@ export const MultilingualGreeting: React.FC<MultilingualGreetingProps> = ({
           </button>
 
           {dropdownOpen && (
-            <div className="absolute right-0 top-full mt-1.5 w-48 max-h-60 overflow-y-auto rounded-xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-slate-800 shadow-xl z-50 p-1">
-              <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 dark:border-slate-800">
-                14 Supported Languages
+            <div className="absolute right-0 top-full mt-1.5 w-60 max-h-72 overflow-y-auto rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-1.5">
+              <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                {GREETING_LANGUAGES.length} Supported Languages
               </div>
               {GREETING_LANGUAGES.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => selectLanguage(lang.code)}
-                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs flex items-center justify-between transition-colors ${
+                  className={`w-full text-left px-2.5 py-1.5 rounded-xl text-xs flex items-center justify-between transition-colors my-0.5 ${
                     lang.code === currentLang.code
                       ? 'bg-cyan-500 text-white font-semibold'
                       : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
+                  dir={lang.isRtl ? 'rtl' : 'ltr'}
                 >
-                  <span>{lang.language}</span>
-                  <span className="text-[10px] opacity-75">{lang.nativeName}</span>
+                  <span className="truncate">{lang.language}</span>
+                  <span className="text-[10px] opacity-75 shrink-0 ml-1">{lang.nativeName}</span>
                 </button>
               ))}
             </div>

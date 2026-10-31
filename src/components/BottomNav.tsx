@@ -1,18 +1,21 @@
 import React from 'react';
 import { Home, Calendar, History, BarChart3, Gamepad2 } from 'lucide-react';
+import { getTranslations } from '../lib/localization';
 
 interface BottomNavProps {
   currentView: string;
   onNavigate: (view: string) => void;
+  langCode?: string;
 }
 
-export const BottomNav: React.FC<BottomNavProps> = ({ currentView, onNavigate }) => {
+export const BottomNav: React.FC<BottomNavProps> = ({ currentView, onNavigate, langCode = 'en' }) => {
+  const t = getTranslations(langCode);
   const items = [
-    { id: 'dashboard', label: 'Home', subtitle: 'Dashboard', icon: Home },
-    { id: 'calendar', label: 'Calendar', subtitle: 'Daily Logs', icon: Calendar },
-    { id: 'history', label: 'History', subtitle: 'Records', icon: History },
-    { id: 'analytics', label: 'Analytics', subtitle: 'Trends', icon: BarChart3 },
-    { id: 'games', label: 'Games', subtitle: '10 Games', icon: Gamepad2 },
+    { id: 'dashboard', label: t.navHome, subtitle: 'Dashboard', icon: Home },
+    { id: 'calendar', label: t.navCalendar, subtitle: 'Daily Logs', icon: Calendar },
+    { id: 'history', label: t.navHistory, subtitle: 'Records', icon: History },
+    { id: 'analytics', label: t.navAnalytics, subtitle: 'Trends', icon: BarChart3 },
+    { id: 'games', label: t.navGames, subtitle: '10 Games', icon: Gamepad2 },
   ];
 
   return (

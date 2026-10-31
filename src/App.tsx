@@ -479,6 +479,7 @@ export default function App() {
         onNavigate={(v) => setCurrentView(v)}
         onLogout={handleLogout}
         onManualSync={handleManualSync}
+        onLanguageChange={(langCode) => handleUpdateProfile({ preferredLanguage: langCode })}
       />
 
       {/* Main Content Area */}
@@ -497,6 +498,7 @@ export default function App() {
             }}
             onNavigate={(v) => setCurrentView(v)}
             onOpenAIAssistant={() => setShowAIAssistant(true)}
+            onLanguageChange={(langCode) => handleUpdateProfile({ preferredLanguage: langCode })}
           />
         )}
 
@@ -611,7 +613,11 @@ export default function App() {
       </main>
 
       {/* Persistent Bottom Navigation for Mobile */}
-      <BottomNav currentView={currentView} onNavigate={(v) => setCurrentView(v)} />
+      <BottomNav
+        currentView={currentView}
+        onNavigate={(v) => setCurrentView(v)}
+        langCode={user.preferredLanguage}
+      />
 
       {/* Modals & Drawers */}
       {showRecordModal && (

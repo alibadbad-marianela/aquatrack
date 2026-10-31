@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AquaLogo } from './AquaLogo';
 import { MultilingualGreeting } from './MultilingualGreeting';
 import { UserProfile, WaterRecord } from '../types';
+import { getTranslations } from '../lib/localization';
 import {
   Plus,
   Moon,
@@ -39,6 +40,7 @@ interface NavbarProps {
   onNavigate: (view: string) => void;
   onLogout: () => void;
   onManualSync: () => void;
+  onLanguageChange?: (langCode: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -54,18 +56,20 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   onLogout,
   onManualSync,
+  onLanguageChange,
 }) => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const t = getTranslations(user.preferredLanguage || 'en');
 
   const navLinks = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'calendar', label: 'Calendar', icon: CalendarIcon },
-    { id: 'history', label: 'History', icon: HistoryIcon },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-    { id: 'games', label: 'Games (10)', icon: Gamepad2 },
-    { id: 'news', label: 'Water News', icon: Newspaper },
-    { id: 'learn', label: 'Learn', icon: GraduationCap },
-    { id: 'laws', label: 'PH Laws', icon: Scale },
+    { id: 'dashboard', label: t.navHome, icon: Home },
+    { id: 'calendar', label: t.navCalendar, icon: CalendarIcon },
+    { id: 'history', label: t.navHistory, icon: HistoryIcon },
+    { id: 'analytics', label: t.navAnalytics, icon: BarChart3 },
+    { id: 'games', label: t.navGames, icon: Gamepad2 },
+    { id: 'news', label: t.navNews, icon: Newspaper },
+    { id: 'learn', label: t.navLearn, icon: GraduationCap },
+    { id: 'laws', label: t.navLaws, icon: Scale },
   ];
 
   return (
@@ -88,6 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               autoRotate={user.autoRotateGreeting}
               intervalSec={user.greetingRotateIntervalSec}
               initialLangCode={user.preferredLanguage}
+              onLanguageChange={onLanguageChange}
             />
           </div>
         </div>

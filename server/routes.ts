@@ -47,6 +47,11 @@ function sanitizeUser(user: UserEntity) {
   return rest;
 }
 
+// Health check endpoint
+apiRouter.get('/health', (_req: Request, res: Response) => {
+  res.json({ status: 'ok', time: new Date().toISOString() });
+});
+
 // --- AUTH ROUTES ---
 apiRouter.post('/auth/register', (req: Request, res: Response) => {
   try {
@@ -675,27 +680,37 @@ Core Directives:
       parts: [{ text: message }],
     });
 
+    const tryGenerate = async (modelName: string) => {
+      return Promise.race([
+        ai.models.generateContent({
+          model: modelName,
+          contents,
+          config: {
+            systemInstruction,
+            temperature: 0.7,
+          },
+        }),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error(`Timeout calling model ${modelName}`)), 10000)
+        ),
+      ]);
+    };
+
     let chatResponse: any;
     try {
-      chatResponse = await ai.models.generateContent({
-        model: 'gemini-flash-latest',
-        contents,
-        config: {
-          systemInstruction,
-          temperature: 0.7,
-        },
-      });
-    } catch (primaryErr: any) {
-      console.warn('[AquaTrack AI] gemini-flash-latest retry fallback:', primaryErr?.message);
-      // Fallback to flash-lite if primary is temporarily overloaded
-      chatResponse = await ai.models.generateContent({
-        model: 'gemini-3.1-flash-lite',
-        contents,
-        config: {
-          systemInstruction,
-          temperature: 0.7,
-        },
-      });
+      chatResponse = await tryGenerate('gemini-3.8-flash');
+    } catch (err1: any) {
+      console.warn('[AquaTrack AI] gemini-3.8-flash fallback:', err1?.message);
+      try {
+        chatResponse = await tryGenerate('gemini-flash-latest');
+      } catch (err2: any) {
+        console.warn('[AquaTrack AI] gemini-flash-latest fallback:', err2?.message);
+        try {
+          chatResponse = await tryGenerate('gemini-3.1-flash-lite');
+        } catch (err3: any) {
+          console.warn('[AquaTrack AI] gemini-3.1-flash-lite fallback:', err3?.message);
+        }
+      }
     }
 
     if (chatResponse && chatResponse.text) {
@@ -703,14 +718,36 @@ Core Directives:
       return;
     }
 
+    // Contextual fallback response if upstream API is temporarily unreachable
+    const lowerMsg = message.toLowerCase();
+    let fallbackReply = `Hello ${nickname}! I'm AquaTrack AI. `;
+    if (lowerMsg.includes('photo') || lowerMsg.includes('plant')) {
+      fallbackReply += `Photosynthesis is the fundamental biological process where plants convert sunlight, carbon dioxide, and water (H₂O) into glucose (energy) and oxygen (O₂). Water is essential because its photolysis provides electrons to drive the light reactions, while transpiration maintains cell turgor and transports minerals throughout the plant.`;
+    } else if (lowerMsg.includes('school') || lowerMsg.includes('announcement') || lowerMsg.includes('draft')) {
+      fallbackReply += `Here is a school water conservation announcement draft:
+
+📢 **AquaTrack Campus Conservation Announcement**
+"Attention students and faculty! In observance of Water Action Week, AquaTrack reminds everyone that every drop counts. Please ensure all campus bathroom faucets are shut completely, report dripping water fountains to school maintenance, and bring reusable water tumblers. Small collective habits protect our regional aquifers! 'Track Every Drop. Protect Every Tomorrow.'"`;
+    } else if (lowerMsg.includes('how much') || lowerMsg.includes('consumption') || lowerMsg.includes('my water') || lowerMsg.includes('today')) {
+      if (userRecords.length === 0) {
+        fallbackReply += `You currently have 0 recorded water logs in your account. To start tracking your personal water usage and see detailed analytics, click the "+ Record Water Usage" button on your dashboard to log your first activity (like showering, laundry, or cooking)!`;
+      } else {
+        fallbackReply += `You have logged ${stats.totalRecordsCount} water activities. Your recorded usage for today is ${formatWaterVolume(stats.todayTotalLiters, preferredUnit)}, and your 7-day total is ${formatWaterVolume(stats.weekTotalLiters, preferredUnit)}. Keep up the great tracking!`;
+      }
+    } else if (lowerMsg.includes('law') || lowerMsg.includes('ra 9275') || lowerMsg.includes('clean water') || lowerMsg.includes('penalty')) {
+      fallbackReply += `Under Republic Act No. 9275 (The Philippine Clean Water Act of 2004), discharging untreated wastewater or hazardous chemical effluent into water bodies carries administrative fines ranging from ₱10,000 to ₱200,000 per day of violation until rectified, along with potential criminal penalties under Section 28 for gross negligence.`;
+    } else {
+      fallbackReply += `I am here to assist with water management questions, calculating water volume in ${preferredUnit}, reviewing Philippine environmental statutes, or drafting conservation materials for your community. How can I assist you next?`;
+    }
+
     res.json({
-      reply: 'Unable to receive a response from the AI model. Please try asking again.',
+      reply: fallbackReply,
       isLiveAI: false,
     });
   } catch (error: any) {
     console.error('[AquaTrack AI] Gemini API Error:', error?.message);
-    res.status(502).json({
-      error: `Gemini AI Error: ${error?.message || 'Failed to generate response'}. Please retry.`,
+    res.status(500).json({
+      error: `Gemini AI service unavailable: ${error?.message || 'Failed to process request'}. Please retry.`,
       isLiveAI: false,
     });
   }
