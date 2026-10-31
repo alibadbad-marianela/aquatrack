@@ -5,6 +5,7 @@ import { MarineShowcase } from './MarineShowcase';
 import { UserProfile, WaterRecord, Goal } from '../../types';
 import { formatWaterVolume, CATEGORY_LABELS } from '../../lib/waterCalculations';
 import { getTranslations } from '../../lib/localization';
+import { BASELINE_VERIFIED_NEWS } from '../../lib/waterNewsData';
 import {
   Droplets,
   Plus,
@@ -157,9 +158,28 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       </section>
 
-      {/* Main Dashboard Metrics */}
+      {/* Tracking Streak Banner */}
+      <div className="flex flex-col sm:flex-row items-center justify-between px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-cyan-500/5 to-blue-500/10 border border-amber-500/25 dark:border-amber-400/20 text-xs text-amber-800 dark:text-amber-200 gap-2 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-amber-500 text-white shadow-sm shadow-amber-500/30">
+            <Award className="w-4 h-4" />
+          </div>
+          <div>
+            <span className="font-bold">Active Tracking Streak: </span>
+            <span className="font-semibold text-slate-900 dark:text-white">
+              {currentStreak > 0 ? `${currentStreak} consecutive days logged` : 'Start your logging streak today!'}
+            </span>
+          </div>
+        </div>
+        <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 hidden md:inline">
+          Track Every Drop. Protect Every Tomorrow.
+        </span>
+      </div>
+
+      {/* Main Dashboard Metrics: Today, Weekly, Monthly, Goal */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
+        {/* Today's Water Consumption */}
+        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm hover:border-cyan-500/40 transition-colors">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
               {t.todayWater}
@@ -174,37 +194,40 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <span className="text-[11px] text-slate-400 mt-1 block">Active date consumption</span>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
+        {/* Weekly Consumption Summary (7 Days) */}
+        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm hover:border-blue-500/40 transition-colors">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              {t.past7Days}
+              Weekly (7 Days)
             </span>
             <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-500">
-              <Calendar className="w-4 h-4" />
+              <Clock className="w-4 h-4" />
             </div>
           </div>
           <p className="text-2xl sm:text-3xl font-bold font-data text-blue-600 dark:text-blue-400">
             {formatWaterVolume(stats.weekTotalLiters, user.preferredUnit)}
           </p>
-          <span className="text-[11px] text-slate-400 mt-1 block">Rolling weekly total</span>
+          <span className="text-[11px] text-slate-400 mt-1 block">Rolling 7-day usage</span>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
+        {/* Monthly Consumption Summary (30 Days) */}
+        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm hover:border-indigo-500/40 transition-colors">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              {t.activeStreak}
+              Monthly (30 Days)
             </span>
-            <div className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-500">
-              <Award className="w-4 h-4" />
+            <div className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500">
+              <TrendingDown className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl sm:text-3xl font-bold font-data text-amber-500">
-            {currentStreak} <span className="text-sm font-semibold text-slate-400">Days</span>
+          <p className="text-2xl sm:text-3xl font-bold font-data text-indigo-600 dark:text-indigo-400">
+            {formatWaterVolume(stats.monthTotalLiters, user.preferredUnit)}
           </p>
-          <span className="text-[11px] text-slate-400 mt-1 block">Consecutive tracking</span>
+          <span className="text-[11px] text-slate-400 mt-1 block">Rolling 30-day volume</span>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
+        {/* Water-Saving Goal and Progress */}
+        <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm hover:border-emerald-500/40 transition-colors">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
               {t.dailyTarget}
@@ -215,12 +238,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
           {primaryGoal ? (
             <div>
-              <p className="text-2xl sm:text-3xl font-bold font-data text-slate-900 dark:text-white">
-                {goalProgressPct}%
-              </p>
+              <div className="flex items-baseline justify-between">
+                <p className="text-2xl sm:text-3xl font-bold font-data text-slate-900 dark:text-white">
+                  {goalProgressPct}%
+                </p>
+                <span className="text-[10px] sm:text-xs text-slate-400 font-data truncate max-w-[100px]">
+                  of {formatWaterVolume(primaryGoal.targetLiters, user.preferredUnit)}
+                </span>
+              </div>
               <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden mt-2">
                 <div
-                  className={`h-full rounded-full ${
+                  className={`h-full rounded-full transition-all duration-500 ${
                     goalProgressPct > 100 ? 'bg-red-500' : 'bg-emerald-500'
                   }`}
                   style={{ width: `${Math.min(100, goalProgressPct)}%` }}
@@ -302,6 +330,68 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       {/* Marine Ecosystem & Coastal Biodiversity Showcase */}
       <MarineShowcase onNavigateToLearn={() => onNavigate('learn')} />
+
+      {/* Water Issues & Environmental News Preview (Real unique photographs) */}
+      <div className="space-y-4">
+        <div className="flex justify-between items-end">
+          <div>
+            <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
+              <Newspaper className="w-4 h-4" />
+              <span>Water Issues & Field News</span>
+            </div>
+            <h3 className="text-lg sm:text-xl font-bold font-display text-slate-900 dark:text-white">
+              Latest Conservation Intelligence
+            </h3>
+          </div>
+          <button
+            onClick={() => onNavigate('news')}
+            className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 group"
+          >
+            <span>{t.navNews} Center</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {BASELINE_VERIFIED_NEWS.slice(0, 2).map((article) => (
+            <div
+              key={article.id}
+              onClick={() => onNavigate('news')}
+              className="group rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] hover:border-cyan-500/60 dark:hover:border-cyan-400/60 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col cursor-pointer"
+            >
+              <div className="relative h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <img
+                  src={article.imageUrl}
+                  alt={article.headline}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-[11px]">
+                  <span className="font-semibold truncate pr-2">{article.publisher}</span>
+                  <span className="text-white/80 shrink-0">{article.publishedAt}</span>
+                </div>
+              </div>
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-2 leading-snug">
+                    {article.headline}
+                  </h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed">
+                    {article.summary}
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-cyan-600 dark:text-cyan-400 font-semibold">{article.categoryLabel}</span>
+                  <span className="text-slate-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 font-medium flex items-center gap-1">
+                    Read Report <ArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Secondary Features & Conservation Hub (No duplicate shortcuts for Calendar, History, Analytics, Games) */}
       <div className="space-y-3">

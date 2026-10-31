@@ -734,6 +734,81 @@
       "onboardingCompleted": false,
       "createdAt": "2026-10-30T16:52:31.557Z",
       "updatedAt": "2026-10-30T16:52:31.557Z"
+    },
+    {
+      "id": "2dc7a28f-328d-473e-aad5-f7eee7f2f365",
+      "email": "user_1793426077641@test.ph",
+      "passwordHash": "$2b$10$jTwcMxRnLIfCsV4mwhdH3u0z5ZsOYlSOtp3aPWYHcirAVWzE9re1y",
+      "displayName": "SuperSaver",
+      "nickname": "SuperSaver",
+      "preferredLanguage": "en",
+      "preferredUnit": "imperial_gallons",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-10-31T05:54:37.726Z",
+      "updatedAt": "2026-10-31T05:54:37.808Z"
+    },
+    {
+      "id": "bdc8381f-17f3-4eba-93f6-e7c77f40eabb",
+      "email": "duplicate_1793426077810@test.ph",
+      "passwordHash": "$2b$10$3MQEq8PcgTTjeabTEYvDROtEa9ytPZAtqWQIVRLWM44o4dctblE8C",
+      "displayName": "FirstUser",
+      "nickname": "FirstUser",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-10-31T05:54:37.883Z",
+      "updatedAt": "2026-10-31T05:54:37.883Z"
+    },
+    {
+      "id": "6886c181-4e7f-4698-a4ec-7c2c87e07330",
+      "email": "login_1793426077884@test.ph",
+      "passwordHash": "$2b$10$OTHVgKUbPEti0cpeooB.iOhlVaSPyYJSgwLiU2/YWVOEpcnZmkv1W",
+      "displayName": "LoginTester",
+      "nickname": "LoginTester",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-10-31T05:54:37.959Z",
+      "updatedAt": "2026-10-31T05:54:37.959Z"
+    },
+    {
+      "id": "f327a524-43ae-46b8-adf3-1e94433100b5",
+      "email": "usera_1793426078124@test.ph",
+      "passwordHash": "$2b$10$oqRHNe3QWIVy4gWw3TUHR.2dz2pvxObQBy1UYmtZKQ7.NDteExBGK",
+      "displayName": "UserA",
+      "nickname": "UserA",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-10-31T05:54:38.199Z",
+      "updatedAt": "2026-10-31T05:54:38.199Z"
+    },
+    {
+      "id": "f018a91d-2e7a-4f92-9930-b95382edbc1f",
+      "email": "userb_1793426078200@test.ph",
+      "passwordHash": "$2b$10$ZcCB9iikZW4eonPqcfa.Y.szedpE.uKaIKZJMFchHNtzLVnva475i",
+      "displayName": "UserB",
+      "nickname": "UserB",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-10-31T05:54:38.275Z",
+      "updatedAt": "2026-10-31T05:54:38.275Z"
     }
   ],
   "records": [],
@@ -787,6 +862,16 @@
       "category": "all",
       "active": true,
       "createdAt": "2026-10-30T16:52:31.107Z"
+    },
+    {
+      "id": "4f428ad5-a1be-4a4b-9d45-8ce34d2e2ec4",
+      "userId": "2dc7a28f-328d-473e-aad5-f7eee7f2f365",
+      "title": "Family Conservation Ceiling",
+      "targetLiters": 150,
+      "period": "daily",
+      "category": "all",
+      "active": true,
+      "createdAt": "2026-10-31T05:54:37.808Z"
     }
   ],
   "reminders": [
@@ -1120,6 +1205,11 @@
       "userId": "9e1bd204-a40e-47e6-a4b3-9ffcf0fdd027",
       "achievementId": "first_drop",
       "unlockedAt": "2026-10-30T16:52:31.557Z"
+    },
+    {
+      "userId": "f327a524-43ae-46b8-adf3-1e94433100b5",
+      "achievementId": "first_drop",
+      "unlockedAt": "2026-10-31T05:54:38.276Z"
     }
   ]
 }

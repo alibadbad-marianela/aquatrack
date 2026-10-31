@@ -483,7 +483,7 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full animate-fade-in">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-28 sm:pb-32 flex-1 w-full animate-fade-in">
         {currentView === 'dashboard' && (
           <DashboardView
             user={user}
