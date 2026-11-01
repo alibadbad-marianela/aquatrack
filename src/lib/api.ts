@@ -122,7 +122,7 @@ function getLocalCurrentUser(): UserProfile | null {
 
 function createLocalAccount(email: string, password?: string, nickname?: string): { user: UserProfile; token: string } {
   const cleanEmail = email.trim().toLowerCase();
-  const cleanNick = nickname?.trim() || cleanEmail.split('@')[0] || 'Friend';
+  const cleanNick = nickname?.trim() || cleanEmail.split('@')[0] || 'Juan Dela Cruz';
   const accounts = getStoredAccounts();
 
   const existing = accounts.find(a => a.user.email.toLowerCase() === cleanEmail);

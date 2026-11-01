@@ -4,8 +4,8 @@
       "id": "af81f142-dc29-48fa-b909-7e9857b4b208",
       "email": "marian-1793009924214@aquatrack.ph",
       "passwordHash": "$2b$10$PZj2prrdlS/nnUIZJt.vnO6c8olDB1tX5JT1wg5ZrPcyQ9Wdul2lG",
-      "displayName": "Marian Ela",
-      "nickname": "Marian Ela",
+      "displayName": "Juan Dela Cruz",
+      "nickname": "Juan Dela Cruz",
       "preferredLanguage": "en",
       "preferredUnit": "liters",
       "theme": "system",
@@ -13,7 +13,7 @@
       "greetingRotateIntervalSec": 8,
       "onboardingCompleted": true,
       "createdAt": "2026-10-26T10:18:44.560Z",
-      "updatedAt": "2026-10-26T10:18:44.560Z"
+      "updatedAt": "2026-11-01T11:15:25.178Z"
     },
     {
       "id": "e9e58896-0e1d-4acc-a36a-cfa02ebabed8",
@@ -34,8 +34,8 @@
       "id": "f9d089f5-893a-4418-9f5c-11e29cf794c5",
       "email": "testuser@example.com",
       "passwordHash": "$2b$10$E9rdKPp5Ak9oo05F1ctS9.RJIWJvDyE4QP13I4RphYA53bXs5QgqW",
-      "displayName": "TestUser",
-      "nickname": "TestUser",
+      "displayName": "Juan Dela Cruz",
+      "nickname": "Juan Dela Cruz",
       "preferredLanguage": "en",
       "preferredUnit": "liters",
       "theme": "system",
@@ -43,14 +43,14 @@
       "greetingRotateIntervalSec": 8,
       "onboardingCompleted": true,
       "createdAt": "2026-10-28T12:33:03.200Z",
-      "updatedAt": "2026-10-28T12:33:03.200Z"
+      "updatedAt": "2026-11-01T11:15:25.195Z"
     },
     {
       "id": "412d301a-83ac-47dd-9768-981748a74138",
       "email": "keichin19255@gmail.com",
       "passwordHash": "$2b$10$vDiaT8aLQEI1NT/8bmdBw.R/p4dK.QxZ96hJZplX7kyfh8XCJ.2XC",
-      "displayName": "Keichin",
-      "nickname": "Keichin",
+      "displayName": "Juan Dela Cruz",
+      "nickname": "Juan Dela Cruz",
       "preferredLanguage": "en",
       "preferredUnit": "liters",
       "theme": "system",
@@ -58,7 +58,7 @@
       "greetingRotateIntervalSec": 8,
       "onboardingCompleted": true,
       "createdAt": "2026-10-28T12:39:28.723Z",
-      "updatedAt": "2026-10-28T12:39:28.723Z"
+      "updatedAt": "2026-11-01T11:15:25.195Z"
     },
     {
       "id": "422fad92-b11a-4d4d-8c91-232e80629963",
@@ -649,8 +649,8 @@
       "id": "201bb23a-bbc0-4b21-aee5-38efdcf062cd",
       "email": "test_ai@aquatrack.org",
       "passwordHash": "$2b$10$Xmd0IN.c/KagojZclWwG1OuSXEfb3zKBq8lWriUKK/qYzm2E4Dj72",
-      "displayName": "Juan",
-      "nickname": "Juan",
+      "displayName": "Juan Dela Cruz",
+      "nickname": "Juan Dela Cruz",
       "preferredLanguage": "en",
       "preferredUnit": "liters",
       "theme": "system",
@@ -658,7 +658,7 @@
       "greetingRotateIntervalSec": 8,
       "onboardingCompleted": false,
       "createdAt": "2026-10-30T16:45:45.720Z",
-      "updatedAt": "2026-10-30T16:45:45.720Z"
+      "updatedAt": "2026-11-01T11:15:25.195Z"
     },
     {
       "id": "303e6e11-1a0a-48a3-81b2-cde0813194d8",
@@ -809,6 +809,81 @@
       "onboardingCompleted": false,
       "createdAt": "2026-10-31T05:54:38.275Z",
       "updatedAt": "2026-10-31T05:54:38.275Z"
+    },
+    {
+      "id": "9929a2c0-869a-4e40-9f31-31ac3f6cee19",
+      "email": "user_1793531981660@test.ph",
+      "passwordHash": "$2b$10$rldnCsBRK8v.kcDkio4x1OPChL6Ivfyi//hf/zeZg7dbkKXeiFMNu",
+      "displayName": "SuperSaver",
+      "nickname": "SuperSaver",
+      "preferredLanguage": "en",
+      "preferredUnit": "imperial_gallons",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-11-01T11:19:41.755Z",
+      "updatedAt": "2026-11-01T11:19:41.839Z"
+    },
+    {
+      "id": "d44050c7-d45d-4d33-a3e5-0215f9e2716b",
+      "email": "duplicate_1793531981841@test.ph",
+      "passwordHash": "$2b$10$1bJ6ErktrsbTtYmsX68SIuXOsfUC8dU39xe4JuS0eeDeFXXTFktny",
+      "displayName": "FirstUser",
+      "nickname": "FirstUser",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-01T11:19:41.919Z",
+      "updatedAt": "2026-11-01T11:19:41.919Z"
+    },
+    {
+      "id": "cf9d1f31-8cf8-4f69-941b-aeb39d82bd75",
+      "email": "login_1793531981921@test.ph",
+      "passwordHash": "$2b$10$fU/VsuT6b94mgIQCcqiMye2XW/zesTHA694QDc20Uas6D2CZaBWS2",
+      "displayName": "LoginTester",
+      "nickname": "LoginTester",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-01T11:19:42.000Z",
+      "updatedAt": "2026-11-01T11:19:42.000Z"
+    },
+    {
+      "id": "82443dbf-5521-4c7e-908e-c107f3b58fc4",
+      "email": "usera_1793531982157@test.ph",
+      "passwordHash": "$2b$10$zcUa8fZDdUMi3RgZdBrPfeY/IeXKlvF8TwnV482SALY31rJF7w3eW",
+      "displayName": "UserA",
+      "nickname": "UserA",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-01T11:19:42.231Z",
+      "updatedAt": "2026-11-01T11:19:42.231Z"
+    },
+    {
+      "id": "3c7dd6a3-406e-40f8-96e0-c5128996a20d",
+      "email": "userb_1793531982232@test.ph",
+      "passwordHash": "$2b$10$0qt5GUSGjSZK06ht0231pOcveB4ZiKa358OL6z10air0tPWJ0RZpa",
+      "displayName": "UserB",
+      "nickname": "UserB",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-01T11:19:42.315Z",
+      "updatedAt": "2026-11-01T11:19:42.315Z"
     }
   ],
   "records": [],
@@ -872,6 +947,16 @@
       "category": "all",
       "active": true,
       "createdAt": "2026-10-31T05:54:37.808Z"
+    },
+    {
+      "id": "84b2c744-cc69-400f-ab44-9275dc7e3892",
+      "userId": "9929a2c0-869a-4e40-9f31-31ac3f6cee19",
+      "title": "Family Conservation Ceiling",
+      "targetLiters": 150,
+      "period": "daily",
+      "category": "all",
+      "active": true,
+      "createdAt": "2026-11-01T11:19:41.839Z"
     }
   ],
   "reminders": [
@@ -1210,6 +1295,11 @@
       "userId": "f327a524-43ae-46b8-adf3-1e94433100b5",
       "achievementId": "first_drop",
       "unlockedAt": "2026-10-31T05:54:38.276Z"
+    },
+    {
+      "userId": "82443dbf-5521-4c7e-908e-c107f3b58fc4",
+      "achievementId": "first_drop",
+      "unlockedAt": "2026-11-01T11:19:42.316Z"
     }
   ]
 }

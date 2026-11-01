@@ -15,13 +15,13 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   onDismiss,
 }) => {
   const [step, setStep] = useState(1);
-  const [nickname, setNickname] = useState(initialNickname || 'Friend');
+  const [nickname, setNickname] = useState(initialNickname || 'Juan Dela Cruz');
   const [unit, setUnit] = useState<WaterUnit>('liters');
   const [dailyGoal, setDailyGoal] = useState<number>(100);
 
   const handleFinish = () => {
     onComplete({
-      nickname: nickname.trim() || 'Friend',
+      nickname: nickname.trim() || 'Juan Dela Cruz',
       preferredUnit: unit,
       dailyGoalLiters: Number(dailyGoal) || 100,
     });
@@ -70,7 +70,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 type="text"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
-                placeholder="Enter your nickname"
+                placeholder="e.g. Juan Dela Cruz"
                 maxLength={30}
                 className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-[#0c1a2c] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
               />

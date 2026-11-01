@@ -450,12 +450,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="p-6 rounded-3xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-[#263D52] shadow-sm">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-base font-bold text-slate-900 dark:text-white">{t.recentActivities}</h3>
-          <button
-            onClick={() => onNavigate('history')}
-            className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:underline"
-          >
-            {t.viewAllHistory} ({records.length}) →
-          </button>
+          <span className="text-xs font-medium text-slate-400">
+            {records.length} {records.length === 1 ? 'Logged Record' : 'Logged Records'}
+          </span>
         </div>
 
         {records.length === 0 ? (

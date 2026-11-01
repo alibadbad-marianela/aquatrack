@@ -19,12 +19,6 @@ import {
   WifiOff,
   ChevronDown,
   RefreshCw,
-  Home,
-  Calendar as CalendarIcon,
-  History as HistoryIcon,
-  BarChart3,
-  Gamepad2,
-  Newspaper
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -61,17 +55,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const t = getTranslations(user.preferredLanguage || 'en');
 
-  const navLinks = [
-    { id: 'dashboard', label: t.navHome, icon: Home },
-    { id: 'calendar', label: t.navCalendar, icon: CalendarIcon },
-    { id: 'history', label: t.navHistory, icon: HistoryIcon },
-    { id: 'analytics', label: t.navAnalytics, icon: BarChart3 },
-    { id: 'games', label: t.navGames, icon: Gamepad2 },
-    { id: 'news', label: t.navNews, icon: Newspaper },
-    { id: 'learn', label: t.navLearn, icon: GraduationCap },
-    { id: 'laws', label: t.navLaws, icon: Scale },
-  ];
-
   return (
     <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#081522]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
@@ -97,28 +80,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Center: Desktop Navigation Bar */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 p-1 rounded-2xl border border-slate-200/60 dark:border-slate-800/80">
-          {navLinks.map((link) => {
-            const Icon = link.icon;
-            const isActive = currentView === link.id;
-            return (
-              <button
-                key={link.id}
-                onClick={() => onNavigate(link.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                  isActive
-                    ? 'bg-white dark:bg-[#102338] text-cyan-600 dark:text-cyan-400 shadow-sm shadow-slate-200 dark:shadow-none'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50'
-                }`}
-                aria-current={isActive ? 'page' : undefined}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-cyan-500' : 'text-slate-400 dark:text-slate-500'}`} />
-                <span>{link.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+        {/* Center: Mission Tagline & Brand Presence (No duplicate primary navigation) */}
+        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-50/70 dark:bg-cyan-950/30 border border-cyan-500/20 text-xs font-medium text-cyan-800 dark:text-cyan-200">
+          <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+          <span>Track Every Drop. Protect Every Tomorrow.</span>
+        </div>
 
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">

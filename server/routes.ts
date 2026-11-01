@@ -63,7 +63,7 @@ apiRouter.post('/auth/register', (req: Request, res: Response) => {
 
     const { email, password, nickname } = parsed.data;
     const cleanEmail = email.trim().toLowerCase();
-    const cleanNickname = nickname?.trim() || cleanEmail.split('@')[0] || 'Friend';
+    const cleanNickname = nickname?.trim() || cleanEmail.split('@')[0] || 'Juan Dela Cruz';
 
     const existing = db.findUserByEmail(cleanEmail);
     if (existing) {
@@ -617,7 +617,7 @@ apiRouter.post('/ai/chat', authMiddleware, async (req: AuthenticatedRequest, res
   // Get authenticated user context to provide personalized responses
   const userRecords = db.getRecordsByUser(req.user!.id);
   const stats = calculateSummaryStats(userRecords);
-  const nickname = req.user?.nickname || 'Friend';
+  const nickname = req.user?.nickname || 'Juan Dela Cruz';
   const preferredUnit = req.user?.preferredUnit || 'liters';
   const userGoals = db.getGoals(req.user!.id);
   const activeGoal = userGoals.find((g) => g.active && g.period === 'daily') || userGoals[0];

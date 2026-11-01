@@ -45,7 +45,7 @@ export const WelcomeSetupWizard: React.FC<WelcomeSetupWizardProps> = ({
   onComplete,
 }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [nickname, setNickname] = useState(initialNickname || 'Friend');
+  const [nickname, setNickname] = useState(initialNickname || 'Juan Dela Cruz');
   const [selectedUnit, setSelectedUnit] = useState<WaterUnit>(initialUnit);
 
   // Goal state
@@ -216,7 +216,7 @@ export const WelcomeSetupWizard: React.FC<WelcomeSetupWizardProps> = ({
                 maxLength={30}
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
-                placeholder="e.g. Marian"
+                placeholder="e.g. Juan Dela Cruz"
                 className="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-[#081524] text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
               />
               <p className="text-[11px] text-slate-400">

@@ -994,7 +994,7 @@ export function getTranslations(langCode: string): AppTranslations {
 
 export function formatGreeting(langCode: string, nickname: string): { text: string; isRtl: boolean; language: string } {
   const lang = GREETING_LANGUAGES.find((l) => l.code === langCode) || GREETING_LANGUAGES.find((l) => l.code === 'en') || GREETING_LANGUAGES[0];
-  const safeName = nickname && nickname.trim() ? nickname.trim() : 'Friend';
+  const safeName = nickname && nickname.trim() ? nickname.trim() : 'Juan Dela Cruz';
   const text = lang.template.replace('{name}', safeName);
   return {
     text,
