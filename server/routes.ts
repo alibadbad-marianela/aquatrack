@@ -41,6 +41,24 @@ export function authMiddleware(req: AuthenticatedRequest, res: Response, next: N
   next();
 }
 
+export function optionalAuthMiddleware(req: AuthenticatedRequest, _res: Response, next: NextFunction): void {
+  const authHeader = req.headers.authorization;
+  const tokenFromHeader = authHeader && authHeader.startsWith('Bearer ') ? authHeader.substring(7) : null;
+  const tokenFromCookie = req.cookies?.aquatrack_session;
+  const token = tokenFromHeader || tokenFromCookie;
+
+  if (token) {
+    const payload = db.verifySessionToken(token);
+    if (payload) {
+      const user = db.findUserById(payload.userId);
+      if (user) {
+        req.user = user;
+      }
+    }
+  }
+  next();
+}
+
 // Strip password hash from responses
 function sanitizeUser(user: UserEntity) {
   const { passwordHash, resetToken, resetTokenExpiry, ...rest } = user;
@@ -184,6 +202,12 @@ apiRouter.put('/auth/profile', authMiddleware, (req: AuthenticatedRequest, res: 
     const allowed = [
       'nickname',
       'displayName',
+      'avatarUrl',
+      'birthdate',
+      'location',
+      'householdSize',
+      'bio',
+      'privacySettings',
       'preferredLanguage',
       'preferredUnit',
       'theme',
@@ -204,6 +228,11 @@ apiRouter.put('/auth/profile', authMiddleware, (req: AuthenticatedRequest, res: 
   } catch (err: any) {
     res.status(400).json({ error: err.message || 'Update failed' });
   }
+});
+
+apiRouter.get('/user/streak', authMiddleware, (req: AuthenticatedRequest, res: Response) => {
+  const streak = db.getStreakDetails(req.user!.id);
+  res.json({ streak });
 });
 
 apiRouter.post('/auth/forgot-password', (req: Request, res: Response) => {
@@ -606,7 +635,7 @@ ${advice}
 }
 
 // --- AI ASSISTANT (Gemini API via @google/genai with Multi-turn & Fast Fallback) ---
-apiRouter.post('/ai/chat', authMiddleware, async (req: AuthenticatedRequest, res: Response) => {
+const handleAIChat = async (req: AuthenticatedRequest, res: Response) => {
   const { message, history } = req.body;
 
   if (!message || typeof message !== 'string') {
@@ -614,12 +643,13 @@ apiRouter.post('/ai/chat', authMiddleware, async (req: AuthenticatedRequest, res
     return;
   }
 
-  // Get authenticated user context to provide personalized responses
-  const userRecords = db.getRecordsByUser(req.user!.id);
+  // Get authenticated user context if available, otherwise personalized guest context
+  const user = req.user;
+  const userRecords = user ? db.getRecordsByUser(user.id) : [];
   const stats = calculateSummaryStats(userRecords);
-  const nickname = req.user?.nickname || 'Juan Dela Cruz';
-  const preferredUnit = req.user?.preferredUnit || 'liters';
-  const userGoals = db.getGoals(req.user!.id);
+  const nickname = user?.nickname || user?.displayName || 'Juan Dela Cruz';
+  const preferredUnit = user?.preferredUnit || 'liters';
+  const userGoals = user ? db.getGoals(user.id) : [];
   const activeGoal = userGoals.find((g) => g.active && g.period === 'daily') || userGoals[0];
 
   const apiKey = process.env.GEMINI_API_KEY;
@@ -751,58 +781,111 @@ Core Directives:
       isLiveAI: false,
     });
   }
+};
+
+apiRouter.post('/ai/chat', optionalAuthMiddleware, handleAIChat);
+apiRouter.post('/chat', optionalAuthMiddleware, handleAIChat);
+
+const VERIFIED_CHALLENGES = [
+  {
+    id: 'challenge-1',
+    title: 'The 5-Minute Shower Sprint',
+    description: 'Cap your daily showers at 5 minutes for 5 straight days to save approximately 45 liters per day.',
+    category: 'Personal Habit',
+    badge: 'Shower Sprinter',
+    practicalSavingLitersPerDay: 45,
+  },
+  {
+    id: 'challenge-2',
+    title: 'Zero Sink-Running Toothbrush Week',
+    description: 'Never leave the bathroom tap flowing while brushing teeth. Use a cup to rinse.',
+    category: 'Household',
+    badge: 'Tap Sentry',
+    practicalSavingLitersPerDay: 15,
+  },
+  {
+    id: 'challenge-3',
+    title: 'Master Leak Detective Patrol',
+    description: 'Conduct a thorough home leak check: toilet tank dye test, outdoor hose bibbs, and kitchen faucet washers.',
+    category: 'Audit & Maintenance',
+    badge: 'Leak Inspector',
+    practicalSavingLitersPerDay: 80,
+  },
+  {
+    id: 'challenge-4',
+    title: 'Full-Load Laundry Discipline',
+    description: 'Run washing machines only with complete wash loads to eliminate half-load rinse cycles.',
+    category: 'Appliance Efficiency',
+    badge: 'Load Master',
+    practicalSavingLitersPerDay: 50,
+  },
+];
+
+// --- REAL COMMUNITY CHALLENGES & FACTUAL TIPS (No Fabricated Data) ---
+apiRouter.get('/community', optionalAuthMiddleware, (req: AuthenticatedRequest, res: Response) => {
+  const category = req.query.category as string | undefined;
+  const userId = req.user?.id;
+  const userJoined = userId ? db.getUserJoinedChallenges(userId) : [];
+
+  const challenges = VERIFIED_CHALLENGES.map((ch) => ({
+    ...ch,
+    participantsCount: db.getChallengeParticipantsCount(ch.id),
+    hasJoined: userJoined.includes(ch.id),
+  }));
+
+  const tips = db.getCommunityTips(category);
+
+  res.json({
+    challenges,
+    tips,
+  });
 });
 
-// --- COMMUNITY CHALLENGES & TIPS ---
-apiRouter.get('/community', (req: Request, res: Response) => {
-  res.json({
-    challenges: [
-      {
-        id: 'challenge-1',
-        title: 'The 5-Minute Shower Sprint',
-        description: 'Cap your daily showers at 5 minutes for 5 straight days to save approximately 45 liters per day.',
-        participants: 128,
-        category: 'Personal Habit',
-        badge: 'Shower Sprinter',
-      },
-      {
-        id: 'challenge-2',
-        title: 'Zero Sink-Running Toothbrush Week',
-        description: 'Never leave the bathroom tap flowing while brushing teeth. Use a cup to rinse.',
-        participants: 215,
-        category: 'Household',
-        badge: 'Tap Sentry',
-      },
-      {
-        id: 'challenge-3',
-        title: 'Master Leak Detective Patrol',
-        description: 'Conduct a thorough home leak check: toilet tank dye test, outdoor hose bibbs, and kitchen faucet washers.',
-        participants: 94,
-        category: 'Audit & Maintenance',
-        badge: 'Leak Inspector',
-      },
-    ],
-    tips: [
-      {
-        id: 'tip-1',
-        author: 'AquaTrack Science Team',
-        tip: 'Collect vegetable washing rinse water to nourish outdoor potted plants with organic minerals.',
-        likes: 42,
-      },
-      {
-        id: 'tip-2',
-        author: 'Marian Ela J. Alibadbad',
-        tip: 'Check your water meter before sleeping. If the red indicator needle spins while all taps are off, you have a hidden leak.',
-        likes: 89,
-      },
-      {
-        id: 'tip-3',
-        author: 'Eco Youth PH',
-        tip: 'Only run your washing machine with full loads to optimize water and electricity efficiency simultaneously.',
-        likes: 56,
-      },
-    ],
+apiRouter.post('/community/tips', authMiddleware, (req: AuthenticatedRequest, res: Response) => {
+  const { title, tip, category, practicalImpact } = req.body;
+  if (!title || !tip) {
+    res.status(400).json({ error: 'Title and water-saving advice content are required' });
+    return;
+  }
+
+  const newTip = db.createCommunityTip({
+    userId: req.user!.id,
+    authorNickname: req.user!.nickname || req.user!.displayName || 'Juan Dela Cruz',
+    authorAvatar: req.user!.avatarUrl,
+    category: category || 'General Habit',
+    title: String(title).trim(),
+    tip: String(tip).trim(),
+    practicalImpact: practicalImpact ? String(practicalImpact).trim() : undefined,
   });
+
+  res.json({ tip: newTip });
+});
+
+apiRouter.post('/community/tips/:id/like', authMiddleware, (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const tip = db.likeCommunityTip(req.params.id, req.user!.id);
+    res.json({ tip });
+  } catch (err: any) {
+    res.status(404).json({ error: err.message || 'Tip not found' });
+  }
+});
+
+apiRouter.post('/community/challenges/:id/join', authMiddleware, (req: AuthenticatedRequest, res: Response) => {
+  const challenge = VERIFIED_CHALLENGES.find((c) => c.id === req.params.id);
+  if (!challenge) {
+    res.status(404).json({ error: 'Challenge not found' });
+    return;
+  }
+
+  const result = db.toggleChallengeParticipation(req.params.id, req.user!.id);
+  res.json(result);
+});
+
+// --- GAME LEADERBOARDS & RANKINGS (Real Gameplay Only) ---
+apiRouter.get('/games/leaderboard', (req: Request, res: Response) => {
+  const gameId = req.query.gameId as string | undefined;
+  const leaderboard = db.getGameLeaderboard(gameId);
+  res.json({ leaderboard });
 });
 
 // --- PUBLIC WATER ISSUES & ENVIRONMENTAL NEWS ROUTES ---

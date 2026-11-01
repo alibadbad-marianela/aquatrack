@@ -29,11 +29,23 @@ export interface WaterRecord {
   syncStatus?: 'synced' | 'pending' | 'local_only' | 'failed';
 }
 
+export interface PrivacySettings {
+  showOnLeaderboard?: boolean;
+  showPublicTips?: boolean;
+  showStreakPublicly?: boolean;
+}
+
 export interface UserProfile {
   id: string;
   email: string;
   displayName: string;
   nickname: string;
+  avatarUrl?: string;
+  birthdate?: string; // YYYY-MM-DD
+  location?: string;
+  householdSize?: number;
+  bio?: string;
+  privacySettings?: PrivacySettings;
   preferredLanguage: string;
   preferredUnit: WaterUnit;
   theme: 'light' | 'dark' | 'system';
@@ -41,6 +53,45 @@ export interface UserProfile {
   greetingRotateIntervalSec: number;
   onboardingCompleted: boolean;
   createdAt: string;
+}
+
+export interface CommunityTip {
+  id: string;
+  userId: string;
+  authorNickname: string;
+  authorAvatar?: string;
+  category: string;
+  title: string;
+  tip: string;
+  practicalImpact?: string;
+  likesCount: number;
+  likedBy: string[];
+  isVerifiedAuthority?: boolean;
+  sourceAuthority?: string;
+  createdAt: string;
+}
+
+export interface CommunityChallenge {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  badge: string;
+  practicalSavingLitersPerDay: number;
+  participantsCount: number;
+  hasJoined?: boolean;
+}
+
+export interface GameLeaderboardEntry {
+  rank: number;
+  userId: string;
+  nickname: string;
+  avatarUrl?: string;
+  gameId: string;
+  highScore: number;
+  stars: number;
+  achievementsCount: number;
+  lastPlayedAt: string;
 }
 
 export interface Goal {

@@ -23,6 +23,7 @@ import { WelcomeSetupWizard } from './components/WelcomeSetupWizard';
 import { PHILIPPINE_LAWS } from './lib/philippineLaws';
 import { LESSONS } from './lib/learningContent';
 import { WaterNewsView } from './components/news/WaterNewsView';
+import { StreakModal } from './components/StreakModal';
 import { AquaLogo } from './components/AquaLogo';
 import { ArrowLeft, GraduationCap } from 'lucide-react';
 
@@ -65,6 +66,7 @@ export default function App() {
   const [modalInitialDate, setModalInitialDate] = useState<string | undefined>(undefined);
   const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [showCreatorModal, setShowCreatorModal] = useState(false);
+  const [showStreakModal, setShowStreakModal] = useState(false);
 
   // App Data State
   const [records, setRecords] = useState<WaterRecord[]>([]);
@@ -78,6 +80,17 @@ export default function App() {
   const [analyticsData, setAnalyticsData] = useState<any>(null);
   const [communityChallenges, setCommunityChallenges] = useState<any[]>([]);
   const [communityTips, setCommunityTips] = useState<any[]>([]);
+  const [streakData, setStreakData] = useState<{
+    currentStreak: number;
+    bestStreak: number;
+    totalDaysLogged: number;
+    recentDatesLogged: string[];
+  }>({
+    currentStreak: 0,
+    bestStreak: 0,
+    totalDaysLogged: 0,
+    recentDatesLogged: [],
+  });
 
   // Connectivity & Offline Queue
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -143,6 +156,7 @@ export default function App() {
         progRes,
         anaRes,
         commRes,
+        streakRes,
       ] = await Promise.all([
         api.getRecords(),
         api.getGoals(),
@@ -152,6 +166,12 @@ export default function App() {
         api.getLearningProgress(),
         api.getAnalytics(),
         api.getCommunity(),
+        api.getStreak().catch(() => ({
+          currentStreak: 0,
+          bestStreak: 0,
+          totalDaysLogged: 0,
+          recentDatesLogged: [],
+        })),
       ]);
 
       setRecords(recRes.records);
@@ -162,6 +182,7 @@ export default function App() {
       setAnalyticsData(anaRes);
       setCommunityChallenges(commRes.challenges);
       setCommunityTips(commRes.tips);
+      if (streakRes) setStreakData(streakRes);
 
       const compLessons = progRes.progress.filter((p: any) => p.completed).map((p: any) => p.lessonId);
       setCompletedLessonIds(compLessons);
@@ -469,6 +490,8 @@ export default function App() {
         currentTheme={theme}
         isOnline={isOnline}
         pendingSyncCount={pendingSyncCount}
+        streakCount={streakData.currentStreak}
+        onOpenStreak={() => setShowStreakModal(true)}
         onThemeToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
         onOpenRecordModal={() => {
           setEditingRecord(null);
@@ -591,6 +614,8 @@ export default function App() {
           <CommunityView
             challenges={communityChallenges}
             tips={communityTips}
+            currentUserId={user.id}
+            currentUserNickname={user.nickname}
           />
         )}
 
@@ -612,7 +637,7 @@ export default function App() {
         )}
       </main>
 
-      {/* Persistent Bottom Navigation for Mobile */}
+      {/* Persistent Bottom Navigation */}
       <BottomNav
         currentView={currentView}
         onNavigate={(v) => setCurrentView(v)}
@@ -639,6 +664,23 @@ export default function App() {
           isOpen={showAIAssistant}
           onClose={() => setShowAIAssistant(false)}
           userNickname={user.nickname}
+          preferredLanguage={user.preferredLanguage}
+        />
+      )}
+
+      {showStreakModal && (
+        <StreakModal
+          isOpen={showStreakModal}
+          onClose={() => setShowStreakModal(false)}
+          currentStreak={streakData.currentStreak}
+          bestStreak={streakData.bestStreak}
+          totalDaysLogged={streakData.totalDaysLogged}
+          recentDatesLogged={streakData.recentDatesLogged}
+          onOpenRecordModal={() => {
+            setShowStreakModal(false);
+            setEditingRecord(null);
+            setShowRecordModal(true);
+          }}
         />
       )}
 

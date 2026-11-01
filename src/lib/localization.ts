@@ -8,341 +8,966 @@ export interface GreetingDefinition {
 }
 
 export const GREETING_LANGUAGES: GreetingDefinition[] = [
-  // --- Philippine Languages ---
   {
-    code: 'fil',
-    language: 'Filipino',
-    nativeName: 'Tagalog',
-    template: 'Kumusta, {name}!',
-    isRtl: false,
-    region: 'Philippine',
+    "code": "fil",
+    "language": "Filipino",
+    "nativeName": "Tagalog",
+    "template": "Kumusta, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'ceb',
-    language: 'Cebuano',
-    nativeName: 'Bisaya',
-    template: 'Maayong adlaw, {name}!',
-    isRtl: false,
-    region: 'Philippine',
+    "code": "ceb",
+    "language": "Cebuano",
+    "nativeName": "Bisaya",
+    "template": "Maayong adlaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'ilo',
-    language: 'Ilocano',
-    nativeName: 'Ilokano',
-    template: 'Naimbag nga aldaw, {name}!',
-    isRtl: false,
-    region: 'Philippine',
+    "code": "ilo",
+    "language": "Ilocano",
+    "nativeName": "Ilokano",
+    "template": "Naimbag nga aldaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'hil',
-    language: 'Hiligaynon',
-    nativeName: 'Ilonggo',
-    template: 'Kamusta, {name}!',
-    isRtl: false,
-    region: 'Philippine',
+    "code": "hil",
+    "language": "Hiligaynon",
+    "nativeName": "Ilonggo",
+    "template": "Kamusta, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'war',
-    language: 'Waray-Waray',
-    nativeName: 'Winaray',
-    template: 'Maupay nga adlaw, {name}!',
-    isRtl: false,
-    region: 'Philippine',
+    "code": "war",
+    "language": "Waray-Waray",
+    "nativeName": "Winaray",
+    "template": "Maupay nga adlaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'pam',
-    language: 'Kapampangan',
-    nativeName: 'Kapampangan',
-    template: 'Mayap a abak, {name}!',
-    isRtl: false,
-    region: 'Philippine',
+    "code": "pam",
+    "language": "Kapampangan",
+    "nativeName": "Kapampangan",
+    "template": "Mayap a abak, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'pag',
-    language: 'Pangasinan',
-    nativeName: 'Pangasinan',
-    template: 'Maabig ya agew, {name}!',
-    isRtl: false,
-    region: 'Philippine',
+    "code": "pag",
+    "language": "Pangasinan",
+    "nativeName": "Pangasinan",
+    "template": "Maabig ya agew, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'bik',
-    language: 'Bikol',
-    nativeName: 'Bikolano',
-    template: 'Marhay na aldaw, {name}!',
-    isRtl: false,
-    region: 'Philippine',
-  },
-
-  // --- European Languages ---
-  {
-    code: 'en',
-    language: 'English',
-    nativeName: 'English',
-    template: 'Hello, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "bik",
+    "language": "Bikol",
+    "nativeName": "Bikolano",
+    "template": "Marhay na aldaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'es',
-    language: 'Spanish',
-    nativeName: 'Español',
-    template: '¡Hola, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "cbk",
+    "language": "Chavacano",
+    "nativeName": "Chavacano de Zamboanga",
+    "template": "Buenas dias, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'fr',
-    language: 'French',
-    nativeName: 'Français',
-    template: 'Bonjour, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "mrw",
+    "language": "Maranao",
+    "nativeName": "Mëranaw",
+    "template": "Mapiya kapipita, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'de',
-    language: 'German',
-    nativeName: 'Deutsch',
-    template: 'Hallo, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "mdh",
+    "language": "Maguindanaon",
+    "nativeName": "Maguindanawn",
+    "template": "Mapiya gay, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'pt',
-    language: 'Portuguese',
-    nativeName: 'Português',
-    template: 'Olá, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "tsg",
+    "language": "Tausug",
+    "nativeName": "Bahasa Sūg",
+    "template": "Marayaw adlaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'it',
-    language: 'Italian',
-    nativeName: 'Italiano',
-    template: 'Ciao, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "krj",
+    "language": "Kinaray-a",
+    "nativeName": "Kinaray-a",
+    "template": "Mayad nga adlaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'nl',
-    language: 'Dutch',
-    nativeName: 'Nederlands',
-    template: 'Hallo, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "rod",
+    "language": "Surigaonon",
+    "nativeName": "Surigaonon",
+    "template": "Madayaw na adlaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'ru',
-    language: 'Russian',
-    nativeName: 'Русский',
-    template: 'Привет, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "akl",
+    "language": "Aklanon",
+    "nativeName": "Akeanon",
+    "template": "Mayad-ayad nga adlaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'uk',
-    language: 'Ukrainian',
-    nativeName: 'Українська',
-    template: 'Привіт, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "ibg",
+    "language": "Ibanag",
+    "nativeName": "Ibanag",
+    "template": "Maronu nga agaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'pl',
-    language: 'Polish',
-    nativeName: 'Polski',
-    template: 'Cześć, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "ivv",
+    "language": "Ivatan",
+    "nativeName": "Ivatan",
+    "template": "Kapian ka pa nu Dios, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'el',
-    language: 'Greek',
-    nativeName: 'Ελληνικά',
-    template: 'Γεια σου, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "cyo",
+    "language": "Cuyonon",
+    "nativeName": "Cuyonon",
+    "template": "Mayad nga adlaw, {name}!",
+    "isRtl": false,
+    "region": "Philippine"
   },
   {
-    code: 'tr',
-    language: 'Turkish',
-    nativeName: 'Türkçe',
-    template: 'Merhaba, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "en",
+    "language": "English",
+    "nativeName": "English",
+    "template": "Hello, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'sv',
-    language: 'Swedish',
-    nativeName: 'Svenska',
-    template: 'Hej, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "es",
+    "language": "Spanish",
+    "nativeName": "Español",
+    "template": "¡Hola, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'no',
-    language: 'Norwegian',
-    nativeName: 'Norsk',
-    template: 'Hei, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "fr",
+    "language": "French",
+    "nativeName": "Français",
+    "template": "Bonjour, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'da',
-    language: 'Danish',
-    nativeName: 'Dansk',
-    template: 'Hej, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "de",
+    "language": "German",
+    "nativeName": "Deutsch",
+    "template": "Hallo, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'fi',
-    language: 'Finnish',
-    nativeName: 'Suomi',
-    template: 'Hei, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "pt",
+    "language": "Portuguese",
+    "nativeName": "Português",
+    "template": "Olá, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'cs',
-    language: 'Czech',
-    nativeName: 'Čeština',
-    template: 'Ahoj, {name}!',
-    isRtl: false,
-    region: 'European',
+    "code": "it",
+    "language": "Italian",
+    "nativeName": "Italiano",
+    "template": "Ciao, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'ro',
-    language: 'Romanian',
-    nativeName: 'Română',
-    template: 'Bună, {name}!',
-    isRtl: false,
-    region: 'European',
-  },
-
-  // --- Asian Languages ---
-  {
-    code: 'zh',
-    language: 'Mandarin Chinese',
-    nativeName: '中文 (简体)',
-    template: '你好，{name}！',
-    isRtl: false,
-    region: 'Asian',
+    "code": "nl",
+    "language": "Dutch",
+    "nativeName": "Nederlands",
+    "template": "Hallo, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'ja',
-    language: 'Japanese',
-    nativeName: '日本語',
-    template: 'こんにちは、{name}！',
-    isRtl: false,
-    region: 'Asian',
+    "code": "ru",
+    "language": "Russian",
+    "nativeName": "Русский",
+    "template": "Привет, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'ko',
-    language: 'Korean',
-    nativeName: '한국어',
-    template: '안녕하세요, {name}!',
-    isRtl: false,
-    region: 'Asian',
+    "code": "uk",
+    "language": "Ukrainian",
+    "nativeName": "Українська",
+    "template": "Привіт, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'id',
-    language: 'Indonesian',
-    nativeName: 'Bahasa Indonesia',
-    template: 'Halo, {name}!',
-    isRtl: false,
-    region: 'Asian',
+    "code": "pl",
+    "language": "Polish",
+    "nativeName": "Polski",
+    "template": "Cześć, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'ms',
-    language: 'Malay',
-    nativeName: 'Bahasa Melayu',
-    template: 'Helo, {name}!',
-    isRtl: false,
-    region: 'Asian',
+    "code": "el",
+    "language": "Greek",
+    "nativeName": "Ελληνικά",
+    "template": "Γεια σου, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'th',
-    language: 'Thai',
-    nativeName: 'ไทย',
-    template: 'สวัสดี {name}!',
-    isRtl: false,
-    region: 'Asian',
+    "code": "tr",
+    "language": "Turkish",
+    "nativeName": "Türkçe",
+    "template": "Merhaba, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'vi',
-    language: 'Vietnamese',
-    nativeName: 'Tiếng Việt',
-    template: 'Xin chào, {name}!',
-    isRtl: false,
-    region: 'Asian',
+    "code": "sv",
+    "language": "Swedish",
+    "nativeName": "Svenska",
+    "template": "Hej, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'hi',
-    language: 'Hindi',
-    nativeName: 'हिन्दी',
-    template: 'नमस्ते, {name}!',
-    isRtl: false,
-    region: 'Asian',
+    "code": "no",
+    "language": "Norwegian",
+    "nativeName": "Norsk",
+    "template": "Hei, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'bn',
-    language: 'Bengali',
-    nativeName: 'বাংলা',
-    template: 'হ্যালো, {name}!',
-    isRtl: false,
-    region: 'Asian',
+    "code": "da",
+    "language": "Danish",
+    "nativeName": "Dansk",
+    "template": "Hej, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'ur',
-    language: 'Urdu',
-    nativeName: 'اردو',
-    template: 'ہیلو، {name}!',
-    isRtl: true,
-    region: 'Asian',
-  },
-
-  // --- Middle Eastern & African Languages ---
-  {
-    code: 'ar',
-    language: 'Arabic',
-    nativeName: 'العربية',
-    template: 'مرحبًا، {name}!',
-    isRtl: true,
-    region: 'Middle Eastern & African',
+    "code": "fi",
+    "language": "Finnish",
+    "nativeName": "Suomi",
+    "template": "Hei, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'he',
-    language: 'Hebrew',
-    nativeName: 'עברית',
-    template: 'שלום, {name}!',
-    isRtl: true,
-    region: 'Middle Eastern & African',
+    "code": "cs",
+    "language": "Czech",
+    "nativeName": "Čeština",
+    "template": "Ahoj, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'fa',
-    language: 'Persian',
-    nativeName: 'فارسی',
-    template: 'سلام، {name}!',
-    isRtl: true,
-    region: 'Middle Eastern & African',
+    "code": "ro",
+    "language": "Romanian",
+    "nativeName": "Română",
+    "template": "Bună, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'sw',
-    language: 'Swahili',
-    nativeName: 'Kiswahili',
-    template: 'Habari, {name}!',
-    isRtl: false,
-    region: 'Middle Eastern & African',
+    "code": "hu",
+    "language": "Hungarian",
+    "nativeName": "Magyar",
+    "template": "Szia, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
   {
-    code: 'am',
-    language: 'Amharic',
-    nativeName: 'አማርኛ',
-    template: 'ሰላም, {name}!',
-    isRtl: false,
-    region: 'Middle Eastern & African',
+    "code": "bg",
+    "language": "Bulgarian",
+    "nativeName": "Български",
+    "template": "Здравей, {name}!",
+    "isRtl": false,
+    "region": "European"
   },
+  {
+    "code": "sr",
+    "language": "Serbian",
+    "nativeName": "Српски",
+    "template": "Здраво, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "hr",
+    "language": "Croatian",
+    "nativeName": "Hrvatski",
+    "template": "Bok, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "sk",
+    "language": "Slovak",
+    "nativeName": "Slovenčina",
+    "template": "Ahoj, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "lt",
+    "language": "Lithuanian",
+    "nativeName": "Lietuvių",
+    "template": "Labas, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "sl",
+    "language": "Slovenian",
+    "nativeName": "Slovenščina",
+    "template": "Živjo, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "lv",
+    "language": "Latvian",
+    "nativeName": "Latviešu",
+    "template": "Sveiki, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "et",
+    "language": "Estonian",
+    "nativeName": "Eesti",
+    "template": "Tere, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "ga",
+    "language": "Irish",
+    "nativeName": "Gaeilge",
+    "template": "Dia duit, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "cy",
+    "language": "Welsh",
+    "nativeName": "Cymraeg",
+    "template": "Helo, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "eu",
+    "language": "Basque",
+    "nativeName": "Euskara",
+    "template": "Kaixo, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "ca",
+    "language": "Catalan",
+    "nativeName": "Català",
+    "template": "Hola, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "gl",
+    "language": "Galician",
+    "nativeName": "Galego",
+    "template": "Ola, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "is",
+    "language": "Icelandic",
+    "nativeName": "Íslenska",
+    "template": "Halló, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "mt",
+    "language": "Maltese",
+    "nativeName": "Malti",
+    "template": "Merħba, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "sq",
+    "language": "Albanian",
+    "nativeName": "Shqip",
+    "template": "Përshëndetje, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "mk",
+    "language": "Macedonian",
+    "nativeName": "Македонски",
+    "template": "Здраво, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "be",
+    "language": "Belarusian",
+    "nativeName": "Беларуская",
+    "template": "Прывітанне, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "bs",
+    "language": "Bosnian",
+    "nativeName": "Bosanski",
+    "template": "Zdravo, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "lb",
+    "language": "Luxembourgish",
+    "nativeName": "Lëtzebuergesch",
+    "template": "Moien, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "ka",
+    "language": "Georgian",
+    "nativeName": "ქართული",
+    "template": "გამარჯობა, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "hy",
+    "language": "Armenian",
+    "nativeName": "Հայերեն",
+    "template": "Բարև, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "zh",
+    "language": "Mandarin Chinese (Simplified)",
+    "nativeName": "中文 (简体)",
+    "template": "你好，{name}！",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "zh-TW",
+    "language": "Mandarin Chinese (Traditional)",
+    "nativeName": "中文 (繁體)",
+    "template": "你好，{name}！",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "yue",
+    "language": "Cantonese",
+    "nativeName": "粵語",
+    "template": "你好，{name}！",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ja",
+    "language": "Japanese",
+    "nativeName": "日本語",
+    "template": "こんにちは、{name}！",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ko",
+    "language": "Korean",
+    "nativeName": "한국어",
+    "template": "안녕하세요, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "id",
+    "language": "Indonesian",
+    "nativeName": "Bahasa Indonesia",
+    "template": "Halo, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ms",
+    "language": "Malay",
+    "nativeName": "Bahasa Melayu",
+    "template": "Hai, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "vi",
+    "language": "Vietnamese",
+    "nativeName": "Tiếng Việt",
+    "template": "Xin chào, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "th",
+    "language": "Thai",
+    "nativeName": "ไทย",
+    "template": "สวัสดี {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "hi",
+    "language": "Hindi",
+    "nativeName": "हिन्दी",
+    "template": "नमस्ते, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "bn",
+    "language": "Bengali",
+    "nativeName": "বাংলা",
+    "template": "নমস্কার, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ur",
+    "language": "Urdu",
+    "nativeName": "اردو",
+    "template": "سلام، {name}!",
+    "isRtl": true,
+    "region": "Asian"
+  },
+  {
+    "code": "pa",
+    "language": "Punjabi",
+    "nativeName": "ਪੰਜਾਬੀ",
+    "template": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "mr",
+    "language": "Marathi",
+    "nativeName": "मराठी",
+    "template": "नमस्कार, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "te",
+    "language": "Telugu",
+    "nativeName": "తెలుగు",
+    "template": "నమస్కారం, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ta",
+    "language": "Tamil",
+    "nativeName": "தமிழ்",
+    "template": "வணக்கம், {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "gu",
+    "language": "Gujarati",
+    "nativeName": "ગુજરાતી",
+    "template": "નમસ્તે, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "kn",
+    "language": "Kannada",
+    "nativeName": "ಕನ್ನಡ",
+    "template": "ನಮಸ್ಕಾರ, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ml",
+    "language": "Malayalam",
+    "nativeName": "മലയാളം",
+    "template": "നമസ്കാരം, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "or",
+    "language": "Odia",
+    "nativeName": "ଓଡ଼ିଆ",
+    "template": "ନମସ୍କାର, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "si",
+    "language": "Sinhala",
+    "nativeName": "සිංහල",
+    "template": "ආයුබෝවන්, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ne",
+    "language": "Nepali",
+    "nativeName": "नेपाली",
+    "template": "नमस्ते, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "my",
+    "language": "Burmese",
+    "nativeName": "မြန်မာစာ",
+    "template": "မင်္ဂလာပါ {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "km",
+    "language": "Khmer",
+    "nativeName": "ភាសាខ្មែរ",
+    "template": "សួស្តី {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "lo",
+    "language": "Lao",
+    "nativeName": "ພາສາລາວ",
+    "template": "ສະບາຍດີ {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "mn",
+    "language": "Mongolian",
+    "nativeName": "Монгол",
+    "template": "Сайн байна уу, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "jv",
+    "language": "Javanese",
+    "nativeName": "Basa Jawa",
+    "template": "Sugeng rawuh, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "su",
+    "language": "Sundanese",
+    "nativeName": "Basa Sunda",
+    "template": "Wilujeng sumping, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ar",
+    "language": "Arabic",
+    "nativeName": "العربية",
+    "template": "مرحبًا، {name}!",
+    "isRtl": true,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "he",
+    "language": "Hebrew",
+    "nativeName": "עברית",
+    "template": "שלום, {name}!",
+    "isRtl": true,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "fa",
+    "language": "Persian",
+    "nativeName": "فارسی",
+    "template": "سلام، {name}!",
+    "isRtl": true,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "ku",
+    "language": "Kurdish",
+    "nativeName": "Kurdî",
+    "template": "Silav, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "ps",
+    "language": "Pashto",
+    "nativeName": "پښتو",
+    "template": "سلام، {name}!",
+    "isRtl": true,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "az",
+    "language": "Azerbaijani",
+    "nativeName": "Azərbaycan",
+    "template": "Salam, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "uz",
+    "language": "Uzbek",
+    "nativeName": "Oʻzbekcha",
+    "template": "Salom, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "kk",
+    "language": "Kazakh",
+    "nativeName": "Қазақша",
+    "template": "Сәлеметсіз бе, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "tk",
+    "language": "Turkmen",
+    "nativeName": "Türkmençe",
+    "template": "Salam, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "ky",
+    "language": "Kyrgyz",
+    "nativeName": "Кыргызча",
+    "template": "Саламатсызбы, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "sw",
+    "language": "Swahili",
+    "nativeName": "Kiswahili",
+    "template": "Habari, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "am",
+    "language": "Amharic",
+    "nativeName": "አማርኛ",
+    "template": "ሰላም, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "yo",
+    "language": "Yoruba",
+    "nativeName": "Èdè Yorùbá",
+    "template": "Bawo ni, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "ig",
+    "language": "Igbo",
+    "nativeName": "Asụsụ Igbo",
+    "template": "Kedu, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "ha",
+    "language": "Hausa",
+    "nativeName": "Harshen Hausa",
+    "template": "Sannu, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "zu",
+    "language": "Zulu",
+    "nativeName": "isiZulu",
+    "template": "Sawubona, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "xh",
+    "language": "Xhosa",
+    "nativeName": "isiXhosa",
+    "template": "Molo, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "so",
+    "language": "Somali",
+    "nativeName": "Soomaali",
+    "template": "Salaan, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "om",
+    "language": "Oromo",
+    "nativeName": "Afaan Oromoo",
+    "template": "Akkam, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "sn",
+    "language": "Shona",
+    "nativeName": "chiShona",
+    "template": "Mhoro, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "mg",
+    "language": "Malagasy",
+    "nativeName": "Fiteny Malagasy",
+    "template": "Manao ahoana, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "af",
+    "language": "Afrikaans",
+    "nativeName": "Afrikaans",
+    "template": "Hallo, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "ti",
+    "language": "Tigrinya",
+    "nativeName": "ትግርኛ",
+    "template": "ሰላም, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "st",
+    "language": "Sesotho",
+    "nativeName": "Sesotho",
+    "template": "Dumela, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "tn",
+    "language": "Tswana",
+    "nativeName": "Setswana",
+    "template": "Dumela, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "qu",
+    "language": "Quechua",
+    "nativeName": "Runasimi",
+    "template": "Allillanchu, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "gn",
+    "language": "Guarani",
+    "nativeName": "Avañe'ẽ",
+    "template": "Mba'éichapa, {name}!",
+    "isRtl": false,
+    "region": "Middle Eastern & African"
+  },
+  {
+    "code": "mi",
+    "language": "Maori",
+    "nativeName": "Te Reo Māori",
+    "template": "Kia ora, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "sm",
+    "language": "Samoan",
+    "nativeName": "Gagana Samoa",
+    "template": "Talofa, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "haw",
+    "language": "Hawaiian",
+    "nativeName": "ʻŌlelo Hawaiʻi",
+    "template": "Aloha, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "fj",
+    "language": "Fijian",
+    "nativeName": "Na Vosa Vakaviti",
+    "template": "Bula, {name}!",
+    "isRtl": false,
+    "region": "Asian"
+  },
+  {
+    "code": "ht",
+    "language": "Haitian Creole",
+    "nativeName": "Kreyòl Ayisyen",
+    "template": "Bonjou, {name}!",
+    "isRtl": false,
+    "region": "European"
+  },
+  {
+    "code": "eo",
+    "language": "Esperanto",
+    "nativeName": "Esperanto",
+    "template": "Saluton, {name}!",
+    "isRtl": false,
+    "region": "European"
+  }
 ];
 
 export interface AppTranslations {

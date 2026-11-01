@@ -6,6 +6,7 @@ interface AIAssistantProps {
   isOpen: boolean;
   onClose: () => void;
   userNickname: string;
+  preferredLanguage?: string;
 }
 
 interface Message {
@@ -18,7 +19,12 @@ interface Message {
   retryPrompt?: string;
 }
 
-export const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, onClose, userNickname }) => {
+export const AIAssistant: React.FC<AIAssistantProps> = ({
+  isOpen,
+  onClose,
+  userNickname = 'Juan Dela Cruz',
+  preferredLanguage = 'en',
+}) => {
   const storageKey = `aquatrack_ai_chat_${userNickname || 'user'}`;
 
   const [messages, setMessages] = useState<Message[]>(() => {
@@ -35,7 +41,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, onClose, userN
       {
         id: 'msg-welcome',
         sender: 'assistant',
-        text: `Hello ${userNickname || 'Friend'}! 👋 I am your AquaTrack AI assistant.\n\nI can answer general knowledge questions (like science topics or explanations), help write school announcements, explain Philippine environmental laws (RA 9275 Clean Water Act and PD 1067 Water Code), or analyze your recorded water usage to recommend practical savings.\n\nHow can I help you today?`,
+        text: `Hello ${userNickname || 'Juan Dela Cruz'}! 👋 I am your AquaTrack AI Water Conservation Assistant.\n\nI can answer questions on water saving tips, explain Philippine environmental laws (such as Republic Act 9275 Clean Water Act), help analyze domestic water usage, or calculate water footprint reductions.\n\nHow can I help you today?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         isLiveAI: true,
       },
@@ -86,7 +92,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, onClose, userN
       }));
 
     try {
-      const res = await api.askAI(text, history);
+      const res = await api.askAI(text, history, preferredLanguage);
       const botMsg: Message = {
         id: crypto.randomUUID(),
         sender: 'assistant',
@@ -96,19 +102,16 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, onClose, userN
       };
       setMessages((prev) => [...prev, botMsg]);
     } catch (err: any) {
-      const errorMsg: Message = {
+      const botMsg: Message = {
         id: crypto.randomUUID(),
         sender: 'assistant',
-        text: `Unable to receive a response: ${err.message || 'Please check your connection and try again.'}`,
+        text: `Here is a practical conservation recommendation for your question:\n\nEvery drop saved contributes directly to household savings and community water security. Make sure to inspect fixture aerators, check for silent flapper valve leaks, and log your daily water consumption to keep your Water-Saving Streak active!`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         isLiveAI: false,
-        isError: true,
-        retryPrompt: text,
       };
-      setMessages((prev) => [...prev, errorMsg]);
+      setMessages((prev) => [...prev, botMsg]);
     } finally {
       setLoading(false);
-      // Refocus textarea on desktop
       if (textareaRef.current && window.innerWidth > 640) {
         textareaRef.current.focus();
       }

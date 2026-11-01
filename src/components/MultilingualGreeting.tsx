@@ -26,6 +26,7 @@ export const MultilingualGreeting: React.FC<MultilingualGreetingProps> = ({
 
   const [isPaused, setIsPaused] = useState(!autoRotate);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (initialLangCode) {
@@ -55,7 +56,17 @@ export const MultilingualGreeting: React.FC<MultilingualGreetingProps> = ({
       if (onLanguageChange) onLanguageChange(code);
     }
     setDropdownOpen(false);
+    setSearchQuery('');
   };
+
+  const filteredLanguages = searchQuery.trim()
+    ? GREETING_LANGUAGES.filter(
+        (l) =>
+          l.language.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          l.nativeName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          l.code.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : GREETING_LANGUAGES;
 
   return (
     <div
@@ -100,25 +111,42 @@ export const MultilingualGreeting: React.FC<MultilingualGreetingProps> = ({
           </button>
 
           {dropdownOpen && (
-            <div className="absolute right-0 top-full mt-1.5 w-60 max-h-72 overflow-y-auto rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-1.5">
-              <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 dark:border-slate-800">
-                {GREETING_LANGUAGES.length} Supported Languages
+            <div className="absolute right-0 top-full mt-1.5 w-64 max-h-80 flex flex-col rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-2">
+              <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                <span>{GREETING_LANGUAGES.length} Languages</span>
+                <span className="text-[9px] text-cyan-600 dark:text-cyan-400 font-semibold">100+ Global</span>
               </div>
-              {GREETING_LANGUAGES.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => selectLanguage(lang.code)}
-                  className={`w-full text-left px-2.5 py-1.5 rounded-xl text-xs flex items-center justify-between transition-colors my-0.5 ${
-                    lang.code === currentLang.code
-                      ? 'bg-cyan-500 text-white font-semibold'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-                  }`}
-                  dir={lang.isRtl ? 'rtl' : 'ltr'}
-                >
-                  <span className="truncate">{lang.language}</span>
-                  <span className="text-[10px] opacity-75 shrink-0 ml-1">{lang.nativeName}</span>
-                </button>
-              ))}
+              <div className="p-1.5 border-b border-slate-100 dark:border-slate-800">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search 120+ languages..."
+                  className="w-full px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#0c1a2c] text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                  autoFocus
+                />
+              </div>
+              <div className="overflow-y-auto max-h-56 pt-1">
+                {filteredLanguages.length === 0 ? (
+                  <p className="text-[11px] text-center text-slate-400 py-3">No matching language found</p>
+                ) : (
+                  filteredLanguages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => selectLanguage(lang.code)}
+                      className={`w-full text-left px-2.5 py-1.5 rounded-xl text-xs flex items-center justify-between transition-colors my-0.5 ${
+                        lang.code === currentLang.code
+                          ? 'bg-cyan-500 text-white font-semibold'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      }`}
+                      dir={lang.isRtl ? 'rtl' : 'ltr'}
+                    >
+                      <span className="truncate">{lang.language}</span>
+                      <span className="text-[10px] opacity-75 shrink-0 ml-1">{lang.nativeName}</span>
+                    </button>
+                  ))
+                )}
+              </div>
             </div>
           )}
         </div>

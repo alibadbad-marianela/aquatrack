@@ -19,6 +19,7 @@ import {
   WifiOff,
   ChevronDown,
   RefreshCw,
+  Flame,
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -27,6 +28,8 @@ interface NavbarProps {
   currentTheme: 'light' | 'dark' | 'system';
   isOnline: boolean;
   pendingSyncCount: number;
+  streakCount?: number;
+  onOpenStreak?: () => void;
   onThemeToggle: () => void;
   onOpenRecordModal: () => void;
   onOpenAIAssistant: () => void;
@@ -43,6 +46,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentTheme,
   isOnline,
   pendingSyncCount,
+  streakCount = 0,
+  onOpenStreak,
   onThemeToggle,
   onOpenRecordModal,
   onOpenAIAssistant,
@@ -125,6 +130,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="hidden md:inline">AI Help</span>
           </button>
 
+          {/* Water-Saving Streak Trigger (Next to AI Help) */}
+          {onOpenStreak && (
+            <button
+              onClick={onOpenStreak}
+              className="p-2 sm:px-3 sm:py-2 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+              title={`Water-Saving Streak: ${streakCount} consecutive days logged. Click to view history.`}
+              aria-label="View Water-Saving Streak History"
+            >
+              <Flame className="w-4 h-4 text-amber-500 fill-amber-500/40 animate-pulse" />
+              <span className="font-data font-bold">{streakCount}d</span>
+              <span className="hidden md:inline text-amber-700 dark:text-amber-300">Streak</span>
+            </button>
+          )}
+
           {/* Log Water Usage CTA */}
           <button
             onClick={onOpenRecordModal}
@@ -152,8 +171,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="User navigation menu"
             >
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-400 to-blue-600 text-white font-bold text-xs flex items-center justify-center">
-                {user.nickname ? user.nickname[0].toUpperCase() : 'U'}
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-400 to-blue-600 text-white font-bold text-xs flex items-center justify-center overflow-hidden">
+                {user.avatarUrl && (user.avatarUrl.startsWith('http') || user.avatarUrl.startsWith('data:')) ? (
+                  <img src={user.avatarUrl} alt={user.nickname} className="w-full h-full object-cover" />
+                ) : user.avatarUrl ? (
+                  <span className="text-sm">{user.avatarUrl}</span>
+                ) : (
+                  user.nickname ? user.nickname[0].toUpperCase() : 'J'
+                )}
               </div>
               <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden sm:inline" />
             </button>
