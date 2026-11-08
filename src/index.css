@@ -15,7 +15,17 @@
     --sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 
-    --font-sans: 'Plus Jakarta Sans', 'Inter Tight', 'Noto Sans Arabic', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Arial Unicode MS', sans-serif;
+    --ocean-950: #030d1a;
+    --ocean-900: #06172a;
+    --ocean-800: #0b2542;
+    --ocean-deep: #020813;
+    --aqua: #06b6d4;
+    --turquoise: #14b8a6;
+    --cyan-bright: #38bdf8;
+    --marine-glass: rgba(6, 26, 48, 0.45);
+    --marine-line: rgba(56, 189, 248, 0.22);
+
+    --font-sans: 'Inter Tight', 'Plus Jakarta Sans', 'Noto Sans Arabic', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Arial Unicode MS', sans-serif;
     --font-heading: 'Space Grotesk', 'Inter Tight', 'Noto Sans Arabic', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', system-ui, sans-serif;
     --font-data: 'Inter', 'JetBrains Mono', 'Noto Sans Arabic', system-ui, sans-serif;
   }
@@ -25,6 +35,23 @@
     text-transform: uppercase;
     letter-spacing: .14em;
     font-size: 11px;
+  }
+
+  .chip-aqua {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    padding: 0 9px;
+    background: rgba(6, 182, 212, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    font-weight: 600;
   }
 
   .chip {
