@@ -17,6 +17,7 @@ import { EnvironmentalLaws } from './components/laws/EnvironmentalLaws';
 import { GoalsView } from './components/goals/GoalsView';
 import { CommunityView } from './components/community/CommunityView';
 import { SettingsView } from './components/settings/SettingsView';
+import { ProfileView } from './components/profile/ProfileView';
 import { AIAssistant } from './components/ai/AIAssistant';
 import { CreatorCard } from './components/CreatorCard';
 import { WelcomeSetupWizard } from './components/WelcomeSetupWizard';
@@ -616,6 +617,15 @@ export default function App() {
             tips={communityTips}
             currentUserId={user.id}
             currentUserNickname={user.nickname}
+            currentUserAvatar={user.avatarUrl}
+          />
+        )}
+
+        {currentView === 'profile' && (
+          <ProfileView
+            user={user}
+            onUpdateProfile={handleUpdateProfile}
+            onNavigateHome={() => setCurrentView('dashboard')}
           />
         )}
 
@@ -626,6 +636,7 @@ export default function App() {
             onUpdateProfile={handleUpdateProfile}
             onThemeChange={(th) => setTheme(th)}
             onLogout={handleLogout}
+            onNavigateToProfile={() => setCurrentView('profile')}
           />
         )}
 

@@ -70,6 +70,27 @@ apiRouter.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', time: new Date().toISOString() });
 });
 
+// Timezone and client geolocation endpoint
+apiRouter.get('/timezone', (req: Request, res: Response) => {
+  try {
+    const forwarded = req.headers['x-forwarded-for'];
+    const clientIp = typeof forwarded === 'string'
+      ? forwarded.split(',')[0].trim()
+      : req.socket.remoteAddress || '';
+
+    res.json({
+      clientIp,
+      serverTime: new Date().toISOString(),
+      defaultTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Manila',
+    });
+  } catch {
+    res.json({
+      serverTime: new Date().toISOString(),
+      defaultTimeZone: 'Asia/Manila',
+    });
+  }
+});
+
 // --- AUTH ROUTES ---
 apiRouter.post('/auth/register', (req: Request, res: Response) => {
   try {
@@ -202,6 +223,7 @@ apiRouter.put('/auth/profile', authMiddleware, (req: AuthenticatedRequest, res: 
     const allowed = [
       'nickname',
       'displayName',
+      'username',
       'avatarUrl',
       'birthdate',
       'location',

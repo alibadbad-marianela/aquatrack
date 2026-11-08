@@ -33,6 +33,8 @@ export interface PrivacySettings {
   showOnLeaderboard?: boolean;
   showPublicTips?: boolean;
   showStreakPublicly?: boolean;
+  showLocationPublicly?: boolean;
+  showBioPublicly?: boolean;
 }
 
 export interface UserProfile {
@@ -40,6 +42,7 @@ export interface UserProfile {
   email: string;
   displayName: string;
   nickname: string;
+  username?: string;
   avatarUrl?: string;
   birthdate?: string; // YYYY-MM-DD
   location?: string;

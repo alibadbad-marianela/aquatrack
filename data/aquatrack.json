@@ -884,6 +884,81 @@
       "onboardingCompleted": false,
       "createdAt": "2026-11-01T11:19:42.315Z",
       "updatedAt": "2026-11-01T11:19:42.315Z"
+    },
+    {
+      "id": "77826bc7-5507-4c77-b2bf-58484480c16b",
+      "email": "user_1794116539924@test.ph",
+      "passwordHash": "$2b$10$i.fkjI7cf7Yy7iKjC91uCO6aM/s8wW5VI34XcPzpykoOdicYJbNX6",
+      "displayName": "SuperSaver",
+      "nickname": "SuperSaver",
+      "preferredLanguage": "en",
+      "preferredUnit": "imperial_gallons",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": true,
+      "createdAt": "2026-11-08T05:42:20.057Z",
+      "updatedAt": "2026-11-08T05:42:20.169Z"
+    },
+    {
+      "id": "9adee345-b619-468b-bf9c-17a895916846",
+      "email": "duplicate_1794116540172@test.ph",
+      "passwordHash": "$2b$10$4ElmIsq0IHALcihqUvAr5erYgTUHdaT0RxQ7aMHc27exVpPODCrk.",
+      "displayName": "FirstUser",
+      "nickname": "FirstUser",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-08T05:42:20.270Z",
+      "updatedAt": "2026-11-08T05:42:20.270Z"
+    },
+    {
+      "id": "24fc024b-a71a-4636-af6e-ccaf653f4fca",
+      "email": "login_1794116540272@test.ph",
+      "passwordHash": "$2b$10$ZKJy0ardB3.IPUYesAiyxu/AI6EqFEP4ADBW8O.LQluIsiQdHbgeK",
+      "displayName": "LoginTester",
+      "nickname": "LoginTester",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-08T05:42:20.374Z",
+      "updatedAt": "2026-11-08T05:42:20.374Z"
+    },
+    {
+      "id": "8cb9aae9-a107-46b1-9edb-298d8603938e",
+      "email": "usera_1794116540576@test.ph",
+      "passwordHash": "$2b$10$2H93frxoxrCA/KMeYze3zeOy7vXw6b1nrpCgkPWFX.4iXFqMP5386",
+      "displayName": "UserA",
+      "nickname": "UserA",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-08T05:42:20.676Z",
+      "updatedAt": "2026-11-08T05:42:20.676Z"
+    },
+    {
+      "id": "c4ee1e70-adf5-453b-9565-143d872093a2",
+      "email": "userb_1794116540677@test.ph",
+      "passwordHash": "$2b$10$7VOC8z3XQFj7OH1wWNUb6ONHctloIPH6EhyDiI56rqpHzgllrzewG",
+      "displayName": "UserB",
+      "nickname": "UserB",
+      "preferredLanguage": "en",
+      "preferredUnit": "liters",
+      "theme": "system",
+      "autoRotateGreeting": true,
+      "greetingRotateIntervalSec": 8,
+      "onboardingCompleted": false,
+      "createdAt": "2026-11-08T05:42:20.780Z",
+      "updatedAt": "2026-11-08T05:42:20.780Z"
     }
   ],
   "records": [],
@@ -957,6 +1032,16 @@
       "category": "all",
       "active": true,
       "createdAt": "2026-11-01T11:19:41.839Z"
+    },
+    {
+      "id": "590e2be2-f1c9-4655-8bbe-717d40c08e35",
+      "userId": "77826bc7-5507-4c77-b2bf-58484480c16b",
+      "title": "Family Conservation Ceiling",
+      "targetLiters": 150,
+      "period": "daily",
+      "category": "all",
+      "active": true,
+      "createdAt": "2026-11-08T05:42:20.169Z"
     }
   ],
   "reminders": [
@@ -1300,6 +1385,70 @@
       "userId": "82443dbf-5521-4c7e-908e-c107f3b58fc4",
       "achievementId": "first_drop",
       "unlockedAt": "2026-11-01T11:19:42.316Z"
+    },
+    {
+      "userId": "8cb9aae9-a107-46b1-9edb-298d8603938e",
+      "achievementId": "first_drop",
+      "unlockedAt": "2026-11-08T05:42:20.781Z"
     }
-  ]
+  ],
+  "communityTips": [
+    {
+      "id": "emb-aerator-standard",
+      "userId": "authority_denr_emb",
+      "authorNickname": "DENR-EMB Water Quality Section",
+      "category": "Fixtures & Audits",
+      "title": "Faucet Aerator Installation & Flow Restriction",
+      "tip": "Installing a 2.5 liter-per-minute aerator on your kitchen and bathroom sink faucets reduces flow rates by up to 50% compared to standard 6–9 liter taps without compromising rinse pressure.",
+      "practicalImpact": "Saves 25–40 Liters per household daily",
+      "likesCount": 0,
+      "likedBy": [],
+      "isVerifiedAuthority": true,
+      "sourceAuthority": "DENR-EMB Guidelines on Domestic Water Efficiency",
+      "createdAt": "2026-01-15T08:00:00.000Z"
+    },
+    {
+      "id": "mwss-toilet-dye-test",
+      "userId": "authority_mwss",
+      "authorNickname": "MWSS Conservation Desk",
+      "category": "Leak Detection",
+      "title": "Two-Step Toilet Tank Dye Test",
+      "tip": "Place 4–5 drops of food coloring into your toilet tank and wait 15 minutes without flushing. If color seeps into the bowl, the rubber flapper valve is worn and leaking up to 200 liters of water daily.",
+      "practicalImpact": "Eliminates silent leaks of 100–200 Liters daily",
+      "likesCount": 0,
+      "likedBy": [],
+      "isVerifiedAuthority": true,
+      "sourceAuthority": "MWSS Leak Audit Field Manual",
+      "createdAt": "2026-01-20T09:30:00.000Z"
+    },
+    {
+      "id": "unwater-graywater-practice",
+      "userId": "authority_unwater",
+      "authorNickname": "UN-Water Best Practices",
+      "category": "Reuse & Harvesting",
+      "title": "Graywater Reuse for Non-Edible Irrigation",
+      "tip": "Water used for washing uncooked vegetables and rice rinsing (hugas-bigas) contains trace minerals and can be safely applied directly to ornamental shrubs and tree beds, eliminating potable tap usage for gardening.",
+      "practicalImpact": "Saves 15–30 Liters per cooking session",
+      "likesCount": 0,
+      "likedBy": [],
+      "isVerifiedAuthority": true,
+      "sourceAuthority": "UN-Water Guidelines on Safe Graywater Utilization",
+      "createdAt": "2026-02-05T10:00:00.000Z"
+    },
+    {
+      "id": "irri-water-smart-agronomy",
+      "userId": "authority_irri",
+      "authorNickname": "IRRI Water Management Section",
+      "category": "Urban Agriculture",
+      "title": "Alternate Wetting and Drying (AWD) Principle",
+      "tip": "Applying the AWD method to home gardens and urban plots—allowing the topsoil to dry slightly before re-saturating—develops deeper root systems and cuts irrigation demand by 25% to 30%.",
+      "practicalImpact": "Reduces garden irrigation by 25–30%",
+      "likesCount": 0,
+      "likedBy": [],
+      "isVerifiedAuthority": true,
+      "sourceAuthority": "International Rice Research Institute (IRRI) AWD Guidelines",
+      "createdAt": "2026-02-18T11:15:00.000Z"
+    }
+  ],
+  "challengeParticipants": []
 }

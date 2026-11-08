@@ -46,6 +46,7 @@ interface CommunityViewProps {
   tips: CommunityTip[];
   currentUserId?: string;
   currentUserNickname?: string;
+  currentUserAvatar?: string;
 }
 
 export const CommunityView: React.FC<CommunityViewProps> = ({
@@ -53,6 +54,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({
   tips: initialTips,
   currentUserId,
   currentUserNickname = 'Juan Dela Cruz',
+  currentUserAvatar,
 }) => {
   const [challenges, setChallenges] = useState<CommunityChallenge[]>(initialChallenges);
   const [tips, setTips] = useState<CommunityTip[]>(initialTips);
@@ -469,10 +471,14 @@ export const CommunityView: React.FC<CommunityViewProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between pt-3 mt-3 border-t border-slate-200/60 dark:border-slate-800/80">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-5 h-5 rounded-md bg-cyan-600 text-white text-[10px] font-bold flex items-center justify-center">
-                      {tip.author ? tip.author[0].toUpperCase() : 'U'}
-                    </div>
+                  <div className="flex items-center gap-2">
+                    {tip.authorId === currentUserId && currentUserAvatar && (currentUserAvatar.startsWith('http') || currentUserAvatar.startsWith('data:')) ? (
+                      <img src={currentUserAvatar} alt={tip.author} className="w-5 h-5 rounded-md object-cover border border-cyan-500/40" />
+                    ) : (
+                      <div className="w-5 h-5 rounded-md bg-cyan-600 text-white text-[10px] font-bold flex items-center justify-center overflow-hidden">
+                        {tip.author ? tip.author[0].toUpperCase() : 'J'}
+                      </div>
+                    )}
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                       {tip.author}
                     </span>

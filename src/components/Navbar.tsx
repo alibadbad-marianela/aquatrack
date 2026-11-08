@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AquaLogo } from './AquaLogo';
 import { MultilingualGreeting } from './MultilingualGreeting';
+import { LocalTimeDisplay } from './LocalTimeDisplay';
 import { UserProfile, WaterRecord } from '../types';
 import { getTranslations } from '../lib/localization';
 import {
@@ -85,11 +86,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Center: Mission Tagline & Brand Presence (No duplicate primary navigation) */}
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-50/70 dark:bg-cyan-950/30 border border-cyan-500/20 text-xs font-medium text-cyan-800 dark:text-cyan-200">
-          <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-          <span>Track Every Drop. Protect Every Tomorrow.</span>
-        </div>
+        {/* Center: Dynamic Local Date and Time (IP Geolocation & Browser Fallback) */}
+        <LocalTimeDisplay />
 
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
@@ -184,15 +182,47 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             {userMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-1.5">
-                <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800">
-                  <p className="font-bold text-xs text-slate-900 dark:text-white truncate">
-                    {user.nickname}
-                  </p>
-                  <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
+              <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl bg-white dark:bg-[#102338] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-1.5">
+                {/* Account Information with Direct Profile Edit Option */}
+                <div className="p-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5">
+                      <p className="font-bold text-xs text-slate-900 dark:text-white truncate">
+                        {user.displayName || user.nickname}
+                      </p>
+                      {user.username && (
+                        <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-data">
+                          @{user.username}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[10px] text-slate-400 truncate mt-0.5">{user.email}</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setUserMenuOpen(false);
+                      onNavigate('profile');
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-[11px] font-semibold transition-colors flex items-center gap-1 shrink-0 cursor-pointer"
+                    title="Edit profile, photo, and account details"
+                    aria-label="Edit Profile"
+                  >
+                    <User className="w-3.5 h-3.5" />
+                    <span>Edit Profile</span>
+                  </button>
                 </div>
 
                 <div className="py-1 text-xs">
+                  <button
+                    onClick={() => {
+                      onNavigate('profile');
+                      setUserMenuOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2 text-slate-900 dark:text-white font-semibold"
+                  >
+                    <User className="w-4 h-4 text-cyan-500" />
+                    <span>My Profile & Photo</span>
+                  </button>
                   <button
                     onClick={() => {
                       onNavigate('goals');

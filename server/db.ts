@@ -17,6 +17,7 @@ export interface UserEntity {
   passwordHash: string;
   displayName: string;
   nickname: string;
+  username?: string;
   avatarUrl?: string;
   birthdate?: string; // YYYY-MM-DD
   location?: string;
