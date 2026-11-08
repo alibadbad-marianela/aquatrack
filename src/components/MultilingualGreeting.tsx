@@ -79,8 +79,15 @@ export const MultilingualGreeting: React.FC<MultilingualGreetingProps> = ({
         </span>
 
         {/* Greeting text with stable min-width to prevent layout shifts */}
-        <div className="min-w-[140px] sm:min-w-[180px] text-left">
-          <p className="font-display font-bold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight leading-tight transition-all duration-300">
+        <div className={`min-w-[140px] sm:min-w-[180px] ${isRtl ? 'text-right' : 'text-left'}`}>
+          <p
+            className="font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-snug transition-all duration-300"
+            style={{
+              fontFamily: isRtl
+                ? "'Noto Sans Arabic', system-ui, sans-serif"
+                : "var(--font-heading), 'Noto Sans Arabic', system-ui, sans-serif",
+            }}
+          >
             {text}
           </p>
           <span className="text-[11px] font-medium text-cyan-600 dark:text-cyan-400">
